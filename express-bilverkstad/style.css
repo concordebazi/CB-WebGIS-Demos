@@ -167,3 +167,43 @@ background-repeat: no-repeat;
 .hero-secondary:hover {
     border-color: #ffffff;
 }
+/* ==========================================
+   TRUST STRIP
+========================================== */
+
+.trust-strip {
+    background: #11141a;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.trust-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 24px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.trust-item strong {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.trust-item strong::first-letter {
+    color: #ff3b30;
+}
+
+.trust-item span {
+    color: #9297a1;
+    font-size: 14px;
+    line-height: 1.5;
+}
