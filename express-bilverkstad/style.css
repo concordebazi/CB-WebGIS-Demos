@@ -81,3 +81,85 @@ nav a:hover {
     border-radius: 6px;
     font-weight: 700;
 }
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+.hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+
+    padding: 80px 24px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5, 7, 10, 0.96) 0%,
+            rgba(5, 7, 10, 0.82) 55%,
+            rgba(5, 7, 10, 0.55) 100%
+        );
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-label {
+    margin-bottom: 18px;
+
+    color: #ff3b30;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.hero h1 {
+    max-width: 760px;
+
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.hero-text {
+    max-width: 620px;
+    margin-top: 24px;
+
+    color: #c7c9ce;
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    margin-top: 34px;
+}
+
+.hero-primary,
+.hero-secondary {
+    padding: 14px 24px;
+
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.hero-primary {
+    background: #ff3b30;
+    color: #ffffff;
+}
+
+.hero-secondary {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.hero-secondary:hover {
+    border-color: #ffffff;
+}
