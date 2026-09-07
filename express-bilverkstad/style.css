@@ -13,3 +13,71 @@ body {
     background: #0b0d12;
     color: #ffffff;
 }
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+.site-header {
+    width: 100%;
+    background: rgba(11, 13, 18, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.brand-main {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.brand-sub {
+    margin-top: 5px;
+    color: #ff3b30;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav a {
+    color: #d5d7dc;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+.nav-cta {
+    padding: 11px 20px;
+    background: #ff3b30;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 700;
+}
