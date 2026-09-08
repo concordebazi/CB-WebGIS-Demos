@@ -211,6 +211,8 @@ nav a:hover {
 
 .trust-strip {
     background: #17352a;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -8px 30px rgba(23, 53, 42, 0.08);
 }
 
 .trust-container {
