@@ -374,7 +374,15 @@ nav a:hover {
 }
 /* About benefits */
 
-justify-content: center;
+/* About benefits */
+
+.about-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+}
 
 .about-benefits span {
     padding: 10px 16px;
