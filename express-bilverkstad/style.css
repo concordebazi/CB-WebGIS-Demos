@@ -333,3 +333,74 @@ background-repeat: no-repeat;
     color: #ffffff;
     transform: translateX(4px);
 }
+/* ==========================================
+   CONTACT / BOOKING SECTION
+========================================== */
+
+.contact-section {
+    padding: 90px 24px;
+    background: #0b0d12;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+
+    background: #15181f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+}
+
+.contact-content {
+    max-width: 650px;
+}
+
+.contact-content h2 {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.1;
+}
+
+.contact-content > p:not(.section-label) {
+    color: #a8adb7;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 190px;
+}
+
+.contact-primary,
+.contact-secondary {
+    padding: 14px 22px;
+    border-radius: 6px;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.contact-primary {
+    background: #ff3b30;
+    color: #ffffff;
+}
+
+.contact-secondary {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.contact-secondary:hover {
+    border-color: #ffffff;
+}
