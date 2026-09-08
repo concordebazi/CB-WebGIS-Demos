@@ -18,3 +18,21 @@ body {
     color: #2f2522;
     line-height: 1.6;
 }
+/* ==========================================
+   DEMO NOTICE
+========================================== */
+
+.demo-banner {
+    padding: 8px 20px;
+    background: #2f2522;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.demo-banner span {
+    margin: 0 8px;
+    color: #c99b7c;
+}
