@@ -1,0 +1,39 @@
+/* ==========================================
+   GRÖN STÄD WEBSITE CONCEPT
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7faf8;
+    color: #17352a;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   DEMO NOTICE
+========================================== */
+
+.demo-banner {
+    padding: 8px 20px;
+    background: #17352a;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.demo-banner span {
+    margin: 0 8px;
+    color: #72c89b;
+}
