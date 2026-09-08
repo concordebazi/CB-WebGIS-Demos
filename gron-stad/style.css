@@ -335,7 +335,12 @@ nav a:hover {
 }
 
 .about-content {
-    max-width: 720px;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+}
+.about-content .section-label {
+    text-align: center;
 }
 
 .about-content h2 {
@@ -369,12 +374,7 @@ nav a:hover {
 }
 /* About benefits */
 
-.about-benefits {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
-}
+justify-content: center;
 
 .about-benefits span {
     padding: 10px 16px;
@@ -397,7 +397,7 @@ nav a:hover {
 .contact-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 50px;
+   padding: 60px;
 
     display: flex;
     align-items: center;
