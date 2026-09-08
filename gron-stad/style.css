@@ -113,3 +113,85 @@ nav a:hover {
 .nav-cta:hover {
     background: #17352a;
 }
+/* ==========================================
+   HERO
+========================================== */
+
+.hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    padding: 90px 24px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #eef7f1 0%,
+            #f7faf8 65%,
+            #e4f3e9 100%
+        );
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-label {
+    margin-bottom: 18px;
+    color: #48a977;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.hero h1 {
+    max-width: 720px;
+    color: #17352a;
+    font-size: clamp(48px, 6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -2px;
+}
+
+.hero-text {
+    max-width: 620px;
+    margin-top: 24px;
+    color: #52675f;
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+}
+
+.hero-primary,
+.hero-secondary {
+    padding: 14px 24px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.hero-primary {
+    background: #48a977;
+    color: #ffffff;
+}
+
+.hero-primary:hover {
+    background: #17352a;
+}
+
+.hero-secondary {
+    color: #17352a;
+    background: #ffffff;
+    border: 1px solid #cbded2;
+}
+
+.hero-secondary:hover {
+    border-color: #48a977;
+}
