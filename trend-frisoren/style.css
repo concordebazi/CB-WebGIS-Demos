@@ -1,0 +1,20 @@
+/* ==========================================
+   TREND FRISÖREN WEBSITE CONCEPT
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f4f1;
+    color: #2f2522;
+    line-height: 1.6;
+}
