@@ -355,3 +355,80 @@ nav a:hover {
     color: #17352a;
     transform: translateX(4px);
 }
+/* ==========================================
+   CONTACT / QUOTE
+========================================== */
+
+.contact-section {
+    padding: 90px 24px;
+    background: #ffffff;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+
+    background: #17352a;
+    border-radius: 14px;
+}
+
+.contact-content {
+    max-width: 650px;
+}
+
+.contact-content .section-label {
+    color: #72c89b;
+}
+
+.contact-content h2 {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.1;
+}
+
+.contact-content > p:not(.section-label) {
+    color: #c2d4cb;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 220px;
+}
+
+.contact-primary,
+.contact-secondary {
+    padding: 14px 22px;
+    border-radius: 7px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.contact-primary {
+    background: #72c89b;
+    color: #17352a;
+}
+
+.contact-primary:hover {
+    background: #ffffff;
+}
+
+.contact-secondary {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.contact-secondary:hover {
+    border-color: #ffffff;
+}
