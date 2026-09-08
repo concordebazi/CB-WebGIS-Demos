@@ -440,3 +440,76 @@ background-repeat: no-repeat;
     color: #666c76 !important;
     font-size: 12px !important;
 }
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 16px 20px;
+    }
+
+    .navbar nav {
+        display: none;
+    }
+
+    .brand-main {
+        font-size: 18px;
+    }
+
+    .brand-sub {
+        font-size: 9px;
+    }
+
+    .nav-cta {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .hero {
+        min-height: 600px;
+        padding: 70px 20px;
+        background-position: 62% center;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+        letter-spacing: -1px;
+    }
+
+    .hero-text {
+        font-size: 16px;
+    }
+
+    .trust-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .services-section,
+    .about-section,
+    .contact-section {
+        padding: 70px 20px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-container {
+        padding: 32px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .contact-actions {
+        width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
