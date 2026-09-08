@@ -296,9 +296,9 @@ nav a:hover {
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
-    border-color: #72c89b;
-    box-shadow: 0 14px 35px rgba(23, 53, 42, 0.08);
+    transform: translateY(-7px);
+    border-color: #48a977;
+    box-shadow: 0 18px 40px rgba(23, 53, 42, 0.12);
 }
 
 .service-number {
