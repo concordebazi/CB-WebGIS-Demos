@@ -131,7 +131,9 @@ nav a:hover {
             #e4f3e9 100%
         );
 }
-
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
 .hero-content {
     width: 100%;
     max-width: 1200px;
