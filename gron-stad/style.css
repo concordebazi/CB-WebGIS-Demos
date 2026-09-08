@@ -195,3 +195,37 @@ nav a:hover {
 .hero-secondary:hover {
     border-color: #48a977;
 }
+/* ==========================================
+   TRUST STRIP
+========================================== */
+
+.trust-strip {
+    background: #17352a;
+}
+
+.trust-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 24px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.trust-item strong {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.trust-item span {
+    color: #b9cec4;
+    font-size: 14px;
+    line-height: 1.5;
+}
