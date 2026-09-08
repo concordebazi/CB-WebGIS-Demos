@@ -124,13 +124,14 @@ nav a:hover {
     padding: 90px 24px;
 
     background:
-        linear-gradient(
-            90deg,
-            #eef7f1 0%,
-            #f7faf8 65%,
-            #e4f3e9 100%
-        );
-}
+    linear-gradient(
+        90deg,
+        rgba(247, 250, 248, 0.96) 0%,
+        rgba(247, 250, 248, 0.88) 42%,
+        rgba(247, 250, 248, 0.35) 70%,
+        rgba(247, 250, 248, 0.08) 100%
+    ),
+    url("images/hero-cleaning.png");
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
