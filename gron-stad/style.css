@@ -576,5 +576,7 @@ justify-content: center;
         flex-direction: column;
         align-items: flex-start;
     }
-
+.site-footer {
+    margin-top: 0;
+}
 }
