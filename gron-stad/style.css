@@ -367,6 +367,24 @@ nav a:hover {
     color: #17352a;
     transform: translateX(4px);
 }
+/* About benefits */
+
+.about-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.about-benefits span {
+    padding: 10px 16px;
+    background: #ffffff;
+    color: #17352a;
+    border: 1px solid #d7e8de;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+}
 /* ==========================================
    CONTACT / QUOTE
 ========================================== */
