@@ -37,3 +37,79 @@ body {
     margin: 0 8px;
     color: #72c89b;
 }
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+.site-header {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e3ebe6;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.brand-main {
+    color: #17352a;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.brand-sub {
+    margin-top: 5px;
+    color: #48a977;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav a {
+    color: #40584f;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #48a977;
+}
+
+.nav-cta {
+    padding: 11px 20px;
+
+    background: #48a977;
+    color: #ffffff;
+
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.nav-cta:hover {
+    background: #17352a;
+}
