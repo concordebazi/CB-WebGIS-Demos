@@ -389,3 +389,80 @@ background-repeat: no-repeat;
     color: #2f2522;
     transform: translateX(4px);
 }
+/* ==========================================
+   CONTACT / BOOKING
+========================================== */
+
+.contact-section {
+    padding: 90px 24px;
+    background: #fffaf7;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+
+    background: #2f2522;
+    border-radius: 16px;
+}
+
+.contact-content {
+    max-width: 650px;
+}
+
+.contact-content .section-label {
+    color: #d7a98e;
+}
+
+.contact-content h2 {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.1;
+}
+
+.contact-content > p:not(.section-label) {
+    color: #d8c8c0;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 220px;
+}
+
+.contact-primary,
+.contact-secondary {
+    padding: 14px 22px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.contact-primary {
+    background: #d7a98e;
+    color: #2f2522;
+}
+
+.contact-primary:hover {
+    background: #ffffff;
+}
+
+.contact-secondary {
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.contact-secondary:hover {
+    border-color: #ffffff;
+}
