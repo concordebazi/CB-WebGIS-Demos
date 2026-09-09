@@ -182,3 +182,24 @@ nav a:hover {
     color: #2f2522;
     border: 1px solid #bfa9a0;
 }
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-visual {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 46%;
+    height: 100%;
+
+    background: #e8d7ce;
+
+    border-radius: 80px 0 0 80px;
+}
