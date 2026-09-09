@@ -466,3 +466,47 @@ background-repeat: no-repeat;
 .contact-secondary:hover {
     border-color: #ffffff;
 }
+/* ==========================================
+   FOOTER
+========================================== */
+
+.site-footer {
+    padding: 45px 24px;
+    background: #211a18;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.footer-brand .brand-main {
+    color: #ffffff;
+}
+
+.footer-brand .brand-sub {
+    color: #d7a98e;
+}
+
+.footer-container p {
+    color: #d8c8c0;
+    font-size: 14px;
+}
+
+.demo-note {
+    color: #9e8980 !important;
+    font-size: 12px !important;
+}
