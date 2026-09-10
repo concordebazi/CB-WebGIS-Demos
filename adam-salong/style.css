@@ -237,12 +237,12 @@ background-color: #07111f;
 }
 
 .service-card {
-    background: #101c2b;
+    background: #e9edf2;
     padding: 34px 24px;
     text-align: center;
-    border-radius: 8px;
-    border: 1px solid #26364a;
-    border-top: 4px solid #174c8c;
+    border-radius: 10px;
+    border: 1px solid #d1d8e0;
+    border-top: 4px solid #d9272e;
 }
 
 .service-card span {
@@ -254,11 +254,11 @@ background-color: #07111f;
 .service-card h3 {
     font-size: 21px;
     margin-bottom: 12px;
-    color: white;
+    color: #07111f;
 }
 
 .service-card p {
-    color: #b9c2cf;
+    color: #4f5966;
     line-height: 1.6;
 }
 /* ABOUT SECTION */
