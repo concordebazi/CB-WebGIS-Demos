@@ -387,3 +387,53 @@ body {
     color: #7f8996;
     font-size: 13px;
 }
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .top-bar {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+    }
+
+    .navbar {
+        flex-direction: column;
+        padding: 20px 7%;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .hero {
+        min-height: 520px;
+        padding: 70px 7%;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2,
+    .about h2 {
+        font-size: 30px;
+    }
+
+}
