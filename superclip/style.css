@@ -313,3 +313,74 @@ overflow: hidden;
     color: #486581;
     font-size: 17px;
 }
+/* =========================================
+   SERVICES
+========================================= */
+
+.services {
+    max-width: 1400px;
+    margin: 70px auto;
+    padding: 70px 7%;
+
+    background: #eaf6ff;
+    border-radius: 70px 20px 70px 20px;
+}
+
+.services-heading {
+    max-width: 650px;
+    margin-bottom: 45px;
+}
+
+.services-heading p {
+    color: #d62828;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.services-heading h2 {
+    font-size: 44px;
+    color: #16324f;
+    margin-bottom: 12px;
+}
+
+.services-heading span {
+    color: #486581;
+    font-size: 18px;
+}
+
+.services-list {
+    display: grid;
+    gap: 14px;
+}
+
+.service-item {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    align-items: center;
+
+    padding: 22px 26px;
+
+    background: white;
+    border-radius: 40px 10px 40px 10px;
+
+    border-left: 5px solid #5fa8e8;
+
+    transition: transform 0.25s ease;
+}
+
+.service-item:hover {
+    transform: translateX(8px);
+}
+
+.service-item span {
+    color: #d62828;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.service-item h3 {
+    color: #16324f;
+    font-size: 22px;
+}
