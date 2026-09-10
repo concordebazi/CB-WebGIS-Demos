@@ -95,7 +95,7 @@ body {
 .hero {
     min-height: 620px;
     display: grid;
-    grid-template-columns: 1fr 1.25fr;
+    grid-template-columns: 1.05fr 1fr;
     align-items: stretch;
     padding: 0;
     background: #07111f;
