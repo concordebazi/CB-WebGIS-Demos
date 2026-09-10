@@ -93,7 +93,7 @@ body {
 /* HERO SECTION */
 
 .hero {
-    min-height: 620px;
+  min-height: 540px;
     display: grid;
     grid-template-columns: 1.05fr 1fr;
     align-items: stretch;
@@ -111,7 +111,7 @@ body {
 }
 
 .hero-image {
-    min-height: 620px;
+    min-height: 540px;
     background:
         linear-gradient(
             90deg,
