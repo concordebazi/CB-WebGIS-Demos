@@ -120,8 +120,10 @@ body {
         ),
         url("images/hero-salon.jpg");
 
-    background-size: cover;
-    background-position: center;
+  background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
+background-color: #07111f;
 }
 .hero-small {
     font-size: 14px;
