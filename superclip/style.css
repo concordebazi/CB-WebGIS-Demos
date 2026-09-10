@@ -384,3 +384,36 @@ overflow: hidden;
     color: #16324f;
     font-size: 22px;
 }
+/* SERVICE WITH IMAGE */
+
+.service-with-image {
+    grid-template-columns: 240px 1fr;
+    padding: 0;
+    overflow: hidden;
+    min-height: 150px;
+}
+
+.service-with-image img {
+    width: 240px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.service-info {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    padding: 25px 35px;
+}
+
+.service-info span {
+    color: #d62828;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.service-info h3 {
+    color: #16324f;
+    font-size: 24px;
+}
