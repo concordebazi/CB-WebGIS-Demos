@@ -168,3 +168,25 @@ body {
     background: white;
     color: #07111f;
 }
+/* BARBER ACCENT */
+
+.hero {
+    position: relative;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 7px;
+
+    background: repeating-linear-gradient(
+        135deg,
+        #d9272e 0 35px,
+        #ffffff 35px 70px,
+        #174c8c 70px 105px,
+        #ffffff 105px 140px
+    );
+}
