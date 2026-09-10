@@ -207,8 +207,9 @@ background-color: #07111f;
 /* SERVICES SECTION */
 
 .services {
-    padding: 90px 7%;
-    background: #ffffff;
+    padding: 70px 7%;
+    background: #07111f;
+    color: white;
 }
 
 .section-heading {
@@ -226,7 +227,7 @@ background-color: #07111f;
 
 .section-heading h2 {
     font-size: 38px;
-    color: #07111f;
+    color: white;
 }
 
 .services-grid {
