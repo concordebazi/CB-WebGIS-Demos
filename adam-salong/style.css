@@ -346,3 +346,44 @@ body {
     font-weight: 700;
     letter-spacing: 0.4px;
 }
+/* FOOTER */
+
+.footer {
+    background: #020812;
+    color: white;
+    padding: 45px 7%;
+    text-align: center;
+}
+
+.footer-brand strong {
+    display: block;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.footer-brand p {
+    color: #aeb6c2;
+    margin-bottom: 18px;
+}
+
+.footer-contact {
+    margin-bottom: 25px;
+}
+
+.footer-contact a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.footer-contact a:hover {
+    color: #d9272e;
+}
+
+.footer-demo {
+    padding-top: 20px;
+    border-top: 1px solid #263140;
+    color: #7f8996;
+    font-size: 13px;
+}
