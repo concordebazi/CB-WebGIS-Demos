@@ -475,6 +475,42 @@ background-color: #07111f;
 .quick-service-item strong {
     font-size: 15px;
 }
+.service-image-card {
+    min-height: 150px;
+    position: relative;
+    overflow: hidden;
+
+    background-size: cover;
+    background-position: center;
+
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.service-image-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to top,
+        rgba(4, 12, 23, 0.95) 0%,
+        rgba(4, 12, 23, 0.20) 65%
+    );
+}
+
+.service-image-card strong {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    padding: 16px 18px;
+
+    color: white;
+    font-size: 16px;
+    text-align: left;
+}
 /* =========================================
    MOBILE RESPONSIVE
 ========================================= */
