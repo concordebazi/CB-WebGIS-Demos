@@ -421,6 +421,61 @@ background-color: #07111f;
     font-size: 13px;
 }
 /* =========================================
+   QUICK SERVICES STRIP
+========================================= */
+
+.quick-services {
+    background: #0c1726;
+    color: white;
+    padding: 22px 7% 26px;
+    border-bottom: 1px solid #243448;
+}
+
+.quick-services-title {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.quick-services-title h2 {
+    font-size: 24px;
+    letter-spacing: 1px;
+    border-bottom: 3px solid #176b52;
+    padding-bottom: 7px;
+}
+
+.quick-services-title p {
+    color: #aeb9c7;
+    font-size: 14px;
+}
+
+.quick-services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.quick-service-item {
+    background: #173b68;
+    border: 1px solid #315b88;
+    border-radius: 6px;
+    padding: 17px 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quick-service-item span {
+    font-size: 22px;
+}
+
+.quick-service-item strong {
+    font-size: 15px;
+}
+/* =========================================
    MOBILE RESPONSIVE
 ========================================= */
 
