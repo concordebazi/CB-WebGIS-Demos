@@ -1,1 +1,92 @@
+/* =========================================
+   ADAM SALONG DEMO
+   CB WEB & GIS
+========================================= */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f7;
+    color: #1b1b1b;
+}
+
+/* HEADER */
+
+.site-header {
+    width: 100%;
+    background: #07111f;
+    color: white;
+}
+
+.top-bar {
+    min-height: 38px;
+    padding: 8px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: #020812;
+    font-size: 14px;
+}
+
+.top-bar a {
+    color: white;
+    text-decoration: none;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    min-height: 82px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #d9272e;
+}
+
+.nav-btn {
+    padding: 12px 22px;
+    background: #d9272e;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+.nav-btn:hover {
+    background: #b91f25;
+}
