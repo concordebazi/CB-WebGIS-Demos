@@ -200,3 +200,57 @@ overflow: hidden;
     font-size: 24px;
     color: #16324f;
 }
+/* =========================================
+   INFO STRIP
+========================================= */
+
+.info-strip {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 26px 5%;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    background: white;
+    border-bottom: 1px solid #d8e6f3;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.info-item > span {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf6ff;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.info-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item small {
+    color: #d62828;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 3px;
+}
+
+.info-item strong {
+    color: #16324f;
+    font-size: 15px;
+}
