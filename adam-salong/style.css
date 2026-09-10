@@ -471,34 +471,34 @@ background-color: #07111f;
 
 }
 /* =========================================
-   GOLD ACCENT OVERRIDE
+   DARK GREEN ACCENT
 ========================================= */
 
 .demo-notice,
 .nav-btn,
 .hero-btn.primary,
 .about-btn {
-    background: #c8922f;
+    background: #176b52;
 }
 
 .nav-btn:hover,
 .hero-btn.primary:hover,
 .about-btn:hover {
-    background: #a87420;
+    background: #10513e;
 }
 
 .hero-small,
 .section-heading p,
 .about-label {
-    color: #d6a23d;
+    color: #2e9b76;
 }
 
 .service-card {
-    border-top-color: #c8922f;
+    border-top-color: #176b52;
 }
 
 .nav-links a:hover,
 .footer-contact a:hover,
 .contact-card a {
-    color: #d6a23d;
+    color: #2e9b76;
 }
