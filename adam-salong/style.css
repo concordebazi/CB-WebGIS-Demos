@@ -237,12 +237,29 @@ background-color: #07111f;
 }
 
 .service-card {
-    background: #e9edf2;
+    background: linear-gradient(
+        145deg,
+        #234f82 0%,
+        #173b68 55%,
+        #102d50 100%
+    );
+
     padding: 34px 24px;
     text-align: center;
+
     border-radius: 10px;
-    border: 1px solid #d1d8e0;
+    border: 1px solid #35689f;
     border-top: 4px solid #d9272e;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
 }
 
 .service-card span {
@@ -254,11 +271,11 @@ background-color: #07111f;
 .service-card h3 {
     font-size: 21px;
     margin-bottom: 12px;
-    color: #07111f;
+    color: #ffffff;
 }
 
 .service-card p {
-    color: #4f5966;
+    color: #d7e2ef;
     line-height: 1.6;
 }
 /* ABOUT SECTION */
