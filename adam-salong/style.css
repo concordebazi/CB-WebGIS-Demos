@@ -94,16 +94,11 @@ body {
 
 .hero {
     min-height: 620px;
-    display: flex;
-    align-items: center;
-    padding: 80px 7%;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(4, 10, 20, 0.95) 0%,
-            rgba(4, 10, 20, 0.82) 45%,
-            rgba(4, 10, 20, 0.55) 100%
-        );
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    align-items: stretch;
+    padding: 0;
+    background: #07111f;
     color: white;
 }
 
