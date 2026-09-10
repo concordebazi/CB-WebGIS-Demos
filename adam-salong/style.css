@@ -470,3 +470,35 @@ background-color: #07111f;
     }
 
 }
+/* =========================================
+   GOLD ACCENT OVERRIDE
+========================================= */
+
+.demo-notice,
+.nav-btn,
+.hero-btn.primary,
+.about-btn {
+    background: #c8922f;
+}
+
+.nav-btn:hover,
+.hero-btn.primary:hover,
+.about-btn:hover {
+    background: #a87420;
+}
+
+.hero-small,
+.section-heading p,
+.about-label {
+    color: #d6a23d;
+}
+
+.service-card {
+    border-top-color: #c8922f;
+}
+
+.nav-links a:hover,
+.footer-contact a:hover,
+.contact-card a {
+    color: #d6a23d;
+}
