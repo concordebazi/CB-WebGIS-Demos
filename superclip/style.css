@@ -165,9 +165,18 @@ a {
 
     padding: 40px;
 
-    background: #b9dcf5;
-}
+    background:
+        linear-gradient(
+            to top,
+            rgba(22, 50, 79, 0.20),
+            rgba(22, 50, 79, 0.02)
+        ),
+        url("images/hero-superclip.jpg");
 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .hero-card {
     background: white;
     padding: 24px 32px;
