@@ -103,8 +103,6 @@ body {
 }
 
 .hero-content {
-    max-width: 680px;
-   .hero-content {
     max-width: none;
     padding: 90px 7% 90px 14%;
     display: flex;
@@ -125,8 +123,6 @@ body {
     background-size: cover;
     background-position: center;
 }
-}
-
 .hero-small {
     font-size: 14px;
     font-weight: 700;
