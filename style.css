@@ -786,3 +786,38 @@ a {
    
 
 }
+/* ==========================================
+   DEMO CATEGORY BADGES
+========================================== */
+
+.demo-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    width: fit-content;
+
+    margin-bottom: 14px;
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+/* Website demos */
+.demo-category.web {
+    color: #59c3ff;
+    background: rgba(89, 195, 255, 0.10);
+    border: 1px solid rgba(89, 195, 255, 0.25);
+}
+
+/* GIS demos */
+.demo-category.gis {
+    color: #7ee2a8;
+    background: rgba(126, 226, 168, 0.10);
+    border: 1px solid rgba(126, 226, 168, 0.25);
+}
