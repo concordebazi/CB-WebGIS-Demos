@@ -103,7 +103,98 @@
 
             </div>
 
-            <div id="map"></div>
+          <div class="map-layout">
+
+    <aside class="gis-panel">
+
+        <div class="gis-panel-header">
+
+            <p class="panel-label">
+                GIS VERKTYG
+            </p>
+
+            <h3>
+                Utforska kartan
+            </h3>
+
+            <p>
+                Filtrera verksamheter och kontrollera vilka lager
+                som visas på kartan.
+            </p>
+
+        </div>
+
+        <div class="gis-control-group">
+
+            <h4>Kategorier</h4>
+
+            <label class="filter-option">
+                <input
+                    type="checkbox"
+                    class="category-filter"
+                    value="salong"
+                    checked
+                >
+                Salonger
+            </label>
+
+            <label class="filter-option">
+                <input
+                    type="checkbox"
+                    class="category-filter"
+                    value="bilverkstad"
+                    checked
+                >
+                Bilverkstäder
+            </label>
+
+            <label class="filter-option">
+                <input
+                    type="checkbox"
+                    class="category-filter"
+                    value="stad"
+                    checked
+                >
+                Städtjänster
+            </label>
+
+        </div>
+
+        <div class="gis-control-group">
+
+            <h4>Kartlager</h4>
+
+            <label class="filter-option">
+                <input
+                    type="checkbox"
+                    id="service-area-toggle"
+                    checked
+                >
+                Serviceområde
+            </label>
+
+        </div>
+
+        <div class="gis-stats">
+
+            <span>Visade verksamheter</span>
+
+            <strong id="visible-count">
+                0
+            </strong>
+
+        </div>
+
+    </aside>
+
+
+    <div class="map-wrapper">
+
+        <div id="map"></div>
+
+    </div>
+
+</div>
 
         </section>
 
