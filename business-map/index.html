@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="sv">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Interaktiv företagskarta | CB Web & GIS</title>
+
+    <meta name="description"
+          content="Web GIS-demo från CB Web & GIS med interaktiv karta och företagsinformation.">
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="demo-banner">
+        Web GIS-demo
+        <span>•</span>
+        Skapat av CB Web & GIS
+    </div>
+
+    <header class="site-header">
+
+        <div class="navbar">
+
+            <a href="../index.html" class="brand">
+                CB WEB & GIS
+            </a>
+
+            <nav>
+                <a href="#home">Hem</a>
+                <a href="#map-section">Karta</a>
+                <a href="#about">Om demon</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <div class="demo-back-bar">
+
+        <a href="../index.html" class="back-to-portfolio">
+            ← Tillbaka till demoportföljen
+        </a>
+
+    </div>
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <p class="hero-label">
+                    WEB GIS • INTERAKTIV KARTA
+                </p>
+
+                <h1>
+                    Upptäck företag
+                    <span>på kartan.</span>
+                </h1>
+
+                <p>
+                    En interaktiv Web GIS-demo som visar hur geografisk
+                    information kan användas för att hitta och utforska
+                    lokala verksamheter.
+                </p>
+
+                <a href="#map-section" class="hero-btn">
+                    Utforska kartan
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="map-section" id="map-section">
+
+            <div class="section-heading">
+
+                <p>INTERAKTIV KARTA</p>
+
+                <h2>
+                    Lokala verksamheter
+                </h2>
+
+                <span>
+                    Klicka på en markör för att se mer information.
+                </span>
+
+            </div>
+
+            <div id="map"></div>
+
+        </section>
+
+        <section class="about-section" id="about">
+
+            <div class="about-content">
+
+                <p class="section-label">
+                    OM WEB GIS-DEMON
+                </p>
+
+                <h2>
+                    Geografiska data direkt på webben
+                </h2>
+
+                <p>
+                    Den här demon visar hur interaktiva kartor kan
+                    användas för att presentera företag, platser,
+                    serviceområden och annan geografisk information.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <p>
+            © 2026 <strong>CB Web & GIS</strong>
+            — Webb • GIS • Digitala lösningar
+        </p>
+
+    </footer>
+
+    <!-- Leaflet JavaScript -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- Our map JavaScript -->
+    <script src="map.js"></script>
+
+</body>
+
+</html>
