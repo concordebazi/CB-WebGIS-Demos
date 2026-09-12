@@ -599,3 +599,31 @@ background-repeat: no-repeat;
     }
 
 }
+/* ==========================================
+   BACK TO DEMO PORTFOLIO
+========================================== */
+
+.demo-back-bar {
+    padding: 14px 6%;
+    background: #0b1c2c;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.back-to-portfolio {
+    display: inline-block;
+
+    color: #59c3ff;
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.back-to-portfolio:hover {
+    color: #ffffff;
+    transform: translateX(-4px);
+}
