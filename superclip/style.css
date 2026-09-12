@@ -1306,6 +1306,33 @@ overflow: hidden;
     }
 
 }
+/* ==========================================
+   BACK TO DEMO PORTFOLIO
+========================================== */
+
+.demo-back-bar {
+    padding: 14px 6%;
+    background: #0b1c2c;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.back-to-portfolio {
+    display: inline-block;
+
+    color: #5fa8e8;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.back-to-portfolio:hover {
+    color: white;
+    transform: translateX(-4px);
+}
 /* =========================================
    FOOTER
 ========================================= */
