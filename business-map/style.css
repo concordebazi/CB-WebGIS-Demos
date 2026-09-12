@@ -400,3 +400,143 @@ a {
     }
 
 }
+/* ==========================================
+   WEB GIS GREEN / TURQUOISE THEME
+========================================== */
+
+:root {
+    --gis-dark: #071a18;
+    --gis-dark-2: #0d2b26;
+    --gis-green: #146b5c;
+    --gis-turquoise: #20c7b7;
+    --gis-mint: #8ee3c8;
+    --gis-light: #f1f7f5;
+    --gis-text: #16332e;
+}
+
+
+/* TOP DEMO BANNER */
+
+.demo-banner {
+    background: var(--gis-turquoise);
+    color: var(--gis-dark);
+}
+
+
+/* HEADER */
+
+.site-header {
+    background: var(--gis-dark);
+}
+
+.navbar nav a:hover {
+    color: var(--gis-mint);
+}
+
+
+/* BACK TO PORTFOLIO */
+
+.demo-back-bar {
+    background: var(--gis-dark-2);
+}
+
+.back-to-portfolio {
+    color: var(--gis-mint);
+}
+
+.back-to-portfolio:hover {
+    color: #ffffff;
+}
+
+
+/* HERO */
+
+.hero {
+    background:
+        radial-gradient(
+            circle at 78% 35%,
+            rgba(32, 199, 183, 0.20),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(20, 107, 92, 0.22),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #061613,
+            #0b2924
+        );
+}
+
+.hero-label {
+    color: var(--gis-mint);
+}
+
+.hero h1 span {
+    color: var(--gis-turquoise);
+}
+
+.hero-btn {
+    background: var(--gis-turquoise);
+    color: var(--gis-dark);
+}
+
+.hero-btn:hover {
+    background: var(--gis-mint);
+}
+
+
+/* MAP AREA */
+
+.map-section {
+    background: var(--gis-light);
+    color: var(--gis-text);
+}
+
+.section-heading > p,
+.section-label {
+    color: var(--gis-green);
+}
+
+
+/* MAP */
+
+#map {
+    border:
+        1px solid rgba(20, 107, 92, 0.18);
+
+    box-shadow:
+        0 25px 70px rgba(7, 42, 35, 0.16);
+}
+
+
+/* POPUPS */
+
+.map-popup strong {
+    color: var(--gis-dark);
+}
+
+.map-popup span {
+    color: var(--gis-green);
+}
+
+
+/* ABOUT */
+
+.about-section {
+    background:
+        linear-gradient(
+            135deg,
+            #071a18,
+            #10362f
+        );
+}
+
+
+/* FOOTER */
+
+.site-footer {
+    background: #04110f;
+}
