@@ -241,7 +241,29 @@ a {
     gap: 25px;
 }
 
+/* ==========================================
+   DEMO PREVIEW IMAGES
+========================================== */
 
+.demo-image {
+    height: 220px;
+    margin: -38px -38px 30px -38px;
+    overflow: hidden;
+}
+
+.demo-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+
+    transition: transform 0.5s ease;
+}
+
+.demo-card:hover .demo-image img {
+    transform: scale(1.05);
+}
 /* ==========================================
    DEMO CARDS
 ========================================== */
