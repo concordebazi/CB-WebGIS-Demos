@@ -417,3 +417,325 @@ overflow: hidden;
     color: #16324f;
     font-size: 24px;
 }
+/* =========================================
+   MOBILE / TABLET RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 900px) {
+
+    /* NAVIGATION */
+
+    .navbar {
+        padding: 18px 5%;
+        gap: 18px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding: 65px 7% 45px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .hero-small {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .hero h1 {
+        font-size: 46px;
+        line-height: 1;
+        letter-spacing: -2px;
+        margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+        font-size: 58px;
+        letter-spacing: -3px;
+        margin-top: 6px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+        max-width: 500px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+
+    /* HERO IMAGE */
+
+    .hero-visual {
+        min-height: 430px;
+
+        margin: 0 5% 35px;
+
+        border-radius: 50px 15px 50px 15px;
+
+        background-position: center 25%;
+
+        padding: 25px;
+    }
+
+    .hero-card {
+        padding: 18px 24px;
+    }
+
+    .hero-card strong {
+        font-size: 21px;
+    }
+
+
+    /* INFO STRIP */
+
+    .info-strip {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 30px 7%;
+    }
+
+    .info-item {
+        justify-content: flex-start;
+    }
+
+
+    /* BRAND STRIP */
+
+    .brand-strip {
+        grid-template-columns: 1fr;
+
+        margin: 35px 5%;
+
+        gap: 25px;
+
+        padding: 25px;
+
+        border-radius: 45px 15px 45px 15px;
+    }
+
+    .brand-strip-image img {
+        height: 300px;
+
+        border-radius: 35px 12px 35px 12px;
+    }
+
+    .brand-strip-content {
+        text-align: center;
+    }
+
+
+    /* SERVICES */
+
+    .services {
+        margin: 50px 5%;
+        padding: 55px 6%;
+
+        border-radius: 45px 15px 45px 15px;
+    }
+
+    .services-heading {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 600px) {
+
+    .demo-notice {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+
+
+    /* HEADER */
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .nav-btn {
+        padding: 9px 14px;
+        font-size: 12px;
+    }
+
+
+    /* HERO TEXT */
+
+    .hero-content {
+        padding: 50px 6% 35px;
+    }
+
+    .hero-small {
+        font-size: 10px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+        letter-spacing: -1.5px;
+    }
+
+    .hero h1 span {
+        font-size: 46px;
+        letter-spacing: -2px;
+    }
+
+    .hero-text {
+        font-size: 16px;
+    }
+
+
+    /* HERO BUTTONS */
+
+    .hero-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .hero-btn {
+        width: 100%;
+        text-align: center;
+        padding: 14px 20px;
+    }
+
+
+    /* HERO IMAGE */
+
+    .hero-visual {
+        min-height: 360px;
+
+        margin: 0 15px 25px;
+
+        padding: 18px;
+
+        border-radius: 35px 10px 35px 10px;
+
+        background-position: center top;
+    }
+
+    .hero-card {
+        width: 100%;
+        text-align: center;
+
+        padding: 16px 18px;
+
+        border-left: none;
+        border-bottom: 5px solid #d62828;
+    }
+
+    .hero-card p {
+        font-size: 11px;
+    }
+
+    .hero-card strong {
+        font-size: 19px;
+    }
+
+
+    /* BRAND */
+
+    .brand-strip {
+        margin: 30px 15px;
+        padding: 18px;
+    }
+
+    .brand-strip-image img {
+        height: 220px;
+    }
+
+    .brand-strip-content h2 {
+        font-size: 27px;
+    }
+
+    .brand-strip-content > p:last-child {
+        font-size: 15px;
+    }
+
+
+    /* SERVICES */
+
+    .services {
+        margin: 40px 15px;
+        padding: 45px 18px;
+    }
+
+    .services-heading h2 {
+        font-size: 32px;
+    }
+
+    .services-heading span {
+        font-size: 16px;
+    }
+
+
+    /* NORMAL SERVICE */
+
+    .service-item {
+        grid-template-columns: 45px 1fr;
+        padding: 18px 20px;
+    }
+
+    .service-item h3 {
+        font-size: 19px;
+    }
+
+
+    /* SERVICE CARDS WITH IMAGES */
+
+    .service-with-image {
+        grid-template-columns: 1fr;
+        min-height: auto;
+
+        border-radius: 30px 10px 30px 10px;
+    }
+
+    .service-with-image img {
+        width: 100%;
+        height: 220px;
+
+        object-fit: cover;
+    }
+
+    .service-info {
+        padding: 20px 22px;
+        gap: 20px;
+    }
+
+    .service-info h3 {
+        font-size: 20px;
+    }
+
+}
