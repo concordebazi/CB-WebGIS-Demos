@@ -433,7 +433,66 @@ a {
 .service-card p {
     color: #a9bdd0;
 }
+/* ==========================================
+   CONTACT
+========================================== */
 
+.contact {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 7% 110px;
+}
+
+.contact-box {
+    padding: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #102b43,
+            #0b1c2c
+        );
+
+    border: 1px solid rgba(89,195,255,0.25);
+    border-radius: 30px;
+}
+
+.contact-small {
+    color: #59c3ff;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 12px;
+}
+
+.contact-box h2 {
+    max-width: 720px;
+
+    font-size: 38px;
+    line-height: 1.15;
+
+    margin-bottom: 15px;
+}
+
+.contact-text {
+    max-width: 650px;
+
+    color: #a9bdd0;
+
+    font-size: 17px;
+}
+
+.contact-actions {
+    flex-shrink: 0;
+}
 /* ==========================================
    MOBILE
 ========================================== */
@@ -446,7 +505,29 @@ a {
 .services {
     padding: 70px 6%;
 }
+.contact {
+    padding: 30px 6% 80px;
+}
 
+.contact-box {
+    padding: 32px;
+
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contact-box h2 {
+    font-size: 30px;
+}
+
+.contact-actions {
+    width: 100%;
+}
+
+.contact-actions .btn {
+    width: 100%;
+    text-align: center;
+}
 .services-grid {
     grid-template-columns: 1fr;
 }
