@@ -750,3 +750,66 @@ a {
     }
 
 }
+/* ==========================================
+   GIS TOOL BUTTONS
+========================================== */
+
+.gis-tool-btn {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    background: #20c7b7;
+    color: #071a18;
+
+    border: none;
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.gis-tool-btn:hover {
+    background: #8ee3c8;
+    transform: translateY(-2px);
+}
+
+
+.coordinate-box {
+    margin-top: 16px;
+
+    padding: 14px;
+
+    background: rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    border-radius: 10px;
+}
+
+.coordinate-box span {
+    display: block;
+
+    color: #9fc7bc;
+
+    font-size: 11px;
+
+    margin-bottom: 5px;
+}
+
+.coordinate-box strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-family: monospace;
+}
