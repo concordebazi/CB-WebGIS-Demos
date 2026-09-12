@@ -1,1 +1,402 @@
+/* ==========================================
+   CB WEB & GIS - BUSINESS MAP DEMO
+========================================== */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #08111d;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   DEMO BANNER
+========================================== */
+
+.demo-banner {
+    padding: 10px 6%;
+    text-align: center;
+
+    background: #59c3ff;
+    color: #07111f;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.demo-banner span {
+    margin: 0 8px;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.site-header {
+    background: #0b1726;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar nav a {
+    color: #a9bdd0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.navbar nav a:hover {
+    color: #59c3ff;
+}
+
+
+/* ==========================================
+   BACK TO PORTFOLIO
+========================================== */
+
+.demo-back-bar {
+    padding: 14px 6%;
+
+    background: #0b1c2c;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.back-to-portfolio {
+    color: #59c3ff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.back-to-portfolio:hover {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero {
+    min-height: 560px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(89,195,255,0.18),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #07111f,
+            #0d2135
+        );
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+    padding: 90px 7%;
+}
+
+.hero-label {
+    color: #59c3ff;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    max-width: 760px;
+
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.98;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 28px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #59c3ff;
+}
+
+.hero-content > p:not(.hero-label) {
+    max-width: 650px;
+
+    color: #a9bdd0;
+
+    font-size: 19px;
+
+    margin-bottom: 35px;
+}
+
+.hero-btn {
+    display: inline-block;
+
+    padding: 14px 22px;
+
+    background: #59c3ff;
+    color: #07111f;
+
+    border-radius: 8px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+}
+
+
+/* ==========================================
+   MAP SECTION
+========================================== */
+
+.map-section {
+    padding: 90px 6%;
+
+    background: #f5f8fb;
+    color: #102133;
+}
+
+.section-heading {
+    max-width: 1400px;
+    margin: 0 auto 35px;
+}
+
+.section-heading > p,
+.section-label {
+    color: #0b7fc2;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    margin-bottom: 10px;
+}
+
+.section-heading h2 {
+    font-size: clamp(34px, 5vw, 52px);
+
+    line-height: 1.05;
+
+    margin-bottom: 12px;
+}
+
+.section-heading span {
+    color: #617486;
+}
+
+
+/* IMPORTANT: gives Leaflet a visible height */
+
+#map {
+    width: 100%;
+    max-width: 1400px;
+    height: 620px;
+
+    margin: 0 auto;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.18);
+
+    border: 1px solid rgba(15,40,65,0.10);
+}
+
+
+/* ==========================================
+   LEAFLET POPUP
+========================================== */
+
+.map-popup {
+    min-width: 200px;
+}
+
+.map-popup strong {
+    display: block;
+
+    color: #102133;
+
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+.map-popup p {
+    margin-bottom: 8px;
+    color: #4d6072;
+}
+
+.map-popup span {
+    color: #0b7fc2;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   ABOUT SECTION
+========================================== */
+
+.about-section {
+    padding: 90px 7%;
+
+    background: #0d1b2a;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-content h2 {
+    font-size: clamp(34px, 5vw, 52px);
+
+    line-height: 1.05;
+
+    margin-bottom: 22px;
+}
+
+.about-content p:last-child {
+    color: #a9bdd0;
+    font-size: 18px;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.site-footer {
+    padding: 28px 6%;
+
+    text-align: center;
+
+    background: #07111f;
+
+    color: #7f96aa;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.site-footer strong {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .navbar nav {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding: 70px 7%;
+    }
+
+    .hero h1 {
+        font-size: 52px;
+        letter-spacing: -2px;
+    }
+
+    #map {
+        height: 500px;
+        border-radius: 14px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero-content > p:not(.hero-label) {
+        font-size: 16px;
+    }
+
+    #map {
+        height: 430px;
+    }
+
+}
