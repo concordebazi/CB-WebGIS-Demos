@@ -50,74 +50,134 @@ streetMap.addTo(map);
 
 
 // ==========================================
-// BUSINESS DATA
+// GEOJSON BUSINESS DATA
 // ==========================================
 
-const businesses = [
-
-    {
-        name: "Salong Central",
-        category: "salong",
-        categoryLabel: "Salong",
-        lat: 58.4104,
-        lng: 15.6219,
-        address: "Centrala Linköping",
-        description: "Exempel på lokal frisörverksamhet."
-    },
-
-    {
-        name: "City Barber",
-        category: "salong",
-        categoryLabel: "Salong",
-        lat: 58.4167,
-        lng: 15.6152,
-        address: "Vasastaden",
-        description: "Exempel på barbershop och hårvård."
-    },
-
-    {
-        name: "Express Auto Service",
-        category: "bilverkstad",
-        categoryLabel: "Bilverkstad",
-        lat: 58.3988,
-        lng: 15.6387,
-        address: "Tornbyområdet",
-        description: "Bilservice, underhåll och reparation."
-    },
-
-    {
-        name: "Linköping Motor",
-        category: "bilverkstad",
-        categoryLabel: "Bilverkstad",
-        lat: 58.4272,
-        lng: 15.6015,
-        address: "Norra Linköping",
-        description: "Exempel på lokal bilverkstad."
-    },
-
-    {
-        name: "Grön Städ",
-        category: "stad",
-        categoryLabel: "Städtjänst",
-        lat: 58.4052,
-        lng: 15.6067,
-        address: "Linköping",
-        description: "Hemstädning och lokala städtjänster."
-    },
-
-    {
-        name: "Rent & Fint",
-        category: "stad",
-        categoryLabel: "Städtjänst",
-        lat: 58.4215,
-        lng: 15.6325,
-        address: "Linköping",
-        description: "Exempel på lokal städverksamhet."
-    }
-
-];
+let businessFeatures = [];
 
 
+// ==========================================
+// CATEGORY LAYERS
+// ==========================================
+
+const categoryLayers = {
+
+    salong: L.layerGroup().addTo(map),
+
+    bilverkstad: L.layerGroup().addTo(map),
+
+    stad: L.layerGroup().addTo(map)
+
+};
+
+
+// ==========================================
+// LOAD GEOJSON
+// ==========================================
+
+fetch("data/businesses.geojson")
+
+    .then(function (response) {
+
+        if (!response.ok) {
+            throw new Error(
+                "Kunde inte läsa GeoJSON-filen."
+            );
+        }
+
+        return response.json();
+
+    })
+
+    .then(function (geojson) {
+
+        businessFeatures =
+            geojson.features;
+
+
+        L.geoJSON(
+
+            geojson,
+
+            {
+
+                pointToLayer:
+                    function (
+                        feature,
+                        latlng
+                    ) {
+
+                        return L.marker(
+                            latlng
+                        );
+
+                    },
+
+
+                onEachFeature:
+                    function (
+                        feature,
+                        layer
+                    ) {
+
+                        const props =
+                            feature.properties;
+
+
+                        layer.bindPopup(`
+                            <div class="map-popup">
+
+                                <strong>
+                                    ${props.name}
+                                </strong>
+
+                                <p>
+                                    ${props.description}
+                                </p>
+
+                                <span>
+                                    ${props.categoryLabel}
+                                    •
+                                    ${props.address}
+                                </span>
+
+                            </div>
+                        `);
+
+
+                        if (
+                            categoryLayers[
+                                props.category
+                            ]
+                        ) {
+
+                            layer.addTo(
+                                categoryLayers[
+                                    props.category
+                                ]
+                            );
+
+                        }
+
+                    }
+
+            }
+
+        );
+
+
+        updateVisibleCount();
+
+    })
+
+    .catch(function (error) {
+
+        console.error(
+            "GeoJSON-fel:",
+            error
+        );
+
+    });
 // ==========================================
 // CATEGORY LAYERS
 // ==========================================
