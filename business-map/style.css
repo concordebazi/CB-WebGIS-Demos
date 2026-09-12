@@ -813,3 +813,36 @@ a {
 
     font-family: monospace;
 }
+/* ==========================================
+   LEAFLET DRAW TOOLS - DARK GREEN THEME
+========================================== */
+
+/* Main tool buttons */
+.leaflet-draw-toolbar a {
+    background-color: #071a18 !important;
+    border-color: #146b5c !important;
+}
+
+/* Hover */
+.leaflet-draw-toolbar a:hover {
+    background-color: #146b5c !important;
+}
+
+/* Edit / delete toolbar */
+.leaflet-draw-toolbar {
+    border-radius: 6px;
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 12px rgba(7, 26, 24, 0.25);
+}
+
+/* Border around each toolbar group */
+.leaflet-draw-section {
+    border-radius: 6px;
+}
+
+/* Keep the original Leaflet Draw icons visible */
+.leaflet-draw-toolbar a {
+    filter: none;
+}
