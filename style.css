@@ -509,6 +509,27 @@ a {
     cursor: pointer;
 }
 /* ==========================================
+   FOOTER
+========================================== */
+
+.site-footer {
+    padding: 30px 7%;
+
+    text-align: center;
+
+    color: #8199ae;
+
+    font-size: 14px;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    background: #050d17;
+}
+
+.site-footer strong {
+    color: #59c3ff;
+}
+/* ==========================================
    MOBILE
 ========================================== */
 
