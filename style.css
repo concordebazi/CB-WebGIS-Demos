@@ -271,8 +271,7 @@ a {
 .demo-card {
     position: relative;
 
-    min-height: 330px;
-
+    min-height: 520px;
     padding: 38px;
 
     display: flex;
@@ -437,10 +436,14 @@ a {
         text-align: center;
     }
 
-    .demo-card {
-        min-height: 300px;
-        padding: 28px;
-    }
+ .demo-card {
+    min-height: 470px;
+    padding: 28px;
+}
+   .demo-image {
+    height: 190px;
+    margin: -28px -28px 25px -28px;
+}
 
     .demo-number {
         font-size: 65px;
@@ -449,5 +452,6 @@ a {
     .demo-content h3 {
         font-size: 26px;
     }
+   
 
 }
