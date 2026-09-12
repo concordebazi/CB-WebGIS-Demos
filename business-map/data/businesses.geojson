@@ -1,0 +1,89 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Salong Central",
+        "category": "salong",
+        "categoryLabel": "Salong",
+        "address": "Centrala Linköping",
+        "description": "Exempel på lokal frisörverksamhet."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6219, 58.4104]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "City Barber",
+        "category": "salong",
+        "categoryLabel": "Salong",
+        "address": "Vasastaden",
+        "description": "Exempel på barbershop och hårvård."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6152, 58.4167]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Express Auto Service",
+        "category": "bilverkstad",
+        "categoryLabel": "Bilverkstad",
+        "address": "Tornbyområdet",
+        "description": "Bilservice, underhåll och reparation."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6387, 58.3988]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Linköping Motor",
+        "category": "bilverkstad",
+        "categoryLabel": "Bilverkstad",
+        "address": "Norra Linköping",
+        "description": "Exempel på lokal bilverkstad."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6015, 58.4272]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grön Städ",
+        "category": "stad",
+        "categoryLabel": "Städtjänst",
+        "address": "Linköping",
+        "description": "Hemstädning och lokala städtjänster."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6067, 58.4052]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rent & Fint",
+        "category": "stad",
+        "categoryLabel": "Städtjänst",
+        "address": "Linköping",
+        "description": "Exempel på lokal städverksamhet."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.6325, 58.4215]
+      }
+    }
+  ]
+}
