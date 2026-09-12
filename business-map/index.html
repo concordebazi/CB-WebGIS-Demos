@@ -162,18 +162,40 @@
 
         <div class="gis-control-group">
 
-            <h4>Kartlager</h4>
+    <h4>Kartlager</h4>
 
-            <label class="filter-option">
-                <input
-                    type="checkbox"
-                    id="service-area-toggle"
-                    checked
-                >
-                Serviceområde
-            </label>
+    <label class="filter-option">
+        <input
+            type="checkbox"
+            id="service-area-toggle"
+            checked
+        >
+        Serviceområde
+    </label>
 
-        </div>
+</div>
+
+<div class="gis-control-group">
+
+    <h4>GIS verktyg</h4>
+
+    <button
+        id="locate-btn"
+        class="gis-tool-btn">
+        📍 Visa min position
+    </button>
+
+    <div class="coordinate-box">
+
+        <span>Musposition</span>
+
+        <strong id="mouse-coordinates">
+            Lat: -- | Lon: --
+        </strong>
+
+    </div>
+
+</div>
 
         <div class="gis-stats">
 
