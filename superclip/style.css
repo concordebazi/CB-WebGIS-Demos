@@ -1359,3 +1359,25 @@ overflow: hidden;
 .footer-bottom strong {
     color: #5fa8e8;
 }
+.menu-toggle {
+    display: none;
+
+    border: 0;
+    background: transparent;
+
+    color: #16324f;
+    font-size: 27px;
+
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+
+    .navbar {
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
