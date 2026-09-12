@@ -440,6 +440,17 @@ overflow: hidden;
 .service-with-image:hover img {
     transform: scale(1.06);
 }
+.service-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-text p {
+    margin-top: 6px;
+    color: #486581;
+    font-size: 15px;
+    line-height: 1.5;
+}
 /* =========================================
    MOBILE / TABLET RESPONSIVE DESIGN
 ========================================= */
