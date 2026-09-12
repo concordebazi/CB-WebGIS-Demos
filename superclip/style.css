@@ -766,6 +766,41 @@ overflow: hidden;
         font-size: 14px;
         white-space: nowrap;
     }
+    /* CONTACT */
+
+.contact {
+    grid-template-columns: 1fr;
+
+    margin: 50px 5%;
+    padding: 55px 6%;
+
+    gap: 35px;
+
+    border-radius: 45px 15px 45px 15px;
+}
+
+.contact-content {
+    text-align: center;
+}
+
+.contact-text {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-item {
+    text-align: left;
+}
+
+.contact-card {
+    min-height: 300px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    border-radius: 15px 45px 15px 45px;
+}
     /* ABOUT */
 
 .about {
