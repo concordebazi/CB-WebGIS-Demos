@@ -494,3 +494,188 @@ L.control.layers(
         collapsed: false
     }
 ).addTo(map);
+// ==========================================
+// DISTANCE & AREA MEASUREMENT TOOLS
+// ==========================================
+
+const drawnItems = new L.FeatureGroup();
+map.addLayer(drawnItems);
+
+
+// ==========================================
+// DRAW CONTROL
+// ==========================================
+
+const drawControl = new L.Control.Draw({
+
+    position: "topleft",
+
+    draw: {
+
+        polyline: {
+            shapeOptions: {
+                color: "#20c7b7",
+                weight: 4
+            }
+        },
+
+        polygon: {
+            allowIntersection: false,
+
+            showArea: true,
+
+            shapeOptions: {
+                color: "#146b5c",
+                fillColor: "#20c7b7",
+                fillOpacity: 0.15,
+                weight: 3
+            }
+        },
+
+        rectangle: false,
+        circle: false,
+        circlemarker: false,
+        marker: false
+
+    },
+
+    edit: {
+        featureGroup: drawnItems,
+        remove: true
+    }
+
+});
+
+
+map.addControl(drawControl);
+
+
+// ==========================================
+// MEASUREMENT RESULTS
+// ==========================================
+
+map.on(
+    L.Draw.Event.CREATED,
+    function (event) {
+
+        const layer = event.layer;
+
+        drawnItems.addLayer(layer);
+
+
+        // ----------------------------------
+        // DISTANCE
+        // ----------------------------------
+
+        if (event.layerType === "polyline") {
+
+            const points =
+                layer.getLatLngs();
+
+            let totalDistance = 0;
+
+
+            for (
+                let i = 0;
+                i < points.length - 1;
+                i++
+            ) {
+
+                totalDistance +=
+                    points[i].distanceTo(
+                        points[i + 1]
+                    );
+
+            }
+
+
+            let distanceText;
+
+
+            if (totalDistance >= 1000) {
+
+                distanceText =
+                    (
+                        totalDistance / 1000
+                    ).toFixed(2)
+                    + " km";
+
+            } else {
+
+                distanceText =
+                    totalDistance.toFixed(0)
+                    + " m";
+
+            }
+
+
+            layer.bindPopup(`
+                <div class="map-popup">
+
+                    <strong>
+                        Avstånd
+                    </strong>
+
+                    <p>
+                        ${distanceText}
+                    </p>
+
+                </div>
+            `).openPopup();
+
+        }
+
+
+        // ----------------------------------
+        // AREA
+        // ----------------------------------
+
+        if (event.layerType === "polygon") {
+
+            const latLngs =
+                layer.getLatLngs()[0];
+
+            const area =
+                L.GeometryUtil.geodesicArea(
+                    latLngs
+                );
+
+
+            let areaText;
+
+
+            if (area >= 10000) {
+
+                areaText =
+                    (
+                        area / 10000
+                    ).toFixed(2)
+                    + " ha";
+
+            } else {
+
+                areaText =
+                    area.toFixed(0)
+                    + " m²";
+
+            }
+
+
+            layer.bindPopup(`
+                <div class="map-popup">
+
+                    <strong>
+                        Area
+                    </strong>
+
+                    <p>
+                        ${areaText}
+                    </p>
+
+                </div>
+            `).openPopup();
+
+        }
+
+    }
+);
