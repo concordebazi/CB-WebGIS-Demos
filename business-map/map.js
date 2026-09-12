@@ -14,14 +14,42 @@ const map = L.map("map").setView(
 // BASE MAP
 // ==========================================
 
+// ==========================================
+// BASE MAPS
+// ==========================================
+
 const streetMap = L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
         maxZoom: 19,
         attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            '&copy; OpenStreetMap contributors'
     }
-).addTo(map);
+);
+
+
+const topoMap = L.tileLayer(
+    "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+    {
+        maxZoom: 17,
+        attribution:
+            '&copy; OpenStreetMap contributors | OpenTopoMap'
+    }
+);
+
+
+const satelliteMap = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+        maxZoom: 19,
+        attribution:
+            "Tiles &copy; Esri"
+    }
+);
+
+
+// Default basemap
+streetMap.addTo(map);
 
 
 // ==========================================
@@ -446,3 +474,26 @@ map.on(
 
     }
 );
+// ==========================================
+// BASEMAP SWITCHER
+// ==========================================
+
+const baseMaps = {
+
+    "Gatukarta": streetMap,
+
+    "Topografisk karta": topoMap,
+
+    "Satellit": satelliteMap
+
+};
+
+
+L.control.layers(
+    baseMaps,
+    null,
+    {
+        position: "topright",
+        collapsed: false
+    }
+).addTo(map);
