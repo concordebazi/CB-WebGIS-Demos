@@ -81,7 +81,7 @@ a {
 ========================================== */
 
 .hero {
-    min-height: 620px;
+    min-height: 760px;
 
     display: flex;
     align-items: center;
@@ -530,6 +530,62 @@ a {
     color: #59c3ff;
 }
 /* ==========================================
+   HERO MAIN WEBSITE
+========================================== */
+
+.hero-website {
+    margin-top: 70px;
+    padding-top: 35px;
+
+    border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.hero-website p {
+    color: #91a8bd;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    margin-bottom: 5px;
+}
+
+.hero-website a {
+    display: inline-block;
+
+    color: #59c3ff;
+
+    font-size: clamp(42px, 6vw, 90px);
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -4px;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.hero-website a:hover {
+    color: #ffffff;
+    transform: translateX(8px);
+}
+
+.hero-website span {
+    display: block;
+
+    margin-top: 12px;
+
+    color: #7f96aa;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+}
+/* ==========================================
    MOBILE
 ========================================== */
 
@@ -600,9 +656,9 @@ a {
 .services-grid {
     grid-template-columns: 1fr;
 }
-    .hero {
-        min-height: 540px;
-    }
+   .hero {
+    min-height: 650px;
+}
 
     .hero-content {
         padding: 80px 7%;
