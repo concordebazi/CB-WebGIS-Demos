@@ -317,3 +317,132 @@ L.control.scale({
     metric: true,
     imperial: false
 }).addTo(map);
+// ==========================================
+// LIVE MOUSE COORDINATES
+// ==========================================
+
+const mouseCoordinates =
+    document.getElementById(
+        "mouse-coordinates"
+    );
+
+
+map.on("mousemove", function (event) {
+
+    const lat =
+        event.latlng.lat.toFixed(5);
+
+    const lng =
+        event.latlng.lng.toFixed(5);
+
+
+    mouseCoordinates.textContent =
+        `Lat: ${lat} | Lon: ${lng}`;
+
+});
+
+
+// ==========================================
+// USER GEOLOCATION
+// ==========================================
+
+const locateButton =
+    document.getElementById(
+        "locate-btn"
+    );
+
+let userLocationMarker = null;
+let userAccuracyCircle = null;
+
+
+locateButton.addEventListener(
+    "click",
+    function () {
+
+        locateButton.textContent =
+            "Söker position...";
+
+
+        map.locate({
+            setView: true,
+            maxZoom: 16,
+            enableHighAccuracy: true
+        });
+
+    }
+);
+
+
+map.on(
+    "locationfound",
+    function (event) {
+
+        if (userLocationMarker) {
+
+            map.removeLayer(
+                userLocationMarker
+            );
+
+        }
+
+
+        if (userAccuracyCircle) {
+
+            map.removeLayer(
+                userAccuracyCircle
+            );
+
+        }
+
+
+        userLocationMarker =
+            L.marker(
+                event.latlng
+            )
+            .addTo(map)
+            .bindPopup(
+                "Din ungefärliga position"
+            )
+            .openPopup();
+
+
+        userAccuracyCircle =
+            L.circle(
+                event.latlng,
+                {
+                    radius:
+                        event.accuracy,
+
+                    color:
+                        "#20c7b7",
+
+                    fillColor:
+                        "#20c7b7",
+
+                    fillOpacity:
+                        0.08
+                }
+            )
+            .addTo(map);
+
+
+        locateButton.textContent =
+            "📍 Visa min position";
+
+    }
+);
+
+
+map.on(
+    "locationerror",
+    function () {
+
+        locateButton.textContent =
+            "📍 Visa min position";
+
+        alert(
+            "Kunde inte hämta din position."
+        );
+
+    }
+);
