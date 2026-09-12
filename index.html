@@ -399,6 +399,56 @@
 
 </section>
     </main>
+    <footer class="site-footer">
+
+    <p>
+        © 2026 <strong>CB Web & GIS</strong>
+        — Webb • GIS • Digitala lösningar
+    </p>
+
+</footer>
+    <script>
+
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+
+if (menuToggle && navLinks) {
+
+    menuToggle.addEventListener("click", function () {
+
+        navLinks.classList.toggle("active");
+
+        const isOpen = navLinks.classList.contains("active");
+
+        menuToggle.textContent = isOpen ? "✕" : "☰";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", function () {
+
+            navLinks.classList.remove("active");
+
+            menuToggle.textContent = "☰";
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        });
+
+    });
+
+}
+
+</script>
 
 </body>
 
