@@ -501,22 +501,21 @@ L.control.layers(
 // DISTANCE & AREA MEASUREMENT
 // ==========================================
 
-const measureControl = new L.Control.Measure({
+const measureControl =
+    new L.Control.Measure({
 
-    position: "topleft",
+        position: "topleft",
 
-    primaryLengthUnit: "meters",
-    secondaryLengthUnit: "kilometers",
+        primaryLengthUnit: "meters",
+        secondaryLengthUnit: "kilometers",
 
-    primaryAreaUnit: "sqmeters",
-    secondaryAreaUnit: "hectares",
+        primaryAreaUnit: "sqmeters",
+        secondaryAreaUnit: "hectares",
 
-    activeColor: "#20c7b7",
-    completedColor: "#146b5c",
+        activeColor: "#20c7b7",
+        completedColor: "#146b5c"
 
-    localization: "sv"
-
-});
+    });
 
 
 measureControl.addTo(map);
