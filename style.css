@@ -369,7 +369,70 @@ a {
 .demo-btn:hover {
     color: #59c3ff;
 }
+/* ==========================================
+   SERVICES
+========================================== */
 
+.services {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 7%;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    padding: 32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #10253a,
+            #0b1c2c
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(89,195,255,0.45);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.22);
+}
+
+.service-card span {
+    display: inline-block;
+
+    color: #59c3ff;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    margin-bottom: 18px;
+}
+
+.service-card h3 {
+    font-size: 25px;
+
+    margin-bottom: 12px;
+}
+
+.service-card p {
+    color: #a9bdd0;
+}
 
 /* ==========================================
    MOBILE
@@ -380,7 +443,13 @@ a {
     .nav-links {
         display: none;
     }
+.services {
+    padding: 70px 6%;
+}
 
+.services-grid {
+    grid-template-columns: 1fr;
+}
     .hero {
         min-height: 540px;
     }
