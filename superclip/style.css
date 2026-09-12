@@ -785,6 +785,7 @@ overflow: hidden;
     height: 430px;
     border: 0;
 }
+
 /* =========================================
    MOBILE / TABLET RESPONSIVE DESIGN
 ========================================= */
@@ -811,6 +812,32 @@ overflow: hidden;
         font-size: 14px;
         white-space: nowrap;
     }
+    .location {
+    margin: 50px auto;
+    padding: 0 15px;
+}
+
+.location-heading h2 {
+    font-size: 30px;
+}
+
+.map-container {
+    border-radius: 35px 10px 35px 10px;
+}
+
+.map-container iframe {
+    height: 350px;
+}
+
+.footer-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.footer-contact {
+    text-align: center;
+}
     /* CONTACT */
 
 .contact {
@@ -1247,4 +1274,57 @@ overflow: hidden;
         font-size: 20px;
     }
 
+}
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+    margin-top: 70px;
+    background: #16324f;
+    color: white;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: auto;
+    padding: 55px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.footer-content h3 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.footer-content h3 span {
+    color: #d62828;
+}
+
+.footer-content p {
+    color: #d8ecfb;
+}
+
+.footer-contact {
+    text-align: right;
+}
+
+.footer-contact p {
+    margin: 5px 0;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 18px 7%;
+    text-align: center;
+    font-size: 13px;
+    color: #b9d3e8;
+}
+
+.footer-bottom strong {
+    color: #5fa8e8;
 }
