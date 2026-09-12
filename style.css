@@ -1,0 +1,431 @@
+/* ==========================================
+   CB WEB & GIS — DEMO PORTFOLIO
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07111f;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(7, 17, 31, 0.96);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 22px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.logo span {
+    color: #59c3ff;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: #c8d6e5;
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: color 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #59c3ff;
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero {
+    min-height: 620px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(89, 195, 255, 0.18),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #07111f,
+            #0d2135
+        );
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+    padding: 100px 7%;
+}
+
+.hero-small {
+    color: #59c3ff;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    max-width: 850px;
+
+    font-size: 68px;
+    line-height: 1;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #59c3ff;
+}
+
+.hero-text {
+    max-width: 650px;
+
+    color: #a9bdd0;
+
+    font-size: 20px;
+
+    margin-bottom: 35px;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 14px 25px;
+
+    border-radius: 30px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn.primary {
+    background: #59c3ff;
+    color: #07111f;
+}
+
+.btn.secondary {
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+}
+
+
+/* ==========================================
+   DEMOS
+========================================== */
+
+.demos {
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 100px 7%;
+}
+
+.section-heading {
+    max-width: 700px;
+
+    margin-bottom: 55px;
+}
+
+.section-heading > p {
+    color: #59c3ff;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+}
+
+.section-heading h2 {
+    font-size: 48px;
+
+    line-height: 1.1;
+
+    margin-bottom: 15px;
+}
+
+.section-heading > span {
+    color: #91a8bd;
+
+    font-size: 18px;
+}
+
+
+/* ==========================================
+   DEMO GRID
+========================================== */
+
+.demo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 25px;
+}
+
+
+/* ==========================================
+   DEMO CARDS
+========================================== */
+
+.demo-card {
+    position: relative;
+
+    min-height: 330px;
+
+    padding: 38px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            145deg,
+            #10253a,
+            #0b1c2c
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.demo-card:hover {
+    transform: translateY(-7px);
+
+    border-color: rgba(89,195,255,0.5);
+
+    box-shadow:
+        0 25px 55px rgba(0,0,0,0.25);
+}
+
+.demo-number {
+    position: absolute;
+
+    top: 20px;
+    right: 28px;
+
+    color: rgba(255,255,255,0.07);
+
+    font-size: 80px;
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+.demo-content {
+    position: relative;
+    z-index: 2;
+
+    margin-top: auto;
+}
+
+.demo-type {
+    color: #59c3ff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.demo-content h3 {
+    font-size: 30px;
+
+    margin-bottom: 12px;
+}
+
+.demo-content > p:not(.demo-type) {
+    max-width: 480px;
+
+    color: #a9bdd0;
+
+    margin-bottom: 25px;
+}
+
+.demo-btn {
+    display: inline-block;
+
+    color: white;
+
+    font-weight: 800;
+
+    border-bottom: 2px solid #59c3ff;
+
+    padding-bottom: 4px;
+
+    transition: color 0.25s ease;
+}
+
+.demo-btn:hover {
+    color: #59c3ff;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 800px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        min-height: 540px;
+    }
+
+    .hero-content {
+        padding: 80px 7%;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        letter-spacing: -2px;
+    }
+
+    .hero-text {
+        font-size: 17px;
+    }
+
+    .demos {
+        padding: 70px 6%;
+    }
+
+    .section-heading h2 {
+        font-size: 38px;
+    }
+
+    .demo-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .navbar {
+        padding: 18px 5%;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .demo-card {
+        min-height: 300px;
+        padding: 28px;
+    }
+
+    .demo-number {
+        font-size: 65px;
+    }
+
+    .demo-content h3 {
+        font-size: 26px;
+    }
+
+}
