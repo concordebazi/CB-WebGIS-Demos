@@ -991,6 +991,55 @@ overflow: hidden;
 .about-highlight h3 {
     font-size: 36px;
 }
+    /* CONTACT */
+
+.contact {
+    margin: 40px 15px;
+    padding: 40px 20px;
+}
+
+.contact-content h2 {
+    font-size: 32px;
+}
+
+.contact-text {
+    font-size: 15px;
+}
+
+.contact-item {
+    padding: 15px 16px;
+}
+
+.contact-item > span {
+    width: 44px;
+    height: 44px;
+
+    font-size: 19px;
+}
+
+.contact-item strong,
+.contact-item a {
+    font-size: 14px;
+}
+
+.contact-btn {
+    width: 100%;
+    text-align: center;
+}
+
+.contact-card {
+    min-height: 260px;
+
+    padding: 30px 22px;
+}
+
+.contact-card h3 {
+    font-size: 34px;
+}
+
+.contact-card a {
+    font-size: 21px;
+}
 
     /* HEADER */
 
