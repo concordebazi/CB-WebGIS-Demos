@@ -661,22 +661,54 @@ a {
     grid-template-columns: 1fr;
 }
    .hero {
-    min-height: 650px;
+    min-height: auto;
 }
 
-    .hero-content {
-        padding: 80px 7%;
-    }
+.hero-content {
+    display: block;
+    padding: 70px 7%;
+}
 
-    .hero h1 {
-        font-size: 48px;
-        letter-spacing: -2px;
-    }
+.hero-main {
+    width: 100%;
+}
 
-    .hero-text {
-        font-size: 17px;
-    }
+.hero h1 {
+    font-size: 46px;
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
 
+.hero-text {
+    font-size: 17px;
+}
+
+/* Website block moves under hero content on mobile */
+.hero-website {
+    margin-top: 55px;
+    padding: 32px 0 0;
+
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.14);
+}
+
+.hero-website p {
+    margin-bottom: 12px;
+}
+
+.hero-website a {
+    font-size: clamp(44px, 11vw, 68px);
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+
+    letter-spacing: -2px;
+}
+
+.hero-website span {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
     .demos {
         padding: 70px 6%;
     }
@@ -702,9 +734,29 @@ a {
     width: 125px;
 }
 
-    .hero h1 {
-        font-size: 39px;
-    }
+  .hero h1 {
+    font-size: 36px;
+}
+
+.hero-small {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.hero-website {
+    margin-top: 45px;
+    padding-top: 28px;
+}
+
+.hero-website a {
+    font-size: 46px;
+    letter-spacing: -1.5px;
+}
+
+.hero-website p {
+    font-size: 10px;
+    letter-spacing: 2px;
+}
 
     .hero-buttons {
         flex-direction: column;
