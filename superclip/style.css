@@ -560,6 +560,187 @@ overflow: hidden;
     font-size: 16px;
 }
 /* =========================================
+   CONTACT
+========================================= */
+
+.contact {
+    max-width: 1400px;
+    margin: 70px auto;
+    padding: 70px 7%;
+
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+
+    background: #eaf6ff;
+
+    border-radius: 70px 20px 70px 20px;
+}
+
+.contact-small {
+    color: #d62828;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.contact-content h2 {
+    color: #16324f;
+    font-size: 44px;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.contact-text {
+    color: #486581;
+    font-size: 17px;
+    margin-bottom: 30px;
+    max-width: 650px;
+}
+
+
+/* CONTACT DETAILS */
+
+.contact-details {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    background: white;
+
+    padding: 18px 20px;
+
+    border-radius: 25px 8px 25px 8px;
+
+    box-shadow: 0 10px 25px rgba(22, 50, 79, 0.06);
+}
+
+.contact-item > span {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf6ff;
+
+    border-radius: 50%;
+
+    font-size: 21px;
+}
+
+.contact-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-item small {
+    color: #d62828;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    margin-bottom: 3px;
+}
+
+.contact-item strong,
+.contact-item a {
+    color: #16324f;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* CONTACT BUTTON */
+
+.contact-btn {
+    display: inline-block;
+
+    background: #d62828;
+    color: white;
+
+    padding: 14px 25px;
+
+    border-radius: 30px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.contact-btn:hover {
+    background: #b81f1f;
+    transform: translateY(-3px);
+}
+
+
+/* RIGHT CONTACT CARD */
+
+.contact-card {
+    min-height: 360px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d62828 0%,
+            #a71919 100%
+        );
+
+    border-radius: 20px 70px 20px 70px;
+
+    box-shadow: 0 20px 45px rgba(214, 40, 40, 0.20);
+}
+
+.contact-card > span {
+    color: #ffd6d6;
+
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    margin-bottom: 18px;
+}
+
+.contact-card h3 {
+    color: white;
+
+    font-size: 42px;
+    line-height: 1.08;
+
+    margin-bottom: 20px;
+}
+
+.contact-card p {
+    color: #ffeaea;
+
+    font-size: 16px;
+
+    margin-bottom: 25px;
+}
+
+.contact-card a {
+    color: white;
+
+    font-size: 25px;
+    font-weight: 800;
+}
+/* =========================================
    MOBILE / TABLET RESPONSIVE DESIGN
 ========================================= */
 
