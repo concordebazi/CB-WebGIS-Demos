@@ -289,9 +289,60 @@
 
     <div class="map-wrapper">
 
-        <div id="map"></div>
+    <div id="map"></div>
+
+    <div class="map-tools-bottom">
+
+        <div class="tool-card">
+
+            <h4>📍 Position</h4>
+
+            <button id="locate-btn" class="gis-tool-btn">
+                Visa min position
+            </button>
+
+            <div class="coordinate-box">
+                <span>Musposition</span>
+                <strong id="mouse-coordinates">
+                    Lat: -- | Lon: --
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="tool-card">
+
+            <h4>⭕ Närområde</h4>
+
+            <label>Sök inom</label>
+
+            <select id="radius-select">
+                <option value="1000">1 km</option>
+                <option value="3000" selected>3 km</option>
+                <option value="5000">5 km</option>
+            </select>
+
+            <button id="nearby-btn" class="gis-tool-btn">
+                Starta analys
+            </button>
+
+        </div>
+
+        <div class="tool-card">
+
+            <h4>📊 Resultat</h4>
+
+            <div id="nearby-results"></div>
+
+            <button id="reset-map-btn" class="secondary-tool">
+                ↺ Återställ
+            </button>
+
+        </div>
 
     </div>
+
+</div>
 
 </div>
 
