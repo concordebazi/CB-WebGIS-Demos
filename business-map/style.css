@@ -1136,3 +1136,22 @@ a {
     font-size: 11px;
     white-space: nowrap;
 }
+/* ==========================================
+   CLICKABLE ANALYSIS RESULTS
+========================================== */
+
+.analysis-result-item {
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        padding 0.2s ease;
+}
+
+.analysis-result-item:hover {
+    background:
+        rgba(32,199,183,0.08);
+
+    padding-left: 6px;
+    padding-right: 6px;
+}
