@@ -229,7 +229,50 @@ document.getElementById(
     "count-stad"
 ).textContent =
     categoryCounts.stad;
+// ==========================================
+// MAP STATISTICS
+// ==========================================
 
+function updateMapStatistics() {
+
+    const totalElement =
+        document.getElementById("stats-total");
+
+    const salongElement =
+        document.getElementById("stats-salong");
+
+    const bilverkstadElement =
+        document.getElementById("stats-bilverkstad");
+
+    const stadElement =
+        document.getElementById("stats-stad");
+
+
+    if (totalElement) {
+        totalElement.textContent =
+            businessFeatures.length;
+    }
+
+    if (salongElement) {
+        salongElement.textContent =
+            categoryCounts.salong;
+    }
+
+    if (bilverkstadElement) {
+        bilverkstadElement.textContent =
+            categoryCounts.bilverkstad;
+    }
+
+    if (stadElement) {
+        stadElement.textContent =
+            categoryCounts.stad;
+    }
+
+}
+
+
+// Run statistics after GeoJSON has loaded
+updateMapStatistics();
 
        businessLayer = L.geoJSON(
 
