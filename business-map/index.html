@@ -149,9 +149,48 @@
 
 </div>
 
+<!-- KATEGORIER -->
+<div class="gis-control-group">
+
+    <h4>Kategorier</h4>
+
+    <label class="filter-option">
+        <input
+            type="checkbox"
+            class="category-filter"
+            value="salong"
+            checked
+        >
+        <span>Salonger</span>
+        <strong class="category-count" id="count-salong">0</strong>
+    </label>
+
+    <label class="filter-option">
+        <input
+            type="checkbox"
+            class="category-filter"
+            value="bilverkstad"
+            checked
+        >
+        <span>Bilverkstäder</span>
+        <strong class="category-count" id="count-bilverkstad">0</strong>
+    </label>
+
+    <label class="filter-option">
+        <input
+            type="checkbox"
+            class="category-filter"
+            value="stad"
+            checked
+        >
+        <span>Städtjänster</span>
+        <strong class="category-count" id="count-stad">0</strong>
+    </label>
+
+</div>
 
 
-        <div class="gis-control-group">
+<div class="gis-control-group">
 
     <h4>Kartlager</h4>
 
@@ -165,35 +204,6 @@
     </label>
 
 </div>
-<div class="gis-control-group">
-
-    <h4>Närhetsanalys</h4>
-
-    <label for="radius-select" class="analysis-label">
-        Sök verksamheter inom:
-    </label>
-
-    <select id="radius-select" class="analysis-select">
-        <option value="1000">1 km</option>
-        <option value="3000" selected>3 km</option>
-        <option value="5000">5 km</option>
-    </select>
-
-    <button
-        id="radius-analysis-btn"
-        class="gis-tool-btn">
-        ⭕ Starta närhetsanalys
-    </button>
-
-    <div
-        id="radius-analysis-info"
-        class="analysis-info">
-        Klicka på kartan efter att analysen har startats.
-    </div>
-
-</div>
-
-    </aside>
 
 
     <div class="map-wrapper">
