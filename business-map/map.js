@@ -932,3 +932,291 @@ map.on(
 
     }
 );
+// ==========================================
+// PROXIMITY ANALYSIS
+// ==========================================
+
+const radiusSelect =
+    document.getElementById(
+        "radius-select"
+    );
+
+const radiusAnalysisButton =
+    document.getElementById(
+        "radius-analysis-btn"
+    );
+
+const radiusAnalysisInfo =
+    document.getElementById(
+        "radius-analysis-info"
+    );
+
+
+let radiusAnalysisActive = false;
+
+let analysisCircle = null;
+
+let analysisCenterMarker = null;
+
+
+// ==========================================
+// START ANALYSIS
+// ==========================================
+
+radiusAnalysisButton.addEventListener(
+    "click",
+    function () {
+
+        radiusAnalysisActive = true;
+
+        radiusAnalysisInfo.textContent =
+            "Klicka på kartan för att välja analyscentrum.";
+
+        radiusAnalysisButton.textContent =
+            "📍 Klicka på kartan...";
+
+    }
+);
+
+
+// ==========================================
+// MAP CLICK ANALYSIS
+// ==========================================
+
+map.on(
+    "click",
+    function (event) {
+
+        if (!radiusAnalysisActive) {
+            return;
+        }
+
+
+        radiusAnalysisActive = false;
+
+
+        const selectedRadius =
+            Number(
+                radiusSelect.value
+            );
+
+
+        // Remove old analysis
+        if (analysisCircle) {
+
+            map.removeLayer(
+                analysisCircle
+            );
+
+        }
+
+
+        if (analysisCenterMarker) {
+
+            map.removeLayer(
+                analysisCenterMarker
+            );
+
+        }
+
+
+        // Add analysis center marker
+        analysisCenterMarker =
+            L.circleMarker(
+                event.latlng,
+                {
+                    radius: 7,
+
+                    color: "#071a18",
+
+                    fillColor: "#20c7b7",
+
+                    fillOpacity: 1,
+
+                    weight: 2
+                }
+            )
+            .addTo(map);
+
+
+        // Add search radius
+        analysisCircle =
+            L.circle(
+                event.latlng,
+                {
+                    radius:
+                        selectedRadius,
+
+                    color:
+                        "#20c7b7",
+
+                    fillColor:
+                        "#20c7b7",
+
+                    fillOpacity:
+                        0.10,
+
+                    weight:
+                        2,
+
+                    dashArray:
+                        "6 6"
+                }
+            )
+            .addTo(map);
+
+
+        let matchingBusinesses = [];
+
+
+        // ======================================
+        // CHECK GEOJSON POINTS
+        // ======================================
+
+        businessFeatures.forEach(
+            function (feature) {
+
+                const coordinates =
+                    feature.geometry.coordinates;
+
+
+                const businessLatLng =
+                    L.latLng(
+                        coordinates[1],
+                        coordinates[0]
+                    );
+
+
+                const distance =
+                    event.latlng.distanceTo(
+                        businessLatLng
+                    );
+
+
+                if (
+                    distance <=
+                    selectedRadius
+                ) {
+
+                    matchingBusinesses.push({
+                        feature: feature,
+                        distance: distance
+                    });
+
+                }
+
+            }
+        );
+
+
+        // Sort nearest first
+        matchingBusinesses.sort(
+            function (a, b) {
+
+                return (
+                    a.distance -
+                    b.distance
+                );
+
+            }
+        );
+
+
+        // ======================================
+        // DISPLAY RESULT
+        // ======================================
+
+        let resultHTML = `
+            <strong>
+                ${matchingBusinesses.length}
+                verksamheter hittades
+            </strong>
+
+            <span>
+                inom
+                ${
+                    selectedRadius / 1000
+                }
+                km
+            </span>
+        `;
+
+
+        if (
+            matchingBusinesses.length > 0
+        ) {
+
+            resultHTML +=
+                "<ul class='analysis-result-list'>";
+
+
+            matchingBusinesses.forEach(
+                function (item) {
+
+                    const props =
+                        item.feature.properties;
+
+
+                    let distanceText;
+
+
+                    if (
+                        item.distance >= 1000
+                    ) {
+
+                        distanceText =
+                            (
+                                item.distance /
+                                1000
+                            ).toFixed(2)
+                            + " km";
+
+                    } else {
+
+                        distanceText =
+                            item.distance
+                                .toFixed(0)
+                            + " m";
+
+                    }
+
+
+                    resultHTML += `
+                        <li>
+                            <strong>
+                                ${props.name}
+                            </strong>
+
+                            <span>
+                                ${distanceText}
+                            </span>
+                        </li>
+                    `;
+
+                }
+            );
+
+
+            resultHTML += "</ul>";
+
+        }
+
+
+        radiusAnalysisInfo.innerHTML =
+            resultHTML;
+
+
+        radiusAnalysisButton.textContent =
+            "⭕ Starta närhetsanalys";
+
+
+        // Zoom to analysis area
+        map.fitBounds(
+            analysisCircle.getBounds(),
+            {
+                padding: [20, 20]
+            }
+        );
+
+    }
+);
