@@ -1348,3 +1348,46 @@ a {
     }
 
 }
+/* ==========================================
+   MAP + SIDEBAR FINAL ALIGNMENT
+========================================== */
+
+.map-layout {
+    align-items: start;
+}
+
+
+/* Sidebar should not stretch to match
+   the map + bottom dashboard */
+
+.gis-panel {
+    align-self: start;
+    height: auto;
+}
+
+
+/* Right side */
+
+.map-wrapper {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Map keeps a strong desktop size */
+
+.map-wrapper #map {
+    width: 100%;
+    height: 620px;
+
+    border-radius: 18px;
+}
+
+
+/* Dashboard sits directly below map */
+
+.map-tools-bottom {
+    width: 100%;
+    margin-top: 20px;
+}
