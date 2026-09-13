@@ -1155,3 +1155,82 @@ a {
     padding-left: 6px;
     padding-right: 6px;
 }
+/* ===== TOOLS UNDER MAP ===== */
+
+.map-tools-bottom{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.tool-card{
+
+background:#07332d;
+
+border:1px solid rgba(45,212,191,.15);
+
+border-radius:16px;
+
+padding:18px;
+
+color:#fff;
+
+}
+
+.tool-card h4{
+
+margin-bottom:12px;
+color:#7ff7df;
+
+}
+
+.tool-card label{
+
+display:block;
+margin-bottom:8px;
+color:#b8efe6;
+
+}
+
+.tool-card select{
+
+width:100%;
+
+padding:12px;
+
+background:#0d433b;
+
+color:#fff;
+
+border:1px solid #1b6b60;
+
+border-radius:10px;
+
+margin-bottom:12px;
+
+}
+
+#nearby-results{
+
+font-size:14px;
+line-height:1.6;
+
+color:#d7fff7;
+
+min-height:80px;
+
+}
+
+@media(max-width:900px){
+
+.map-tools-bottom{
+
+grid-template-columns:1fr;
+
+}
+
+}
