@@ -205,17 +205,31 @@ document.getElementById(
 
             {
 
-                pointToLayer:
-                    function (
-                        feature,
-                        latlng
-                    ) {
+               pointToLayer:
+    function (
+        feature,
+        latlng
+    ) {
 
-                        return L.marker(
-                            latlng
-                        );
+        const marker =
+            L.circleMarker(
+                latlng,
+                {
+                    radius: 8,
 
-                    },
+                    color: "#071a18",
+
+                    weight: 2,
+
+                    fillColor: "#20c7b7",
+
+                    fillOpacity: 0.95
+                }
+            );
+
+        return marker;
+
+    },
 
 
                 onEachFeature:
