@@ -226,7 +226,146 @@ document.getElementById(
 
     });
 
+// ==========================================
+// BUSINESS SEARCH
+// ==========================================
 
+const businessSearch =
+    document.getElementById(
+        "business-search"
+    );
+
+const searchResults =
+    document.getElementById(
+        "search-results"
+    );
+
+
+businessSearch.addEventListener(
+    "input",
+    function () {
+
+        const query =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        searchResults.innerHTML = "";
+
+
+        if (query.length < 2) {
+            return;
+        }
+
+
+        const matches =
+            businessFeatures.filter(
+                function (feature) {
+
+                    const props =
+                        feature.properties;
+
+
+                    return (
+                        props.name
+                            .toLowerCase()
+                            .includes(query)
+                        ||
+                        props.address
+                            .toLowerCase()
+                            .includes(query)
+                    );
+
+                }
+            );
+
+
+        matches.forEach(
+            function (feature) {
+
+                const props =
+                    feature.properties;
+
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.className =
+                    "search-result-item";
+
+
+                button.innerHTML = `
+                    <strong>
+                        ${props.name}
+                    </strong>
+
+                    <span>
+                        ${props.categoryLabel}
+                        •
+                        ${props.address}
+                    </span>
+                `;
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const coordinates =
+                            feature.geometry.coordinates;
+
+
+                        const latlng = [
+                            coordinates[1],
+                            coordinates[0]
+                        ];
+
+
+                        map.setView(
+                            latlng,
+                            17
+                        );
+
+
+                        businessLayer.eachLayer(
+                            function (layer) {
+
+                                if (
+                                    layer.feature ===
+                                    feature
+                                ) {
+
+                                    layer.openPopup();
+
+                                }
+
+                            }
+                        );
+
+
+                        searchResults.innerHTML =
+                            "";
+
+                        businessSearch.value =
+                            props.name;
+
+                    }
+                );
+
+
+                searchResults.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+);
 // ==========================================
 // SERVICE AREA POLYGON
 // ==========================================
