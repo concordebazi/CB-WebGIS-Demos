@@ -151,6 +151,38 @@ fetch("data/businesses.geojson")
 
         businessFeatures =
             geojson.features;
+
+        // ==========================================
+// HIGHLIGHT BUSINESS MARKER
+// ==========================================
+
+function highlightBusinessMarker(layer) {
+
+    if (highlightedMarker) {
+
+        highlightedMarker.setStyle({
+            radius: 8,
+            color: "#071a18",
+            weight: 2,
+            fillColor: "#20c7b7",
+            fillOpacity: 0.95
+        });
+
+    }
+
+
+    highlightedMarker = layer;
+
+
+    highlightedMarker.setStyle({
+        radius: 12,
+        color: "#ffffff",
+        weight: 3,
+        fillColor: "#20c7b7",
+        fillOpacity: 1
+    });
+
+}
         // ==========================================
 // COUNT FEATURES BY ATTRIBUTE
 // ==========================================
