@@ -273,6 +273,51 @@ function updateMapStatistics() {
 // DYNAMIC MAP STATISTICS
 // ==========================================
 
+function updateMapStatisticsDynamic() {
+
+    let total = 0;
+    let salong = 0;
+    let bilverkstad = 0;
+    let stad = 0;
+
+
+    categoryFilters.forEach(
+        function (checkbox) {
+
+            if (!checkbox.checked) {
+                return;
+            }
+
+
+            const category =
+                checkbox.value;
+
+
+            const layerCount =
+                categoryLayers[
+                    category
+                ].getLayers().length;
+
+
+            total += layerCount;
+
+
+            if (category === "salong") {
+                salong = layerCount;
+            }
+
+
+            if (category === "bilverkstad") {
+                bilverkstad = layerCount;
+            }
+
+
+            if (category === "stad") {
+                stad = layerCount;
+            }
+
+        }
+    );
 
 
     document.getElementById(
@@ -613,7 +658,7 @@ categoryFilters.forEach(function (checkbox) {
 
 
             updateVisibleCount();
-         
+            updateMapStatisticsDynamic();
 
         }
     );
