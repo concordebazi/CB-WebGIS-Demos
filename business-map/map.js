@@ -178,56 +178,6 @@ fetch("data/businesses.geojson")
         );
 
     });
-// ==========================================
-// CATEGORY LAYERS
-// ==========================================
-
-const categoryLayers = {
-
-    salong: L.layerGroup().addTo(map),
-
-    bilverkstad: L.layerGroup().addTo(map),
-
-    stad: L.layerGroup().addTo(map)
-
-};
-
-
-// ==========================================
-// CREATE MARKERS
-// ==========================================
-
-businesses.forEach(function (business) {
-
-    const marker = L.marker(
-        [business.lat, business.lng]
-    );
-
-    marker.bindPopup(`
-        <div class="map-popup">
-
-            <strong>
-                ${business.name}
-            </strong>
-
-            <p>
-                ${business.description}
-            </p>
-
-            <span>
-                ${business.categoryLabel}
-                •
-                ${business.address}
-            </span>
-
-        </div>
-    `);
-
-    marker.addTo(
-        categoryLayers[business.category]
-    );
-
-});
 
 
 // ==========================================
