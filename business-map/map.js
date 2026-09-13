@@ -1181,17 +1181,20 @@ map.on(
                     }
 
 
-                    resultHTML += `
-                        <li>
-                            <strong>
-                                ${props.name}
-                            </strong>
+                  resultHTML += `
+    <li
+        class="analysis-result-item"
+        data-business-name="${props.name}">
+        
+        <strong>
+            ${props.name}
+        </strong>
 
-                            <span>
-                                ${distanceText}
-                            </span>
-                        </li>
-                    `;
+        <span>
+            ${distanceText}
+        </span>
+    </li>
+`;
 
                 }
             );
@@ -1204,6 +1207,54 @@ map.on(
 
         radiusAnalysisInfo.innerHTML =
             resultHTML;
+        const analysisResultItems =
+    radiusAnalysisInfo.querySelectorAll(
+        ".analysis-result-item"
+    );
+
+
+analysisResultItems.forEach(
+    function (item) {
+
+        item.addEventListener(
+            "click",
+            function () {
+
+                const businessName =
+                    this.dataset.businessName;
+
+
+                businessLayer.eachLayer(
+                    function (layer) {
+
+                        if (
+                            layer.feature &&
+                            layer.feature.properties.name ===
+                            businessName
+                        ) {
+
+                            const latlng =
+                                layer.getLatLng();
+
+
+                            map.setView(
+                                latlng,
+                                17
+                            );
+
+
+                            layer.openPopup();
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
 
 
         radiusAnalysisButton.textContent =
