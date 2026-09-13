@@ -220,7 +220,33 @@
     </label>
 
 </div>
+<div class="gis-control-group">
 
+    <h4>Närhetsanalys</h4>
+
+    <label for="radius-select" class="analysis-label">
+        Sök verksamheter inom:
+    </label>
+
+    <select id="radius-select" class="analysis-select">
+        <option value="1000">1 km</option>
+        <option value="3000" selected>3 km</option>
+        <option value="5000">5 km</option>
+    </select>
+
+    <button
+        id="radius-analysis-btn"
+        class="gis-tool-btn">
+        ⭕ Starta närhetsanalys
+    </button>
+
+    <div
+        id="radius-analysis-info"
+        class="analysis-info">
+        Klicka på kartan efter att analysen har startats.
+    </div>
+
+</div>
 <div class="gis-control-group">
 
     <h4>GIS verktyg</h4>
