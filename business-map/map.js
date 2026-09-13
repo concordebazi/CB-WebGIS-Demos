@@ -1288,7 +1288,7 @@ analysisResultItems.forEach(
                                 17
                             );
 
-
+highlightBusinessMarker(layer);
                             layer.openPopup();
 
                         }
