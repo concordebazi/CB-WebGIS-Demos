@@ -983,337 +983,341 @@ map.on(
 // ==========================================
 
 const radiusSelect =
-    document.getElementById(
-        "radius-select"
-    );
+    document.getElementById("radius-select");
 
 const radiusAnalysisButton =
-    document.getElementById(
-        "radius-analysis-btn"
-    );
+    document.getElementById("radius-analysis-btn");
 
 const radiusAnalysisInfo =
-    document.getElementById(
-        "radius-analysis-info"
-    );
+    document.getElementById("radius-analysis-info");
 
 
 let radiusAnalysisActive = false;
-
 let analysisCircle = null;
-
 let analysisCenterMarker = null;
 
 
 // ==========================================
-// START ANALYSIS
+// START PROXIMITY ANALYSIS
 // ==========================================
 
-radiusAnalysisButton.addEventListener(
-    "click",
-    function () {
+if (
+    radiusSelect &&
+    radiusAnalysisButton &&
+    radiusAnalysisInfo
+) {
 
-        radiusAnalysisActive = true;
+    radiusAnalysisButton.addEventListener(
+        "click",
+        function () {
 
-        radiusAnalysisInfo.textContent =
-            "Klicka på kartan för att välja analyscentrum.";
+            radiusAnalysisActive = true;
 
-        radiusAnalysisButton.textContent =
-            "📍 Klicka på kartan...";
+            radiusAnalysisButton.textContent =
+                "📍 Klicka på kartan...";
+
+            radiusAnalysisInfo.innerHTML = `
+                <strong>Analysen är aktiv</strong>
+                <span>
+                    Klicka på en plats på kartan.
+                </span>
+            `;
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// MAP CLICK
+// ==========================================
+
+map.on("click", function (event) {
+
+    if (!radiusAnalysisActive) {
+        return;
+    }
+
+
+    radiusAnalysisActive = false;
+
+
+    const selectedRadius =
+        Number(radiusSelect.value);
+
+
+    // Remove previous analysis
+    if (analysisCircle) {
+
+        map.removeLayer(
+            analysisCircle
+        );
+
+        analysisCircle = null;
 
     }
-);
 
 
-// ==========================================
-// MAP CLICK ANALYSIS
-// ==========================================
+    if (analysisCenterMarker) {
 
-map.on(
-    "click",
-    function (event) {
-
-        if (!radiusAnalysisActive) {
-            return;
-        }
-
-
-        radiusAnalysisActive = false;
-
-
-        const selectedRadius =
-            Number(
-                radiusSelect.value
-            );
-
-
-        // Remove old analysis
-        if (analysisCircle) {
-
-            map.removeLayer(
-                analysisCircle
-            );
-
-        }
-
-
-        if (analysisCenterMarker) {
-
-            map.removeLayer(
-                analysisCenterMarker
-            );
-
-        }
-
-
-        // Add analysis center marker
-        analysisCenterMarker =
-            L.circleMarker(
-                event.latlng,
-                {
-                    radius: 7,
-
-                    color: "#071a18",
-
-                    fillColor: "#20c7b7",
-
-                    fillOpacity: 1,
-
-                    weight: 2
-                }
-            )
-            .addTo(map);
-
-
-        // Add search radius
-        analysisCircle =
-            L.circle(
-                event.latlng,
-                {
-                    radius:
-                        selectedRadius,
-
-                    color:
-                        "#20c7b7",
-
-                    fillColor:
-                        "#20c7b7",
-
-                    fillOpacity:
-                        0.10,
-
-                    weight:
-                        2,
-
-                    dashArray:
-                        "6 6"
-                }
-            )
-            .addTo(map);
-
-
-        let matchingBusinesses = [];
-
-
-        // ======================================
-        // CHECK GEOJSON POINTS
-        // ======================================
-
-        businessFeatures.forEach(
-            function (feature) {
-
-                const coordinates =
-                    feature.geometry.coordinates;
-
-
-                const businessLatLng =
-                    L.latLng(
-                        coordinates[1],
-                        coordinates[0]
-                    );
-
-
-                const distance =
-                    event.latlng.distanceTo(
-                        businessLatLng
-                    );
-
-
-                if (
-                    distance <=
-                    selectedRadius
-                ) {
-
-                    matchingBusinesses.push({
-                        feature: feature,
-                        distance: distance
-                    });
-
-                }
-
-            }
+        map.removeLayer(
+            analysisCenterMarker
         );
 
+        analysisCenterMarker = null;
 
-        // Sort nearest first
-        matchingBusinesses.sort(
-            function (a, b) {
+    }
 
-                return (
-                    a.distance -
-                    b.distance
+
+    // ==========================================
+    // ANALYSIS CENTRE
+    // ==========================================
+
+    analysisCenterMarker =
+        L.circleMarker(
+            event.latlng,
+            {
+                radius: 8,
+                color: "#071a18",
+                weight: 3,
+                fillColor: "#20c7b7",
+                fillOpacity: 1
+            }
+        )
+        .addTo(map);
+
+
+    // ==========================================
+    // ANALYSIS RADIUS
+    // ==========================================
+
+    analysisCircle =
+        L.circle(
+            event.latlng,
+            {
+                radius: selectedRadius,
+
+                color: "#20c7b7",
+
+                weight: 3,
+
+                fillColor: "#20c7b7",
+
+                fillOpacity: 0.10,
+
+                dashArray: "8 6"
+            }
+        )
+        .addTo(map);
+
+
+    // ==========================================
+    // FIND BUSINESSES
+    // ==========================================
+
+    const matchingBusinesses = [];
+
+
+    businessFeatures.forEach(
+        function (feature) {
+
+            if (
+                !feature.geometry ||
+                feature.geometry.type !== "Point"
+            ) {
+                return;
+            }
+
+
+            const coordinates =
+                feature.geometry.coordinates;
+
+
+            const businessPosition =
+                L.latLng(
+                    coordinates[1],
+                    coordinates[0]
                 );
 
+
+            const distance =
+                event.latlng.distanceTo(
+                    businessPosition
+                );
+
+
+            if (distance <= selectedRadius) {
+
+                matchingBusinesses.push({
+                    feature: feature,
+                    distance: distance
+                });
+
             }
-        );
-
-
-        // ======================================
-        // DISPLAY RESULT
-        // ======================================
-
-        let resultHTML = `
-            <strong>
-                ${matchingBusinesses.length}
-                verksamheter hittades
-            </strong>
-
-            <span>
-                inom
-                ${
-                    selectedRadius / 1000
-                }
-                km
-            </span>
-        `;
-
-
-        if (
-            matchingBusinesses.length > 0
-        ) {
-
-            resultHTML +=
-                "<ul class='analysis-result-list'>";
-
-
-            matchingBusinesses.forEach(
-                function (item) {
-
-                    const props =
-                        item.feature.properties;
-
-
-                    let distanceText;
-
-
-                    if (
-                        item.distance >= 1000
-                    ) {
-
-                        distanceText =
-                            (
-                                item.distance /
-                                1000
-                            ).toFixed(2)
-                            + " km";
-
-                    } else {
-
-                        distanceText =
-                            item.distance
-                                .toFixed(0)
-                            + " m";
-
-                    }
-
-
-                  resultHTML += `
-    <li
-        class="analysis-result-item"
-        data-business-name="${props.name}">
-        
-        <strong>
-            ${props.name}
-        </strong>
-
-        <span>
-            ${distanceText}
-        </span>
-    </li>
-`;
-
-                }
-            );
-
-
-            resultHTML += "</ul>";
 
         }
-
-
-        radiusAnalysisInfo.innerHTML =
-            resultHTML;
-        const analysisResultItems =
-    radiusAnalysisInfo.querySelectorAll(
-        ".analysis-result-item"
     );
 
 
-analysisResultItems.forEach(
-    function (item) {
+    // Nearest first
+    matchingBusinesses.sort(
+        function (a, b) {
 
-        item.addEventListener(
-            "click",
-            function () {
+            return a.distance - b.distance;
 
-                const businessName =
-                    this.dataset.businessName;
-
-
-                businessLayer.eachLayer(
-                    function (layer) {
-
-                        if (
-                            layer.feature &&
-                            layer.feature.properties.name ===
-                            businessName
-                        ) {
-
-                            const latlng =
-                                layer.getLatLng();
+        }
+    );
 
 
-                            map.setView(
-                                latlng,
-                                17
-                            );
+    // ==========================================
+    // BUILD RESULTS
+    // ==========================================
 
-highlightBusinessMarker(layer);
-                            layer.openPopup();
+    let resultHTML = `
+        <strong>
+            ${matchingBusinesses.length}
+            verksamheter hittades
+        </strong>
+
+        <span>
+            inom ${selectedRadius / 1000} km
+        </span>
+    `;
+
+
+    if (matchingBusinesses.length > 0) {
+
+        resultHTML +=
+            '<ul class="analysis-result-list">';
+
+
+        matchingBusinesses.forEach(
+            function (item) {
+
+                const props =
+                    item.feature.properties;
+
+
+                let distanceText;
+
+
+                if (item.distance >= 1000) {
+
+                    distanceText =
+                        (
+                            item.distance / 1000
+                        ).toFixed(2)
+                        + " km";
+
+                } else {
+
+                    distanceText =
+                        item.distance.toFixed(0)
+                        + " m";
+
+                }
+
+
+                resultHTML += `
+                    <li
+                        class="analysis-result-item"
+                        data-business-name="${props.name}">
+
+                        <strong>
+                            ${props.name}
+                        </strong>
+
+                        <span>
+                            ${distanceText}
+                        </span>
+
+                    </li>
+                `;
+
+            }
+        );
+
+
+        resultHTML += "</ul>";
+
+    }
+
+
+    radiusAnalysisInfo.innerHTML =
+        resultHTML;
+
+
+    // ==========================================
+    // CLICKABLE RESULTS
+    // ==========================================
+
+    const resultItems =
+        radiusAnalysisInfo.querySelectorAll(
+            ".analysis-result-item"
+        );
+
+
+    resultItems.forEach(
+        function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+                    const businessName =
+                        this.dataset.businessName;
+
+
+                    businessLayer.eachLayer(
+                        function (layer) {
+
+                            if (
+                                layer.feature &&
+                                layer.feature.properties.name ===
+                                businessName
+                            ) {
+
+                                const latlng =
+                                    layer.getLatLng();
+
+
+                                map.setView(
+                                    latlng,
+                                    17
+                                );
+
+
+                                highlightBusinessMarker(
+                                    layer
+                                );
+
+
+                                layer.openPopup();
+
+                            }
 
                         }
+                    );
 
-                    }
-                );
+                }
+            );
 
-            }
-        );
-
-    }
-);
+        }
+    );
 
 
-        radiusAnalysisButton.textContent =
-            "⭕ Starta närhetsanalys";
+    // Reset button label
+    radiusAnalysisButton.textContent =
+        "⭕ Starta närhetsanalys";
 
 
-        // Zoom to analysis area
-        map.fitBounds(
-            analysisCircle.getBounds(),
-            {
-                padding: [20, 20]
-            }
-        );
+    // Zoom to radius
+    map.fitBounds(
+        analysisCircle.getBounds(),
+        {
+            padding: [25, 25]
+        }
+    );
 
-    }
-);
+});
