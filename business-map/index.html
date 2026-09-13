@@ -236,56 +236,104 @@
 
     <div id="map"></div>
 
-    <div class="map-tools-bottom">
+   <div class="map-tools-bottom">
 
-        <div class="tool-card">
+    <!-- POSITION -->
+    <div class="tool-card">
 
-            <h4>📍 Position</h4>
+        <h4>📍 Position</h4>
 
-            <button id="locate-btn" class="gis-tool-btn">
-                Visa min position
-            </button>
+        <button
+            id="locate-btn"
+            class="gis-tool-btn">
+            Visa min position
+        </button>
 
-            <div class="coordinate-box">
-                <span>Musposition</span>
-                <strong id="mouse-coordinates">
-                    Lat: -- | Lon: --
-                </strong>
-            </div>
+        <div class="coordinate-box">
 
-        </div>
+            <span>Musposition</span>
 
-        <div class="tool-card">
-
-            <h4>⭕ Närområde</h4>
-
-            <label>Sök inom</label>
-
-            <select id="radius-select">
-                <option value="1000">1 km</option>
-                <option value="3000" selected>3 km</option>
-                <option value="5000">5 km</option>
-            </select>
-
-            <button id="nearby-btn" class="gis-tool-btn">
-                Starta analys
-            </button>
-
-        </div>
-
-        <div class="tool-card">
-
-            <h4>📊 Resultat</h4>
-
-            <div id="nearby-results"></div>
-
-            <button id="reset-map-btn" class="secondary-tool">
-                ↺ Återställ
-            </button>
+            <strong id="mouse-coordinates">
+                Lat: -- | Lon: --
+            </strong>
 
         </div>
 
     </div>
+
+
+    <!-- PROXIMITY ANALYSIS -->
+    <div class="tool-card">
+
+        <h4>⭕ Närhetsanalys</h4>
+
+        <label
+            for="radius-select"
+            class="analysis-label">
+            Sök verksamheter inom:
+        </label>
+
+        <select
+            id="radius-select"
+            class="analysis-select">
+
+            <option value="1000">
+                1 km
+            </option>
+
+            <option
+                value="3000"
+                selected>
+                3 km
+            </option>
+
+            <option value="5000">
+                5 km
+            </option>
+
+        </select>
+
+        <button
+            id="radius-analysis-btn"
+            class="gis-tool-btn">
+            ⭕ Starta närhetsanalys
+        </button>
+
+    </div>
+
+
+    <!-- RESULTS -->
+    <div class="tool-card">
+
+        <h4>📊 Resultat</h4>
+
+        <div
+            id="radius-analysis-info"
+            class="analysis-info">
+
+            Klicka på kartan efter att analysen har startats.
+
+        </div>
+
+        <div class="gis-stats">
+
+            <span>Visade verksamheter</span>
+
+            <strong id="visible-count">
+                0
+            </strong>
+
+        </div>
+
+        <button
+            id="reset-map-btn"
+            class="gis-tool-btn secondary-tool">
+            ↺ Återställ kartan
+        </button>
+
+    </div>
+
+</div>
 
 </div>
 
