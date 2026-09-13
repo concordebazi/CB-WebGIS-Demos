@@ -1434,3 +1434,41 @@ a {
     width: 100%;
     margin-top: 20px;
 }
+/* ==========================================
+   RESPONSIVE MAP HEIGHT
+========================================== */
+
+@media (max-width: 1200px) {
+
+    .map-wrapper #map {
+        height: 560px;
+    }
+
+}
+
+
+@media (max-width: 950px) {
+
+    .map-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .gis-panel {
+        width: 100%;
+    }
+
+    .map-wrapper #map {
+        height: 520px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .map-wrapper #map {
+        height: 430px;
+        border-radius: 14px;
+    }
+
+}
