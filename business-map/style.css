@@ -1155,82 +1155,196 @@ a {
     padding-left: 6px;
     padding-right: 6px;
 }
-/* ===== TOOLS UNDER MAP ===== */
+/* ==========================================
+   TOOLS UNDER MAP - POLISHED DASHBOARD
+========================================== */
 
-.map-tools-bottom{
+.map-tools-bottom {
+    display: grid;
 
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-margin-top:20px;
+    gap: 20px;
+
+    margin-top: 20px;
+
+    align-items: stretch;
+}
+
+
+/* ==========================================
+   TOOL CARDS
+========================================== */
+
+.tool-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 250px;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #07332d,
+            #0a3c35
+        );
+
+    color: #ffffff;
+
+    border:
+        1px solid rgba(45, 212, 191, 0.16);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(7, 42, 35, 0.10);
+}
+
+
+.tool-card h4 {
+    margin-bottom: 18px;
+
+    color: #7ff7df;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+/* ==========================================
+   FORM ELEMENTS
+========================================== */
+
+.tool-card label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #b8efe6;
+
+    font-size: 13px;
+}
+
+
+.tool-card select {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    background: #0d433b;
+    color: #ffffff;
+
+    border:
+        1px solid #1b6b60;
+
+    border-radius: 10px;
+
+    margin-bottom: 12px;
+
+    outline: none;
+}
+
+
+.tool-card select:focus {
+    border-color: #20c7b7;
+}
+
+
+/* ==========================================
+   POSITION CARD
+========================================== */
+
+.tool-card .coordinate-box {
+    margin-top: 16px;
+}
+
+
+/* ==========================================
+   RESULT CARD
+========================================== */
+
+.tool-card .analysis-info {
+    margin-top: 0;
+
+    max-height: 230px;
+
+    overflow-y: auto;
+}
+
+
+/* nicer scrollbar */
+
+.tool-card .analysis-info::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tool-card .analysis-info::-webkit-scrollbar-track {
+    background:
+        rgba(255,255,255,0.04);
+
+    border-radius: 20px;
+}
+
+.tool-card .analysis-info::-webkit-scrollbar-thumb {
+    background: #20c7b7;
+
+    border-radius: 20px;
+}
+
+
+/* ==========================================
+   STATS INSIDE RESULT CARD
+========================================== */
+
+.tool-card .gis-stats {
+    margin-top: 16px;
+}
+
+
+.tool-card .secondary-tool {
+    margin-top: auto;
+}
+
+
+/* ==========================================
+   BUTTON ALIGNMENT
+========================================== */
+
+.tool-card .gis-tool-btn {
+    width: 100%;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1050px) {
+
+    .map-tools-bottom {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
 
 }
 
-.tool-card{
 
-background:#07332d;
+/* ==========================================
+   MOBILE
+========================================== */
 
-border:1px solid rgba(45,212,191,.15);
+@media (max-width: 700px) {
 
-border-radius:16px;
+    .map-tools-bottom {
+        grid-template-columns: 1fr;
+    }
 
-padding:18px;
-
-color:#fff;
-
-}
-
-.tool-card h4{
-
-margin-bottom:12px;
-color:#7ff7df;
-
-}
-
-.tool-card label{
-
-display:block;
-margin-bottom:8px;
-color:#b8efe6;
-
-}
-
-.tool-card select{
-
-width:100%;
-
-padding:12px;
-
-background:#0d433b;
-
-color:#fff;
-
-border:1px solid #1b6b60;
-
-border-radius:10px;
-
-margin-bottom:12px;
-
-}
-
-#nearby-results{
-
-font-size:14px;
-line-height:1.6;
-
-color:#d7fff7;
-
-min-height:80px;
-
-}
-
-@media(max-width:900px){
-
-.map-tools-bottom{
-
-grid-template-columns:1fr;
-
-}
+    .tool-card {
+        min-height: auto;
+    }
 
 }
