@@ -441,7 +441,7 @@ businessSearch.addEventListener(
                                     layer.feature ===
                                     feature
                                 ) {
-
+highlightBusinessMarker(layer);
                                     layer.openPopup();
 
                                 }
