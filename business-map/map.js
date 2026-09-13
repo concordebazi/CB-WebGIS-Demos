@@ -8,8 +8,65 @@ const map = L.map("map").setView(
     [58.4108, 15.6214],
     13
 );
+const defaultMapView = {
+    center: [58.4108, 15.6214],
+    zoom: 13
+};
+
+// ==========================================
+// RESET MAP
+// ==========================================
+
+const resetMapButton =
+    document.getElementById(
+        "reset-map-btn"
+    );
 
 
+resetMapButton.addEventListener(
+    "click",
+    function () {
+
+        map.setView(
+            defaultMapView.center,
+            defaultMapView.zoom
+        );
+
+
+        map.closePopup();
+
+
+        businessSearch.value = "";
+
+        searchResults.innerHTML = "";
+
+
+        categoryFilters.forEach(
+            function (checkbox) {
+
+                checkbox.checked = true;
+
+                const category =
+                    checkbox.value;
+
+                map.addLayer(
+                    categoryLayers[category]
+                );
+
+            }
+        );
+
+
+        serviceAreaToggle.checked = true;
+
+        serviceArea.addTo(map);
+        serviceArea.bringToBack();
+
+
+        updateVisibleCount();
+
+    }
+);
 
 // ==========================================
 // BASE MAPS
