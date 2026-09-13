@@ -54,6 +54,7 @@ streetMap.addTo(map);
 // ==========================================
 
 let businessFeatures = [];
+let businessLayer = null;
 
 
 // ==========================================
@@ -141,7 +142,7 @@ document.getElementById(
     categoryCounts.stad;
 
 
-        L.geoJSON(
+       businessLayer = L.geoJSON(
 
             geojson,
 
