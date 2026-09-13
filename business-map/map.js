@@ -93,6 +93,52 @@ fetch("data/businesses.geojson")
 
         businessFeatures =
             geojson.features;
+        // ==========================================
+// COUNT FEATURES BY ATTRIBUTE
+// ==========================================
+
+const categoryCounts = {
+
+    salong: 0,
+    bilverkstad: 0,
+    stad: 0
+
+};
+
+
+businessFeatures.forEach(function (feature) {
+
+    const category =
+        feature.properties.category;
+
+
+    if (
+        categoryCounts[category] !== undefined
+    ) {
+
+        categoryCounts[category]++;
+
+    }
+
+});
+
+
+document.getElementById(
+    "count-salong"
+).textContent =
+    categoryCounts.salong;
+
+
+document.getElementById(
+    "count-bilverkstad"
+).textContent =
+    categoryCounts.bilverkstad;
+
+
+document.getElementById(
+    "count-stad"
+).textContent =
+    categoryCounts.stad;
 
 
         L.geoJSON(
