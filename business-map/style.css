@@ -1026,3 +1026,59 @@ a {
     background: rgba(32,199,183,0.10);
     color: #ffffff;
 }
+/* ==========================================
+   PROXIMITY ANALYSIS
+========================================== */
+
+.analysis-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #aac8bf;
+
+    font-size: 13px;
+}
+
+.analysis-select {
+    width: 100%;
+
+    margin-bottom: 12px;
+    padding: 11px 12px;
+
+    background: rgba(255,255,255,0.05);
+    color: #ffffff;
+
+    border:
+        1px solid rgba(255,255,255,0.10);
+
+    border-radius: 9px;
+
+    outline: none;
+}
+
+.analysis-select:focus {
+    border-color: #20c7b7;
+}
+
+.analysis-select option {
+    color: #071a18;
+}
+
+.analysis-info {
+    margin-top: 12px;
+
+    padding: 12px;
+
+    background: rgba(32,199,183,0.08);
+
+    border:
+        1px solid rgba(32,199,183,0.16);
+
+    border-radius: 9px;
+
+    color: #b8d9d0;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
