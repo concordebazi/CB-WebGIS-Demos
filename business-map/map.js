@@ -64,6 +64,7 @@ resetMapButton.addEventListener(
 
 
         updateVisibleCount();
+        updateMapStatisticsDynamic();
 
     }
 );
