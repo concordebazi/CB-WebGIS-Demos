@@ -64,7 +64,6 @@ resetMapButton.addEventListener(
 
 
         updateVisibleCount();
-        updateMapStatisticsDynamic();
 
     }
 );
@@ -270,6 +269,56 @@ function updateMapStatistics() {
     }
 
 }
+// ==========================================
+// DYNAMIC MAP STATISTICS
+// ==========================================
+
+function updateMapStatisticsDynamic() {
+
+    let total = 0;
+    let salong = 0;
+    let bilverkstad = 0;
+    let stad = 0;
+
+
+    categoryFilters.forEach(
+        function (checkbox) {
+
+            if (!checkbox.checked) {
+                return;
+            }
+
+
+            const category =
+                checkbox.value;
+
+
+            const layerCount =
+                categoryLayers[
+                    category
+                ].getLayers().length;
+
+
+            total += layerCount;
+
+
+            if (category === "salong") {
+                salong = layerCount;
+            }
+
+
+            if (category === "bilverkstad") {
+                bilverkstad = layerCount;
+            }
+
+
+            if (category === "stad") {
+                stad = layerCount;
+            }
+
+        }
+    );
+
 
     document.getElementById(
         "stats-total"
@@ -583,58 +632,7 @@ const categoryFilters =
     document.querySelectorAll(
         ".category-filter"
     );
-// ==========================================
-// DYNAMIC MAP STATISTICS
-// ==========================================
 
-function updateMapStatisticsDynamic() {
-
-    const visibleCategories = {
-        salong: 0,
-        bilverkstad: 0,
-        stad: 0
-    };
-
-    categoryFilters.forEach(function (checkbox) {
-
-        const category = checkbox.value;
-
-        if (
-            checkbox.checked &&
-            categoryLayers[category]
-        ) {
-            visibleCategories[category] =
-                categoryLayers[category]
-                    .getLayers()
-                    .length;
-        }
-
-    });
-
-    const total =
-        visibleCategories.salong +
-        visibleCategories.bilverkstad +
-        visibleCategories.stad;
-
-    document.getElementById(
-        "stats-total"
-    ).textContent = total;
-
-    document.getElementById(
-        "stats-salong"
-    ).textContent =
-        visibleCategories.salong;
-
-    document.getElementById(
-        "stats-bilverkstad"
-    ).textContent =
-        visibleCategories.bilverkstad;
-
-    document.getElementById(
-        "stats-stad"
-    ).textContent =
-        visibleCategories.stad;
-}
 
 categoryFilters.forEach(function (checkbox) {
 
