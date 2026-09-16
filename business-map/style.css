@@ -118,17 +118,21 @@ a {
    HERO
 ========================================== */
 
+/* ==========================================
+   HERO
+========================================== */
+
 .hero {
-    min-height: 560px;
+    min-height: 650px;
 
     display: flex;
     align-items: center;
 
     background:
         radial-gradient(
-            circle at 80% 30%,
-            rgba(89,195,255,0.18),
-            transparent 35%
+            circle at 80% 45%,
+            rgba(32, 199, 183, 0.22),
+            transparent 38%
         ),
         linear-gradient(
             135deg,
@@ -142,38 +146,60 @@ a {
     max-width: 1400px;
 
     margin: 0 auto;
-    padding: 90px 7%;
+    padding: 80px 7%;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(350px, 0.75fr);
+    align-items: center;
+    gap: 70px;
 }
-.hero-logo-link {
-    display: inline-block;
-    margin-bottom: 28px;
+
+.hero-text {
+    min-width: 0;
+}
+
+.hero-logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-logo-area a {
+    display: block;
+    width: 100%;
 }
 
 .hero-logo {
     display: block;
-    width: clamp(150px, 18vw, 230px);
+
+    width: 100%;
+    max-width: 520px;
     height: auto;
 
+    margin: 0 auto;
+
+    object-fit: contain;
+
     filter:
-        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35));
+        drop-shadow(0 20px 40px rgba(0, 0, 0, 0.45));
 
     transition:
-        transform 0.3s ease,
-        filter 0.3s ease;
+        transform 0.35s ease,
+        filter 0.35s ease;
 }
 
-.hero-logo-link:hover .hero-logo {
-    transform: translateY(-3px) scale(1.02);
+.hero-logo-area a:hover .hero-logo {
+    transform: scale(1.04);
 
     filter:
-        drop-shadow(0 16px 34px rgba(89, 195, 255, 0.25));
+        drop-shadow(0 24px 50px rgba(32, 199, 183, 0.28));
 }
+
 .hero-label {
     color: #59c3ff;
 
     font-size: 13px;
     font-weight: 800;
-
     letter-spacing: 3px;
 
     margin-bottom: 18px;
@@ -182,9 +208,8 @@ a {
 .hero h1 {
     max-width: 760px;
 
-    font-size: clamp(48px, 7vw, 88px);
+    font-size: clamp(48px, 6vw, 82px);
     line-height: 0.98;
-
     letter-spacing: -3px;
 
     margin-bottom: 28px;
@@ -192,42 +217,17 @@ a {
 
 .hero h1 span {
     display: block;
-    color: #59c3ff;
+    color: #20c7b7;
 }
 
-.hero-content > p:not(.hero-label) {
+.hero-description {
     max-width: 650px;
 
     color: #a9bdd0;
-
     font-size: 19px;
 
     margin-bottom: 35px;
 }
-
-.hero-btn {
-    display: inline-block;
-
-    padding: 14px 22px;
-
-    background: #59c3ff;
-    color: #07111f;
-
-    border-radius: 8px;
-
-    font-weight: 800;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
-}
-
-.hero-btn:hover {
-    transform: translateY(-2px);
-    background: #ffffff;
-}
-
-
 /* ==========================================
    MAP SECTION
 ========================================== */
