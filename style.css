@@ -270,6 +270,48 @@ a {
    INDIVIDUAL DEMO CARD COLOURS
 ========================================== */
 
+
+/* ==========================================
+   DEMO CARDS
+========================================== */
+
+.demo-card {
+    position: relative;
+
+    min-height: 520px;
+    padding: 38px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            145deg,
+            #10253a,
+            #0b1c2c
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.demo-card:hover {
+    transform: translateY(-7px);
+
+    border-color: rgba(89,195,255,0.5);
+
+    box-shadow:
+        0 25px 55px rgba(0,0,0,0.25);
+}
 /* Salong Superclip — elegant blue */
 .demo-card--superclip {
     background:
@@ -370,48 +412,6 @@ a {
 .demo-card--trend .demo-number {
     color: rgba(16, 37, 28, 0.09);
 }
-/* ==========================================
-   DEMO CARDS
-========================================== */
-
-.demo-card {
-    position: relative;
-
-    min-height: 520px;
-    padding: 38px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    background:
-        linear-gradient(
-            145deg,
-            #10253a,
-            #0b1c2c
-        );
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    border-radius: 30px;
-
-    overflow: hidden;
-
-    transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.demo-card:hover {
-    transform: translateY(-7px);
-
-    border-color: rgba(89,195,255,0.5);
-
-    box-shadow:
-        0 25px 55px rgba(0,0,0,0.25);
-}
-
 .demo-number {
     position: absolute;
 
