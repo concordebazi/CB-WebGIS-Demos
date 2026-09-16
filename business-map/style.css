@@ -228,6 +228,44 @@ a {
 
     margin-bottom: 35px;
 }
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 26px;
+
+    background: #20c7b7;
+    color: #07111f;
+
+    border: 2px solid transparent;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(32, 199, 183, 0.22);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.hero-btn:hover {
+    background: #7fffe9;
+    color: #07111f;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 32px rgba(32, 199, 183, 0.32);
+}
 /* ==========================================
    MAP SECTION
 ========================================== */
