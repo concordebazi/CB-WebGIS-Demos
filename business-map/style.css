@@ -1495,3 +1495,30 @@ a {
     }
 
 }
+@media (max-width: 900px) {
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 45px;
+
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-logo-area {
+        order: -1;
+    }
+
+    .hero-logo {
+        max-width: 340px;
+    }
+}
