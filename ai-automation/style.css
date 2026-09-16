@@ -349,7 +349,11 @@ button {
         box-shadow 0.25s ease,
         border-color 0.25s ease;
 }
-
+.automation-btn:disabled {
+    opacity: 0.70;
+    cursor: wait;
+    transform: none;
+}
 .primary-btn,
 .automation-btn {
     color: #180b03;
