@@ -1,1 +1,608 @@
-/index.html
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Automation Demo | CB Web & GIS
+    </title>
+
+    <meta
+        name="description"
+        content="Interaktiv AI-automationsdemo från CB Web & GIS för kundservice, bokningar och arbetsflöden."
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- DEMO BANNER -->
+
+    <div class="demo-banner">
+
+        <span>AI AUTOMATION DEMO</span>
+
+        <span class="banner-divider">•</span>
+
+        <span>Skapad av CB Web & GIS</span>
+
+    </div>
+
+
+    <!-- HEADER -->
+
+    <header class="site-header">
+
+        <div class="navbar">
+
+            <a href="../index.html" class="brand">
+                CB WEB & GIS
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="#home">Hem</a>
+
+                <a href="#automation-demo">
+                    Testa AI
+                </a>
+
+                <a href="#workflow">
+                    Så fungerar det
+                </a>
+
+                <a href="#benefits">
+                    Resultat
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- BACK LINK -->
+
+    <div class="demo-back-bar">
+
+        <a
+            href="../index.html"
+            class="back-to-portfolio"
+        >
+            ← Tillbaka till demoportföljen
+        </a>
+
+    </div>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-layout">
+
+                <!-- HERO TEXT -->
+
+                <div class="hero-content">
+
+                    <p class="hero-label">
+                        SMARTARE ARBETSFLÖDEN
+                    </p>
+
+                    <h1>
+                        Låt AI hantera
+                        <span>det repetitiva.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Se hur en AI-assistent kan läsa
+                        kundförfrågningar, förstå behovet,
+                        skapa professionella svar och starta
+                        rätt arbetsflöde automatiskt.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="#automation-demo"
+                            class="primary-btn"
+                        >
+                            Testa AI-assistenten
+                        </a>
+
+                        <a
+                            href="#workflow"
+                            class="secondary-btn"
+                        >
+                            Se arbetsflödet
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-benefits">
+
+                        <div>
+                            <strong>24/7</strong>
+                            <span>Automatisk hantering</span>
+                        </div>
+
+                        <div>
+                            <strong>Snabbare</strong>
+                            <span>Kundsvar</span>
+                        </div>
+
+                        <div>
+                            <strong>Mindre</strong>
+                            <span>Manuellt arbete</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AUTOMATION DEMO -->
+
+                <div
+                    class="automation-console"
+                    id="automation-demo"
+                >
+
+                    <div class="console-header">
+
+                        <div>
+
+                            <p class="console-label">
+                                LIVE SIMULERING
+                            </p>
+
+                            <h2>
+                                AI-kundassistent
+                            </h2>
+
+                        </div>
+
+                        <span class="demo-status">
+                            <span class="status-dot"></span>
+                            Demo aktiv
+                        </span>
+
+                    </div>
+
+
+                    <form
+                        id="automation-form"
+                        class="automation-form"
+                    >
+
+                        <div class="form-group">
+
+                            <label for="business-type">
+                                Typ av verksamhet
+                            </label>
+
+                            <select id="business-type">
+
+                                <option value="bilverkstad">
+                                    Bilverkstad
+                                </option>
+
+                                <option value="salong">
+                                    Frisörsalong
+                                </option>
+
+                                <option value="stadfirma">
+                                    Städfirma
+                                </option>
+
+                                <option value="konsult">
+                                    Konsultföretag
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="customer-message">
+                                Kundens meddelande
+                            </label>
+
+                            <textarea
+                                id="customer-message"
+                                rows="5"
+                                placeholder="Skriv eller använd exempelmeddelandet..."
+                            >Hej! Jag behöver boka service för min bil nästa vecka. Motorlampan lyser och bilen låter konstigt. Har ni någon ledig tid?</textarea>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="automation-btn"
+                            id="automation-btn"
+                        >
+                            <span class="btn-default-text">
+                                Analysera med AI
+                            </span>
+
+                            <span
+                                class="btn-loading-text"
+                                hidden
+                            >
+                                AI arbetar...
+                            </span>
+                        </button>
+
+                    </form>
+
+
+                    <!-- PROCESS STEPS -->
+
+                    <div
+                        class="process-status"
+                        id="process-status"
+                        aria-live="polite"
+                    >
+
+                        <div
+                            class="process-step"
+                            data-step="1"
+                        >
+                            <span>1</span>
+                            <p>Analyserar förfrågan</p>
+                        </div>
+
+                        <div
+                            class="process-step"
+                            data-step="2"
+                        >
+                            <span>2</span>
+                            <p>Skapar kundsvar</p>
+                        </div>
+
+                        <div
+                            class="process-step"
+                            data-step="3"
+                        >
+                            <span>3</span>
+                            <p>Startar arbetsflöde</p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- AI RESULT -->
+
+                    <div
+                        class="automation-result"
+                        id="automation-result"
+                        hidden
+                    >
+
+                        <div class="result-heading">
+
+                            <div>
+
+                                <p>AI-ANALYS KLAR</p>
+
+                                <h3>
+                                    Förfrågan behandlad
+                                </h3>
+
+                            </div>
+
+                            <span class="completed-badge">
+                                Slutförd
+                            </span>
+
+                        </div>
+
+
+                        <div class="result-grid">
+
+                            <div class="result-item">
+
+                                <span>Identifierat behov</span>
+
+                                <strong id="result-intent">
+                                    Bilservice och felsökning
+                                </strong>
+
+                            </div>
+
+                            <div class="result-item">
+
+                                <span>Prioritet</span>
+
+                                <strong id="result-priority">
+                                    Hög
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="generated-reply">
+
+                            <span>Föreslaget kundsvar</span>
+
+                            <p id="generated-reply-text">
+                                Tack för din förfrågan! Vi hjälper
+                                dig gärna med service och felsökning.
+                                Vi har lediga tider nästa vecka.
+                            </p>
+
+                        </div>
+
+
+                        <div class="automatic-action">
+
+                            <span class="action-icon">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <span>Automatisk åtgärd</span>
+
+                                <strong id="automatic-action-text">
+                                    Bokningsförfrågan skapad
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WORKFLOW -->
+
+        <section class="workflow-section" id="workflow">
+
+            <div class="section-heading">
+
+                <p>AI-ARBETSFLÖDE</p>
+
+                <h2>
+                    Från kundmeddelande till färdig åtgärd.
+                </h2>
+
+                <span>
+                    Ett automatiserat arbetsflöde kan hantera
+                    flera steg utan att personalen behöver
+                    göra allt manuellt.
+                </span>
+
+            </div>
+
+
+            <div class="workflow-grid">
+
+                <article class="workflow-card">
+
+                    <span class="workflow-number">
+                        01
+                    </span>
+
+                    <div class="workflow-icon">
+                        ✉
+                    </div>
+
+                    <h3>
+                        Kunden kontaktar företaget
+                    </h3>
+
+                    <p>
+                        En fråga kommer in via webbplatsen,
+                        e-post eller ett kontaktformulär.
+                    </p>
+
+                </article>
+
+
+                <article class="workflow-card">
+
+                    <span class="workflow-number">
+                        02
+                    </span>
+
+                    <div class="workflow-icon">
+                        AI
+                    </div>
+
+                    <h3>
+                        AI förstår behovet
+                    </h3>
+
+                    <p>
+                        Meddelandet analyseras och kategoriseras
+                        efter ämne, prioritet och kundens avsikt.
+                    </p>
+
+                </article>
+
+
+                <article class="workflow-card">
+
+                    <span class="workflow-number">
+                        03
+                    </span>
+
+                    <div class="workflow-icon">
+                        ↗
+                    </div>
+
+                    <h3>
+                        Rätt åtgärd startas
+                    </h3>
+
+                    <p>
+                        Systemet kan skapa ett svar, en bokning,
+                        en uppgift eller en offertförfrågan.
+                    </p>
+
+                </article>
+
+
+                <article class="workflow-card">
+
+                    <span class="workflow-number">
+                        04
+                    </span>
+
+                    <div class="workflow-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Personalen följer upp
+                    </h3>
+
+                    <p>
+                        Teamet får strukturerad information
+                        och kan fokusera på kunden.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- BENEFITS -->
+
+        <section class="benefits-section" id="benefits">
+
+            <div class="benefits-layout">
+
+                <div class="benefits-content">
+
+                    <p class="section-label">
+                        AFFÄRSNYTTA
+                    </p>
+
+                    <h2>
+                        Mer tid för kunderna.
+                        Mindre administration.
+                    </h2>
+
+                    <p>
+                        AI-automation kan hjälpa mindre företag
+                        att svara snabbare, organisera inkommande
+                        förfrågningar och minska repetitiva uppgifter.
+                    </p>
+
+                </div>
+
+
+                <div class="results-panel">
+
+                    <div class="result-stat">
+
+                        <strong>Snabbare</strong>
+
+                        <span>
+                            Första svar till kunden
+                        </span>
+
+                    </div>
+
+                    <div class="result-stat">
+
+                        <strong>Automatiskt</strong>
+
+                        <span>
+                            Sortering och registrering
+                        </span>
+
+                    </div>
+
+                    <div class="result-stat">
+
+                        <strong>Strukturerat</strong>
+
+                        <span>
+                            Underlag för uppföljning
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+
+        <section class="cta-section">
+
+            <div class="cta-content">
+
+                <p>
+                    AI AUTOMATION FÖR SMÅFÖRETAG
+                </p>
+
+                <h2>
+                    Vilken uppgift skulle ditt företag
+                    vilja automatisera?
+                </h2>
+
+                <a
+                    href="mailto:concorde@cbwebgis.se"
+                    class="primary-btn"
+                >
+                    Diskutera en lösning
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer">
+
+        <p>
+            © 2026
+            <strong>CB Web & GIS</strong>
+            — Webb • GIS • AI Automation
+        </p>
+
+    </footer>
+
+
+    <script src="automation.js"></script>
+
+</body>
+
+</html>
