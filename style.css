@@ -928,3 +928,28 @@ a {
 .demo-category.gis {
     color: #20c7b7;
 }
+/* Individual card button accents */
+
+.demo-card--superclip .demo-btn {
+    border-color: #59c3ff;
+}
+
+.demo-card--adam .demo-btn {
+    border-color: #e86e91;
+}
+
+.demo-card--express .demo-btn {
+    border-color: #ff8a8a;
+}
+
+.demo-card--gron .demo-btn {
+    border-color: #39864a;
+}
+
+.demo-card--trend .demo-btn {
+    border-color: #795843;
+}
+
+.demo-card--gis .demo-btn {
+    border-color: #63f5dc;
+}
