@@ -267,6 +267,110 @@ a {
     transform: scale(1.05);
 }
 /* ==========================================
+   INDIVIDUAL DEMO CARD COLOURS
+========================================== */
+
+/* Salong Superclip — elegant blue */
+.demo-card--superclip {
+    background:
+        linear-gradient(
+            145deg,
+            #174463,
+            #0c293e
+        );
+
+    border-color: rgba(80, 190, 255, 0.28);
+}
+
+
+/* Adam Salong — dark burgundy */
+.demo-card--adam {
+    background:
+        linear-gradient(
+            145deg,
+            #542334,
+            #26131c
+        );
+
+    border-color: rgba(214, 91, 123, 0.28);
+}
+
+
+/* Express Bilverkstad — red */
+.demo-card--express {
+    background:
+        linear-gradient(
+            145deg,
+            #a6292f,
+            #4a1117
+        );
+
+    border-color: rgba(255, 104, 104, 0.35);
+}
+
+
+/* Grön Stad — light green */
+.demo-card--gron {
+    background:
+        linear-gradient(
+            145deg,
+            #dff4df,
+            #a9d5ae
+        );
+
+    border-color: rgba(45, 105, 58, 0.30);
+}
+
+
+/* Trend Frisören — warm beige */
+.demo-card--trend {
+    background:
+        linear-gradient(
+            145deg,
+            #eadfd5,
+            #cdb7a5
+        );
+
+    border-color: rgba(106, 75, 59, 0.30);
+}
+
+
+/* Business Map — green turquoise */
+.demo-card--gis {
+    background:
+        linear-gradient(
+            145deg,
+            #08796e,
+            #06423d
+        );
+
+    border-color: rgba(32, 199, 183, 0.40);
+}
+/* Dark text for light-coloured cards */
+
+.demo-card--gron .demo-content h3,
+.demo-card--trend .demo-content h3 {
+    color: #10251c;
+}
+
+.demo-card--gron .demo-content > p:not(.demo-category) {
+    color: #315a3a;
+}
+
+.demo-card--trend .demo-content > p:not(.demo-category) {
+    color: #59483e;
+}
+
+.demo-card--gron .demo-btn,
+.demo-card--trend .demo-btn {
+    color: #10251c;
+}
+
+.demo-card--gron .demo-number,
+.demo-card--trend .demo-number {
+    color: rgba(16, 37, 28, 0.09);
+}
+/* ==========================================
    DEMO CARDS
 ========================================== */
 
