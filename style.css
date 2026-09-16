@@ -821,3 +821,6 @@ a {
     background: rgba(126, 226, 168, 0.10);
     border: 1px solid rgba(126, 226, 168, 0.25);
 }
+.demo-category.gis {
+    color: #20c7b7;
+}
