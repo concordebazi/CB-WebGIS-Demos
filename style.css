@@ -325,18 +325,24 @@ a {
 }
 
 
-/* Adam Salong — dark burgundy */
-.demo-card--adam {
+/* AI Automation — violet and orange */
+
+.demo-card--ai {
     background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(255, 122, 26, 0.25),
+            transparent 35%
+        ),
         linear-gradient(
             145deg,
-            #542334,
-            #26131c
+            #4c1d75,
+            #25103e 55%,
+            #170b28
         );
 
-    border-color: rgba(214, 91, 123, 0.28);
+    border-color: rgba(168, 85, 247, 0.45);
 }
-
 
 /* Express Bilverkstad — red */
 .demo-card--express {
@@ -911,6 +917,15 @@ a {
     letter-spacing: 1.3px;
     text-transform: uppercase;
 }
+.demo-category.ai {
+    color: #ffb06f;
+
+    background:
+        rgba(255, 122, 26, 0.12);
+
+    border:
+        1px solid rgba(255, 122, 26, 0.38);
+}
 
 /* Website demos */
 .demo-category.web {
@@ -934,8 +949,12 @@ a {
     border-color: #59c3ff;
 }
 
-.demo-card--adam .demo-btn {
-    border-color: #e86e91;
+.demo-card--ai .demo-btn {
+    border-color: #ff7a1a;
+}
+
+.demo-card--ai .demo-btn:hover {
+    color: #ffad66;
 }
 
 .demo-card--express .demo-btn {
