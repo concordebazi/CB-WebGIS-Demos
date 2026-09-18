@@ -1560,3 +1560,108 @@ a {
         max-width: 340px;
     }
 }
+/* ==========================================
+   GIS CONTACT CTA
+========================================== */
+
+.gis-contact-cta {
+    padding: 100px 7%;
+
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(142, 227, 200, 0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #0d2b26,
+            #146b5c
+        );
+
+    text-align: center;
+}
+
+.gis-contact-cta-content {
+    width: min(850px, 100%);
+    margin: 0 auto;
+}
+
+.gis-contact-label {
+    margin-bottom: 14px;
+
+    color: #8ee3c8;
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+}
+
+.gis-contact-cta h2 {
+    max-width: 760px;
+    margin: 0 auto 22px;
+
+    color: #ffffff;
+
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.08;
+}
+
+.gis-contact-text {
+    max-width: 680px;
+    margin: 0 auto 32px;
+
+    color: #c8e6de;
+
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.gis-contact-btn {
+    display: inline-block;
+
+    padding: 16px 28px;
+
+    color: #071a18;
+    background: #ffffff;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 900;
+
+    box-shadow: 0 15px 35px rgba(4, 17, 15, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.gis-contact-btn:hover {
+    background: #8ee3c8;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 20px 40px rgba(4, 17, 15, 0.35);
+}
+
+@media (max-width: 600px) {
+
+    .gis-contact-cta {
+        padding: 75px 6%;
+    }
+
+    .gis-contact-cta h2 {
+        font-size: 34px;
+    }
+
+    .gis-contact-text {
+        font-size: 16px;
+    }
+
+    .gis-contact-btn {
+        width: 100%;
+        max-width: 340px;
+    }
+}
