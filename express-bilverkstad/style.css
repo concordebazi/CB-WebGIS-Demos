@@ -571,3 +571,110 @@ background-repeat: no-repeat;
     color: #ffffff;
     transform: translateX(-4px);
 }
+/* ==========================================
+   CB WEB & GIS SALES CTA
+========================================== */
+
+.demo-sales-cta {
+    padding: 100px 24px;
+
+    background:
+        radial-gradient(
+            circle at 18% 30%,
+            rgba(255, 59, 48, 0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #11141a,
+            #1d212a
+        );
+
+    text-align: center;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.demo-sales-cta-content {
+    width: min(850px, 100%);
+    margin: 0 auto;
+}
+
+.demo-sales-label {
+    margin-bottom: 14px;
+
+    color: #ff3b30;
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+}
+
+.demo-sales-cta h2 {
+    max-width: 760px;
+    margin: 0 auto 22px;
+
+    color: #ffffff;
+
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.08;
+}
+
+.demo-sales-text {
+    max-width: 680px;
+    margin: 0 auto 32px;
+
+    color: #a8adb7;
+
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.demo-sales-btn {
+    display: inline-block;
+    padding: 16px 28px;
+
+    color: #ffffff;
+    background: #ff3b30;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+    font-weight: 900;
+    text-decoration: none;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.demo-sales-btn:hover {
+    background: #d92d24;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 600px) {
+
+    .demo-sales-cta {
+        padding: 75px 20px;
+    }
+
+    .demo-sales-cta h2 {
+        font-size: 34px;
+    }
+
+    .demo-sales-text {
+        font-size: 16px;
+    }
+
+    .demo-sales-btn {
+        width: 100%;
+        max-width: 340px;
+    }
+}
