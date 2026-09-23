@@ -314,23 +314,7 @@
     });
 
 
-    /* ==========================================
-       INTERACTIVE DEMO GUIDE
-    ========================================== */
-
-    // PASTE ALL THE GUIDE JAVASCRIPT HERE
-
-
-    // ---- Init ----
-    document.addEventListener("DOMContentLoaded", () => {
-        generateOrders();
-        buildGroups();
-        initMap();
-        applyLayerState();
-        renderStats();
-        renderGroupsList();
-    });
-})();
+   
 /* ==========================================
    INTERACTIVE DEMO GUIDE
 ========================================== */
@@ -598,4 +582,4 @@ document.addEventListener("keydown", function (event) {
         renderStats();
         renderGroupsList();
     });
-})();
+
