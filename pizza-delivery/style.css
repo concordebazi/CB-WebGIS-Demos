@@ -364,7 +364,149 @@ a { color: inherit; text-decoration: none; }
     white-space: nowrap;
 }
 .pizzeria-label::before { display: none; }
+/* ==========================================
+   DELIVERY DRIVERS
+========================================== */
 
+.panel-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.panel-heading-row h2 {
+    margin-bottom: 0;
+}
+
+.driver-count {
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.driver-intro {
+    margin-bottom: 14px;
+    color: var(--text-soft);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.drivers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.driver-card {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--panel-2);
+
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.driver-card:hover {
+    transform: translateY(-1px);
+    border-color: rgba(242, 107, 79, 0.35);
+    box-shadow: 0 8px 18px rgba(23, 32, 51, 0.08);
+}
+
+.driver-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.driver-avatar--one {
+    background: #3678e5;
+}
+
+.driver-avatar--two {
+    background: #8b5bd7;
+}
+
+.driver-avatar--three {
+    background: #e38a32;
+}
+
+.driver-information {
+    min-width: 0;
+}
+
+.driver-information strong {
+    display: block;
+    margin-bottom: 3px;
+
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.driver-information span {
+    display: block;
+    overflow: hidden;
+
+    color: var(--text-soft);
+    font-size: 10px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.driver-status {
+    grid-column: 2;
+
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 6px;
+
+    padding: 4px 8px;
+    border-radius: 999px;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.driver-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.driver-status--available {
+    background: rgba(66, 185, 120, 0.13);
+    color: #278857;
+}
+
+.driver-status--available::before {
+    background: #42b978;
+}
 /* ==========================================
    MOBILE
 ========================================== */
@@ -386,6 +528,22 @@ a { color: inherit; text-decoration: none; }
     display: none;
 }
 
+   .driver-card {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+}
+
+.driver-status {
+    grid-column: auto;
+    justify-self: end;
+}
+
+.driver-information strong {
+    font-size: 13px;
+}
+
+.driver-information span {
+    font-size: 11px;
+}
     .sidebar {
         width: 100%;
         max-height: 0;
