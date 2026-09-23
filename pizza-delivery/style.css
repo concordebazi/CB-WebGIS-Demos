@@ -395,3 +395,304 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 480px) {
     .app-header h1 { font-size: 16px; }
 }
+/* ==========================================
+   BRANDED HEADER
+========================================== */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.brand-logo {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: #ffffff;
+    background:
+        linear-gradient(135deg, var(--accent), #f59b52);
+    box-shadow: 0 9px 22px rgba(242, 107, 79, 0.25);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-owner {
+    margin-bottom: 2px;
+    color: var(--accent);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.app-header h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.app-header p {
+    margin-top: 2px;
+    color: #aeb8cf;
+    font-size: 11px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.demo-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #c5cede;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.demo-status i,
+.restaurant-status i {
+    width: 7px;
+    height: 7px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #55cf8a;
+    box-shadow: 0 0 0 5px rgba(85, 207, 138, 0.12);
+}
+
+.header-link {
+    padding: 9px 12px;
+    color: #c5cede;
+    font-size: 11px;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.header-link:hover {
+    color: #ffffff;
+}
+
+.contact-button {
+    padding: 10px 16px;
+    border-radius: 9px;
+    color: #ffffff;
+    background: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    box-shadow: 0 7px 18px rgba(242, 107, 79, 0.22);
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.contact-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   PIZZERIA PHOTO CARD
+========================================== */
+
+.pizzeria-hero {
+    position: relative;
+    min-height: 230px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 1px solid var(--sidebar-border);
+    border-radius: 18px;
+    background: #111a30;
+    box-shadow: 0 14px 30px rgba(5, 12, 30, 0.20);
+}
+
+.pizzeria-hero > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pizzeria-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(9, 16, 32, 0.10) 0%,
+            rgba(9, 16, 32, 0.36) 38%,
+            rgba(9, 16, 32, 0.96) 100%
+        );
+}
+
+.pizzeria-content {
+    position: relative;
+    z-index: 2;
+    min-height: 230px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff;
+}
+
+.restaurant-status {
+    align-self: flex-start;
+    padding: 7px 11px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+    background: rgba(10, 18, 35, 0.72);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.restaurant-type {
+    margin-bottom: 6px;
+    color: #ff9b82;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.pizzeria-content h2 {
+    margin: 0 0 7px;
+    color: #ffffff;
+    font-size: 21px;
+    letter-spacing: -0.03em;
+}
+
+.restaurant-description {
+    max-width: 275px;
+    color: #c3cada;
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+
+/* ==========================================
+   CONTACT CARD
+========================================== */
+
+.contact-card {
+    padding: 17px;
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 12px;
+    border: 1px solid rgba(242, 107, 79, 0.24);
+    border-radius: 15px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(242, 107, 79, 0.14),
+            rgba(255,255,255,0.04)
+        );
+}
+
+.contact-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    color: #ffffff;
+    background: var(--accent);
+    font-size: 16px;
+}
+
+.contact-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #ff9b82;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.contact-card strong {
+    display: block;
+    margin-bottom: 9px;
+    color: #ffffff;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.contact-card a {
+    color: #ff9b82;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.contact-card a:hover {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   HEADER MOBILE
+========================================== */
+
+@media (max-width: 860px) {
+
+    .demo-status,
+    .header-link {
+        display: none;
+    }
+
+    .contact-button {
+        padding: 9px 12px;
+    }
+
+    .brand-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .app-header p {
+        display: none;
+    }
+}
+
+@media (max-width: 560px) {
+
+    .app-header {
+        padding: 12px 14px;
+    }
+
+    .brand-owner {
+        display: none;
+    }
+
+    .app-header h1 {
+        max-width: 155px;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .contact-button {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 7px;
+    }
+}
