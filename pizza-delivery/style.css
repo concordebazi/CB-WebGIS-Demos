@@ -511,12 +511,13 @@ a { color: inherit; text-decoration: none; }
 
 .map-driver-panel {
     position: absolute;
-    top: 18px;
-    left: 70px;
+    top: auto;
+    bottom: 28px;
+    left: 22px;
     z-index: 900;
 
     width: 310px;
-    max-height: calc(100% - 36px);
+    max-height: calc(100% - 56px);
     margin: 0;
     overflow-y: auto;
 
