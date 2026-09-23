@@ -406,19 +406,24 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand-logo {
-    width: 46px;
-    height: 46px;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;
     display: grid;
     place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14);
     border-radius: 14px;
-    color: #ffffff;
-    background:
-        linear-gradient(135deg, var(--accent), #f59b52);
-    box-shadow: 0 9px 22px rgba(242, 107, 79, 0.25);
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.03em;
+    background: #ffffff;
+    box-shadow: 0 9px 22px rgba(242, 107, 79, 0.22);
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    padding: 4px;
 }
 
 .brand-text {
