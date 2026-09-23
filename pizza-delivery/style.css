@@ -376,7 +376,12 @@ a { color: inherit; text-decoration: none; }
     .app-header p { display: none; }
     .menu-toggle { display: block; }
 
-    .app-body { flex-direction: column; }
+   .app-body {
+    flex: none;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+}
    .creator-ticker {
     display: none;
 }
@@ -392,7 +397,20 @@ a { color: inherit; text-decoration: none; }
     }
     .sidebar.open { max-height: 2400px; padding: 18px; }
 
-    .map-pane { height: 60vh; }
+   .map-pane {
+    flex: none;
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    min-height: 480px;
+}
+
+#map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
 }
 @media (max-width: 860px) {
 
