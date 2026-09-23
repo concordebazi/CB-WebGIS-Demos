@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart leveransanalys för pizzerior</title>
+<style>
+:root{
+  --ink:#EDE2CE; --ink-dim:#B9AC93;
+  --bg:#181310; --panel:#221B15; --panel2:#2A2118; --line:#3A2E22;
+  --tomato:#C1440E; --tomato-l:#E2632B;
+  --basil:#5C8A4A; --gold:#D79B3E; --rust:#8B4A3B;
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;background:var(--bg);}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink);
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;margin:0 0 4px;}
+.notice{
+  background:var(--tomato); color:#FFF3EA; font-size:13px; text-align:center;
+  padding:7px 14px; letter-spacing:.2px;
+}
+header{padding:18px 20px 12px;border-bottom:1px solid var(--line);}
+header h1{font-size:22px;color:var(--ink);}
+header p{margin:0;color:var(--ink-dim);font-size:13.5px;}
+.layout{display:flex;min-height:calc(100vh - 90px);}
+.sidebar{
+  width:330px; flex-shrink:0; background:var(--panel); border-right:1px solid var(--line);
+  padding:16px; overflow-y:auto; max-height:calc(100vh - 90px);
+}
+.main{flex:1; position:relative; background:#100D0A; min-height:520px;}
+#mapwrap{position:absolute; inset:0;}
+svg{width:100%; height:100%; display:block;}
+canvas#heat{position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .35s;}
+canvas#heat.on{opacity:.85;}
+
+.card{background:var(--panel2); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; margin-bottom:12px;}
+.card h3{font-size:14px; color:var(--ink);}
+.row{display:flex; justify-content:space-between; align-items:center; margin:6px 0; font-size:13.5px;}
+.row .lbl{color:var(--ink-dim);}
+.row .val{font-weight:600;}
+.stat-big{font-size:26px; font-family:Georgia,serif; font-weight:600; line-height:1;}
+.zonebar{height:7px; border-radius:4px; background:var(--line); overflow:hidden; display:flex; margin-top:6px;}
+.zonebar span{height:100%;}
+.legend{display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--ink-dim); margin-top:6px;}
+.legend i{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+
+button{
+  font-family:inherit; font-size:13.5px; cursor:pointer; border-radius:8px; border:1px solid var(--line);
+  background:var(--panel); color:var(--ink); padding:9px 12px; width:100%; margin-top:6px;
+}
+button:hover{border-color:var(--tomato-l);}
+button.primary{background:var(--tomato); border-color:var(--tomato); color:#FFF3EA; font-weight:600;}
+button.primary:hover{background:var(--tomato-l);}
+label.toggle{display:flex; align-items:center; gap:8px; font-size:13.5px; cursor:pointer; margin:6px 0;}
+label.toggle input{accent-color:var(--tomato);}
+
+#groups .grp{font-size:13px; padding:6px 0; border-top:1px solid var(--line);}
+#groups .grp:first-child{border-top:none;}
+
+#ai-status{font-size:13px; color:var(--ink-dim); min-height:18px;}
+#ai-result li{margin-bottom:8px; font-size:13.5px; line-height:1.4;}
+#ai-result{padding-left:18px; margin:8px 0 0;}
+#ai-result strong{color:var(--tomato-l);}
+
+.popup{
+  position:absolute; background:var(--panel2); border:1px solid var(--tomato); border-radius:8px;
+  padding:9px 11px; font-size:13px; max-width:190px; pointer-events:none; transform:translate(-50%,-115%);
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
+}
+.popup b{color:var(--tomato-l);}
+
+@media (max-width:760px){
+  .layout{flex-direction:column;}
+  .sidebar{width:100%; max-height:none; border-right:none; border-bottom:1px solid var(--line); order:2;}
+  .main{order:1; height:52vh;}
+  header h1{font-size:19px;}
+}
+</style>
+</head>
+<body>
+<div class="notice">Alla kunder, adresser och beställningar på denna sida är simulerade exempeldata — inte verkliga order.</div>
+<header>
+  <h1>🍕 Smart leveransanalys för pizzerior</h1>
+  <p>Se efterfrågan, optimera leveransområden och fatta bättre beslut med AI och GIS — exempel: Pizzeria Vesuvio, Linköping</p>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+
+    <div class="card">
+      <h3>Karta</h3>
+      <label class="toggle"><input type="checkbox" id="toggleHeat"> Visa efterfrågevärme (heatmap)</label>
+      <label class="toggle"><input type="checkbox" id="toggleGroups" checked> Visa föreslagna grupperingar</label>
+      <button id="regen">↺ Simulera nya beställningar</button>
+    </div>
+
+    <div class="card">
+      <h3>Dagens statistik</h3>
+      <div class="stat-big" id="statTotal">0</div>
+      <div class="row"><span class="lbl">aktiva beställningar</span></div>
+      <div class="row"><span class="lbl">Snitt. leveranstid</span><span class="val" id="statAvg">–</span></div>
+      <div class="row"><span class="lbl">Föreslagna grupper</span><span class="val" id="statGroups">–</span></div>
+      <div class="row"><span class="lbl">Tidsbesparing (grupp.)</span><span class="val" id="statSaved">–</span></div>
+      <div class="zonebar" id="zonebar"></div>
+      <div class="legend">
+        <span><i style="background:var(--basil)"></i>Snabb (≤1,5 km)</span>
+        <span><i style="background:var(--gold)"></i>Standard (≤3 km)</span>
+        <span><i style="background:var(--rust)"></i>Utökad (≤5 km)</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Föreslagna leveransgrupper</h3>
+      <div id="groups" style="color:var(--ink-dim); font-size:13px;">Beräknar…</div>
+    </div>
+
+    <div class="card">
+      <h3>AI-analys</h3>
+      <p style="font-size:12.5px;color:var(--ink-dim);margin:0 0 4px;">Analyserar dagens simulerade orderdata och föreslår åtgärder.</p>
+      <button class="primary" id="aiBtn">Analysera med AI</button>
+      <div id="ai-status"></div>
+      <ol id="ai-result"></ol>
+    </div>
+
+  </aside>
+
+  <main class="main">
+    <div id="mapwrap">
+      <svg id="map" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet"></svg>
+      <canvas id="heat" width="800" height="800"></canvas>
+    </div>
+  </main>
+</div>
+
+<script>
+const CFG = {
+  fast:     {rKm:1.5, color:'#5C8A4A', base:12, perKm:2},
+  standard: {rKm:3,   color:'#D79B3E', base:18, perKm:3},
+  extended: {rKm:5,   color:'#8B4A3B', base:25, perKm:4}
+};
+const MAXKM = 5, PXPERKM = 70, CX = 400, CY = 400;
+const STREETS = ["Storgatan","Drottninggatan","Hamngatan","Ågatan","Klostergatan",
+  "Tanneforsvägen","Malmslättsvägen","Vasavägen","Djurgårdsgatan","Bergsvägen",
+  "Nygatan","Repslagaregatan","Kungsgatan","Snickaregatan","Trädgårdsgatan",
+  "Industrigatan","Linköpingsvägen","Ekholmsvägen","Skäggetorpsringen","Tornbyvägen"];
+
+let orders = [], groups = [];
+
+function kmToPx(km){ return km*PXPERKM; }
+function rand(a,b){ return a + Math.random()*(b-a); }
+function zoneOf(km){ return km<=CFG.fast.rKm?'fast':(km<=CFG.standard.rKm?'standard':'extended'); }
+
+function genOrders(n){
+  const list=[];
+  for(let i=0;i<n;i++){
+    const angle = Math.random()*Math.PI*2;
+    const km = MAXKM*Math.pow(Math.random(),0.6);
+    const zone = zoneOf(km);
+    const c = CFG[zone];
+    const est = Math.round(c.base + km*c.perKm + rand(-2,3));
+    const x = CX + Math.cos(angle)*kmToPx(km);
+    const y = CY + Math.sin(angle)*kmToPx(km);
+    list.push({
+      id:i, angle, km, zone, est, x, y,
+      street: STREETS[Math.floor(Math.random()*STREETS.length)] + " " + (1+Math.floor(Math.random()*60))
+    });
+  }
+  return list;
+}
+
+function computeGroups(list){
+  const THRESH = 46; // px ~ 330m
+  const used = new Array(list.length).fill(false);
+  const gs = [];
+  for(let i=0;i<list.length;i++){
+    if(used[i]) continue;
+    const cluster=[i];
+    for(let j=i+1;j<list.length;j++){
+      if(used[j]) continue;
+      const dx=list[i].x-list[j].x, dy=list[i].y-list[j].y;
+      if(Math.sqrt(dx*dx+dy*dy) < THRESH){ cluster.push(j); }
+    }
+    if(cluster.length>=2){
+      cluster.forEach(k=>used[k]=true);
+      gs.push(cluster.map(k=>list[k]));
+    }
+  }
+  return gs;
+}
+
+const svgns = "http://www.w3.org/2000/svg";
+function el(tag, attrs){
+  const e = document.createElementNS(svgns, tag);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+function drawStreets(svg){
+  const g = el('g',{opacity:0.35});
+  g.appendChild(el('path',{d:"M 60 700 C 220 620, 260 480, 200 340 C 150 220, 260 140, 380 60",
+    stroke:'#3A6E8C', 'stroke-width':14, fill:'none', 'stroke-linecap':'round'}));
+  [ "M 0 400 H 800", "M 400 0 V 800", "M 0 200 H 800", "M 0 600 H 800",
+    "M 200 0 V 800", "M 600 0 V 800" ].forEach(d=>{
+    g.appendChild(el('path',{d, stroke:'#4A3A2C','stroke-width':2, fill:'none'}));
+  });
+  svg.appendChild(g);
+}
+
+function drawZones(svg){
+  const g = el('g',{});
+  ['extended','standard','fast'].forEach(z=>{
+    g.appendChild(el('circle',{cx:CX,cy:CY,r:kmToPx(CFG[z].rKm),
+      fill:CFG[z].color, 'fill-opacity':0.10, stroke:CFG[z].color, 'stroke-width':1.5, 'stroke-dasharray':'5 5'}));
+  });
+  svg.appendChild(g);
+}
+
+function drawPizzeria(svg){
+  const g = el('g',{});
+  g.appendChild(el('circle',{cx:CX,cy:CY,r:12,fill:'var(--tomato)',stroke:'#FFF3EA','stroke-width':2}));
+  g.appendChild(el('text',{x:CX,y:CY-18,'text-anchor':'middle',fill:'#EDE2CE',
+    'font-size':13,'font-family':'Georgia,serif','font-weight':'600'})).textContent='Pizzeria Vesuvio';
+  svg.appendChild(g);
+}
+
+let popupEl=null;
+function showPopup(o, evt){
+  removePopup();
+  popupEl = document.createElement('div');
+  popupEl.className='popup';
+  popupEl.innerHTML = `<b>${o.street}</b><br>Zon: ${zoneLabel(o.zone)}<br>Beräknad leverans: ${o.est} min`;
+  const wrap = document.getElementById('mapwrap');
+  wrap.appendChild(popupEl);
+  positionPopup(o);
+}
+function positionPopup(o){
+  if(!popupEl) return;
+  const svg = document.getElementById('map');
+  const rect = svg.getBoundingClientRect();
+  const wrapRect = document.getElementById('mapwrap').getBoundingClientRect();
+  const scale = rect.width/800;
+  const px = rect.left - wrapRect.left + o.x*scale;
+  const py = rect.top - wrapRect.top + o.y*scale;
+  popupEl.style.left = px+'px';
+  popupEl.style.top = py+'px';
+}
+function removePopup(){ if(popupEl){ popupEl.remove(); popupEl=null; } }
+function zoneLabel(z){ return z==='fast'?'Snabb':(z==='standard'?'Standard':'Utökad'); }
+
+function drawOrders(svg){
+  orders.forEach(o=>{
+    const c = el('circle',{cx:o.x,cy:o.y,r:6,fill:CFG[o.zone].color,stroke:'#181310','stroke-width':1.5,style:'cursor:pointer'});
+    c.addEventListener('click', ()=>showPopup(o));
+    svg.appendChild(c);
+  });
+}
+
+function drawGroups(svg){
+  if(!document.getElementById('toggleGroups').checked) return;
+  groups.forEach(cluster=>{
+    const cx = cluster.reduce((s,o)=>s+o.x,0)/cluster.length;
+    const cy = cluster.reduce((s,o)=>s+o.y,0)/cluster.length;
+    cluster.forEach(o=>{
+      svg.appendChild(el('line',{x1:cx,y1:cy,x2:o.x,y2:o.y,stroke:'#FFF3EA','stroke-width':1,'stroke-opacity':0.5}));
+    });
+    svg.appendChild(el('circle',{cx,cy,r:10,fill:'none',stroke:'#FFF3EA','stroke-width':1.5,'stroke-dasharray':'2 3'}));
+  });
+}
+
+function renderMap(){
+  const svg = document.getElementById('map');
+  svg.innerHTML='';
+  drawStreets(svg);
+  drawZones(svg);
+  drawGroups(svg);
+  drawOrders(svg);
+  drawPizzeria(svg);
+  removePopup();
+}
+
+function renderHeat(){
+  const cv = document.getElementById('heat');
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0,0,800,800);
+  ctx.globalCompositeOperation='lighter';
+  orders.forEach(o=>{
+    const grad = ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,55);
+    grad.addColorStop(0,'rgba(226,99,43,0.28)');
+    grad.addColorStop(1,'rgba(226,99,43,0)');
+    ctx.fillStyle=grad;
+    ctx.beginPath(); ctx.arc(o.x,o.y,55,0,Math.PI*2); ctx.fill();
+  });
+  ctx.globalCompositeOperation='source-over';
+}
+
+function updateDashboard(){
+  document.getElementById('statTotal').textContent = orders.length;
+  const avg = Math.round(orders.reduce((s,o)=>s+o.est,0)/orders.length);
+  document.getElementById('statAvg').textContent = avg+' min';
+  document.getElementById('statGroups').textContent = groups.length;
+  const saved = groups.reduce((s,g)=>s+(g.length-1)*4,0);
+  document.getElementById('statSaved').textContent = '~'+saved+' min';
+
+  const counts = {fast:0,standard:0,extended:0};
+  orders.forEach(o=>counts[o.zone]++);
+  const bar = document.getElementById('zonebar');
+  bar.innerHTML='';
+  ['fast','standard','extended'].forEach(z=>{
+    const pct = 100*counts[z]/orders.length;
+    const s = document.createElement('span');
+    s.style.width = pct+'%'; s.style.background = CFG[z].color;
+    bar.appendChild(s);
+  });
+
+  const gWrap = document.getElementById('groups');
+  if(groups.length===0){
+    gWrap.innerHTML = 'Inga grupperbara ordrar just nu — beställningarna ligger för utspridda.';
+  } else {
+    gWrap.innerHTML = groups.map((g,i)=>
+      `<div class="grp"><b>Grupp ${i+1}</b> · ${g.length} ordrar · ${g[0].zone==='fast'?'Snabbzon':(g[0].zone==='standard'?'Standardzon':'Utökad zon')} · sparar ~${(g.length-1)*4} min</div>`
+    ).join('');
+  }
+}
+
+function runAI(){
+  const btn = document.getElementById('aiBtn');
+  const status = document.getElementById('ai-status');
+  const result = document.getElementById('ai-result');
+  result.innerHTML=''; btn.disabled=true;
+  const steps = ["Analyserar orderdata…","Identifierar mönster i zonerna…","Beräknar rekommendationer…"];
+  let i=0;
+  const iv = setInterval(()=>{
+    status.textContent = steps[i];
+    i++;
+    if(i>=steps.length){
+      clearInterval(iv);
+      status.textContent='Klar.';
+      showRecommendations();
+      btn.disabled=false;
+    }
+  },550);
+}
+
+function showRecommendations(){
+  const counts = {fast:0,standard:0,extended:0};
+  orders.forEach(o=>counts[o.zone]++);
+  const busiest = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+  const extShare = Math.round(100*counts.extended/orders.length);
+  const avg = Math.round(orders.reduce((s,o)=>s+o.est,0)/orders.length);
+  const saved = groups.reduce((s,g)=>s+(g.length-1)*4,0);
+  const groupedOrders = groups.reduce((s,g)=>s+g.length,0);
+
+  const recs = [];
+  recs.push(`<strong>${zoneLabel(busiest)} zon</strong> har flest beställningar (${counts[busiest]} st) — överväg att schemalägga en extra förare där under högtrafik.`);
+  if(groups.length>0){
+    recs.push(`<strong>${groups.length} grupperingsförslag</strong> täcker ${groupedOrders} ordrar och kan spara ungefär <strong>${saved} minuter</strong> körtid om de körs samlat.`);
+  } else {
+    recs.push(`Inga tydliga klustringar hittades idag — beställningarna är utspridda, så grupptransport ger liten vinst just nu.`);
+  }
+  if(extShare>20){
+    recs.push(`<strong>${extShare}%</strong> av ordrarna ligger i den utökade zonen (>3 km). Ett minimibeloppp eller en samarbetspartner för längre körningar kan hålla leveranstiden nere.`);
+  } else {
+    recs.push(`Endast ${extShare}% av ordrarna ligger i den utökade zonen — nuvarande zonindelning ser välbalanserad ut.`);
+  }
+  recs.push(`Snittleveranstiden idag är <strong>${avg} minuter</strong>. Håll koll på beställningar över ${avg+10} min — de är kandidater för prioriterad utkörning.`);
+
+  const result = document.getElementById('ai-result');
+  result.innerHTML = recs.map(r=>`<li>${r}</li>`).join('');
+}
+
+function rerenderAll(){
+  groups = computeGroups(orders);
+  renderMap();
+  renderHeat();
+  updateDashboard();
+}
+
+function init(){
+  orders = genOrders(32);
+  rerenderAll();
+
+  document.getElementById('regen').addEventListener('click', ()=>{
+    orders = genOrders(28 + Math.floor(Math.random()*14));
+    rerenderAll();
+    document.getElementById('ai-status').textContent='';
+    document.getElementById('ai-result').innerHTML='';
+  });
+  document.getElementById('toggleHeat').addEventListener('change', e=>{
+    document.getElementById('heat').classList.toggle('on', e.target.checked);
+  });
+  document.getElementById('toggleGroups').addEventListener('change', renderMap);
+  document.getElementById('aiBtn').addEventListener('click', runAI);
+  document.getElementById('mapwrap').addEventListener('click', e=>{
+    if(e.target.tagName!=='circle') removePopup();
+  });
+}
+init();
+</script>
+</body>
+</html>
