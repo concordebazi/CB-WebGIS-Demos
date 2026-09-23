@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI- och GIS-demo för smart leveransanalys för pizzerior, skapad av CB Web & GIS.">
+  <title>Smart leveransanalys | CB Web & GIS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="demo-banner">AI + GIS-DEMO · SKAPAD AV CB WEB & GIS</div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Smart leveransanalys startsida">
+      <span class="brand-mark" aria-hidden="true">CB</span>
+      <span><strong>Smart leveransanalys</strong><small>för lokala pizzerior</small></span>
+    </a>
+    <nav aria-label="Huvudnavigering">
+      <a href="#dashboard">Analys</a>
+      <a href="#how-it-works">Så fungerar det</a>
+      <a class="nav-cta" href="https://cbwebgis.se/">CB Web & GIS</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">LOKAL DATA · TYDLIGA BESLUT</span>
+        <h1>Leverera smartare med <em>AI och GIS</em></h1>
+        <p>Upptäck var beställningarna kommer ifrån, se leveranstider direkt på kartan och få konkreta förslag för bättre rutter och nöjdare kunder.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#dashboard">Utforska analysen <span>→</span></a>
+          <a class="button button-ghost" href="#how-it-works">Hur fungerar det?</a>
+        </div>
+        <p class="sample-note"><span></span> Interaktiv demo med simulerad data från Linköping</p>
+      </div>
+      <div class="hero-visual" aria-label="Förhandsvisning av leveransanalys">
+        <div class="visual-glow"></div>
+        <div class="mini-map">
+          <span class="road road-one"></span><span class="road road-two"></span><span class="road road-three"></span>
+          <span class="zone zone-one"></span><span class="zone zone-two"></span>
+          <span class="map-dot dot-one"></span><span class="map-dot dot-two"></span><span class="map-dot dot-three"></span><span class="map-dot dot-four"></span>
+          <div class="pizza-pin">🍕</div>
+        </div>
+        <div class="floating-card delivery-card"><span>Genomsnittlig leverans</span><strong>28 min</strong><small>↓ 12 % denna vecka</small></div>
+        <div class="floating-card demand-card"><span>Hög efterfrågan</span><strong>18:00–20:00</strong><small>Ryd · Lambohov</small></div>
+      </div>
+    </section>
+
+    <section class="dashboard-section" id="dashboard">
+      <div class="section-heading">
+        <div><span class="eyebrow">LIVE DEMO</span><h2>Leveransöversikt</h2></div>
+        <p>Välj period och kartvy. Klicka sedan var som helst på kartan för att kontrollera beräknad leveranstid.</p>
+      </div>
+
+      <div class="filters" aria-label="Analysfilter">
+        <div class="filter-group">
+          <span class="filter-label">Period</span>
+          <div class="segmented" id="period-filter">
+            <button class="active" data-period="all">Hela dagen</button>
+            <button data-period="lunch">Lunch</button>
+            <button data-period="evening">Kväll</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Kartvy</span>
+          <div class="segmented" id="view-filter">
+            <button class="active" data-view="orders">Beställningar</button>
+            <button data-view="heat">Efterfrågan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi"><span class="kpi-icon coral">↗</span><div><small>Beställningar</small><strong id="orders-kpi">42</strong><span>simulerade idag</span></div></article>
+        <article class="kpi"><span class="kpi-icon violet">◷</span><div><small>Leveranstid</small><strong id="time-kpi">28 min</strong><span>genomsnitt</span></div></article>
+        <article class="kpi"><span class="kpi-icon yellow">◎</span><div><small>Populäraste område</small><strong id="area-kpi">Ryd</strong><span>flest beställningar</span></div></article>
+        <article class="kpi"><span class="kpi-icon green">✓</span><div><small>I tid</small><strong id="ontime-kpi">88 %</strong><span>inom prognosen</span></div></article>
+      </div>
+
+      <div class="workspace-grid">
+        <div class="map-card">
+          <div class="map-toolbar">
+            <div><strong>Efterfrågekarta · Linköping</strong><small>Klicka på kartan för leveransprognos</small></div>
+            <button id="fit-map" class="icon-button" aria-label="Visa alla beställningar" title="Visa alla">⌖</button>
+          </div>
+          <div id="map" role="application" aria-label="Interaktiv karta över simulerade pizzabeställningar"></div>
+          <div class="map-legend">
+            <span><i class="legend-dot fast"></i> Snabbzon 0–3 km</span>
+            <span><i class="legend-dot standard"></i> Standard 3–6 km</span>
+            <span><i class="legend-dot extended"></i> Utökad 6–9 km</span>
+          </div>
+        </div>
+
+        <aside class="analysis-card">
+          <div class="analysis-title"><span class="spark-icon">✦</span><div><small>SIMULERAD AI-ANALYS</small><h3>Insikter för idag</h3></div></div>
+          <div id="analysis-content" class="insights" aria-live="polite">
+            <article><span class="insight-number">01</span><div><strong>Förbered extra kapacitet</strong><p>Efterfrågan väntas vara högst mellan 18:00 och 20:00, särskilt från Ryd och Lambohov.</p></div></article>
+            <article><span class="insight-number">02</span><div><strong>Gruppera leveranser västerut</strong><p>Flera beställningar ligger nära varandra. Två samordnade körningar kan minska restiden.</p></div></article>
+            <article><span class="insight-number">03</span><div><strong>Marknadsför snabbzonen</strong><p>Kunder inom tre kilometer har kortast leveranstid. Erbjud fri leverans här under lugna timmar.</p></div></article>
+          </div>
+          <button class="button button-ai" id="run-analysis"><span>✦</span> Analysera aktuell vy</button>
+          <p class="privacy-note">Inga verkliga kunduppgifter används i denna demo.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="section-heading centered"><div><span class="eyebrow">FRÅN DATA TILL BESLUT</span><h2>Så fungerar lösningen</h2></div><p>En tydlig process som omvandlar verksamhetsdata till praktiska beslut.</p></div>
+      <div class="steps">
+        <article><span>01</span><div class="step-icon">▦</div><h3>Samla data</h3><p>Beställningar anonymiseras och kopplas till ungefärliga geografiska områden.</p></article>
+        <article><span>02</span><div class="step-icon">⌖</div><h3>Analysera plats</h3><p>GIS visar avstånd, leveranszoner, efterfrågan och geografiska mönster.</p></article>
+        <article><span>03</span><div class="step-icon">✦</div><h3>Få AI-insikter</h3><p>AI sammanfattar mönstren och föreslår konkreta förbättringar.</p></article>
+        <article><span>04</span><div class="step-icon">↗</div><h3>Agera och följ upp</h3><p>Verksamheten provar åtgärder och jämför leveranstid och resultat över tid.</p></article>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div><span class="eyebrow">FÖR DITT FÖRETAG</span><h2>Vill du förstå dina kunder bättre?</h2><p>CB Web & GIS skapar moderna webblösningar med kartor, dataanalys och smart automation för svenska småföretag.</p></div>
+      <a class="button button-light" href="https://cbwebgis.se/">Kontakta CB Web & GIS <span>→</span></a>
+    </section>
+  </main>
+
+  <footer><span>© 2026 CB Web & GIS</span><span>Demo med simulerad data · Linköping, Sverige</span></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
