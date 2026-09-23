@@ -366,7 +366,16 @@ function renderDriverRoutes() {
 
     driverRoutesLayer = L.layerGroup().addTo(map);
 
-    deliveryDrivers.forEach((driver) => {
+   
+       deliveryDrivers.forEach((driver) => {
+    if (
+        selectedDriverId !== null &&
+        driver.id !== selectedDriverId
+    ) {
+        return;
+    }
+
+    const stops = optimiseDriverStops(driver);
         const stops = optimiseDriverStops(driver);
 
         if (!stops.length) {
