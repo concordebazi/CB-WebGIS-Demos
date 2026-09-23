@@ -115,29 +115,7 @@ let zoneLayers = [];
   
 // ---- Delivery drivers ----
 
-const deliveryDrivers = [
-    {
-        id: 1,
-        name: "Anna Karlsson",
-        vehicle: "Cykelbud",
-        preferredZone: "fast",
-        groups: []
-    },
-    {
-        id: 2,
-        name: "Mohamed Said",
-        vehicle: "Bil",
-        preferredZone: "standard",
-        groups: []
-    },
-    {
-        id: 3,
-        name: "Erik Lind",
-        vehicle: "Bil",
-        preferredZone: "extended",
-        groups: []
-    }
-];
+
 const deliveryDrivers = [
     {
         id: 1,
