@@ -65,7 +65,7 @@
 <div class="app-body">
 
     <aside class="sidebar" id="sidebar">
-<section class="pizzeria-hero">
+<section class="pizzeria-hero" id="tour-pizzeria">
 
    <img src="pizza-hero.png"
          alt="Nybakad pizza från en lokal pizzeria">
@@ -95,7 +95,7 @@
     </div>
 
 </section>
-        <section class="panel">
+       <section class="panel" id="tour-controls">
             <h2>Karta</h2>
             <label class="check-row">
                 <input type="checkbox" id="toggle-heatmap">
@@ -108,7 +108,7 @@
             <button class="btn-block" id="regenerate-btn">↻ Simulera nya beställningar</button>
         </section>
 
-        <section class="panel">
+       <section class="panel" id="tour-statistics">
             <h2>Dagens statistik</h2>
             <div class="stat-big" id="stat-total">&mdash;</div>
             <div class="stat-big-label">aktiva beställningar</div>
@@ -137,12 +137,12 @@
             </div>
         </section>
 
-        <section class="panel">
+       <section class="panel" id="tour-groups">
             <h2>Föreslagna leveransgrupper</h2>
             <div id="groups-list" class="groups-list"></div>
         </section>
 
-        <section class="panel panel-ai">
+        <section class="panel panel-ai" id="tour-ai">
             <h2>AI-analys</h2>
             <p class="ai-intro">Analyserar dagens simulerade orderdata och föreslår åtgärder.</p>
             <button class="btn-block btn-accent" id="analyze-btn">Analysera med AI</button>
@@ -159,7 +159,7 @@
 
     <div id="map"></div>
 
-    <section class="contact-card map-contact-card">
+    <section class="contact-card map-contact-card" id="tour-contact">
 
         <span class="contact-icon">✦</span>
 
