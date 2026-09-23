@@ -463,6 +463,34 @@ function setupDriverCardInteractions() {
             });
 
             renderDriverRoutes();
+           if (selectedDriverId !== null) {
+    const selectedDriver = deliveryDrivers.find(
+        (driver) => driver.id === selectedDriverId
+    );
+
+    const selectedStops =
+        optimiseDriverStops(selectedDriver);
+
+    if (selectedStops.length > 0) {
+        const routeBounds = L.latLngBounds([
+            [PIZZERIA.lat, PIZZERIA.lng],
+            ...selectedStops.map((stop) => [
+                stop.lat,
+                stop.lng
+            ])
+        ]);
+
+        map.fitBounds(routeBounds, {
+            padding: [60, 60],
+            maxZoom: 14
+        });
+    }
+} else {
+    map.setView(
+        [PIZZERIA.lat, PIZZERIA.lng],
+        13
+    );
+}
         });
     });
 }
