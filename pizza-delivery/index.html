@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart leveransanalys för pizzerior | CB Web & GIS</title>
+<meta name="description" content="GIS-demo: interaktiv karta över leveranszoner, efterfrågan och AI-drivna rekommendationer för en pizzeria i Linköping. Alla data är simulerade.">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">
+            <img src="../cb-webgis-logo-400.webp" alt="CB Web & GIS" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+            <span class="logo-fallback">CB Web &amp; GIS</span>
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Öppna meny" aria-expanded="false">☰</button>
+
+        <div class="nav-links" id="nav-links">
+            <a href="#karta">Karta</a>
+            <a href="#statistik">Statistik</a>
+            <a href="#grupper">Leveransgrupper</a>
+            <a href="#ai">AI-analys</a>
+            <a href="../index.html#contact">Kontakt</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-small">GIS • LEVERANSANALYS • PIZZERIA</p>
+            <h1>Smart leveransanalys<span>för pizzerior.</span></h1>
+            <p class="hero-text">
+                Se efterfrågan, optimera leveransområden och fatta bättre
+                beslut med AI och GIS.
+            </p>
+            <div class="hero-buttons">
+                <a href="#karta" class="btn primary">Utforska kartan</a>
+                <a href="#ai" class="btn secondary">Se AI-analys</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="sim-banner">
+        <span class="sim-dot"></span>
+        Detta är en demo. Pizzerian, kunderna och alla ordrar på denna sida är
+        helt simulerade och genereras slumpmässigt i webbläsaren &mdash; ingen
+        verklig kunddata används eller lagras.
+    </div>
+
+    <section class="map-section" id="karta">
+        <div class="section-heading">
+            <p>INTERAKTIV KARTA</p>
+            <h2>Leveranszoner &amp; efterfrågan</h2>
+            <span>Pizzeria Bella Vista, Linköping &mdash; simulerade ordrar senaste 7 dagarna.</span>
+        </div>
+
+        <div class="map-toolbar">
+            <button class="chip active" data-toggle="orders">Ordrar</button>
+            <button class="chip" data-toggle="heatmap">Efterfrågan (heatmap)</button>
+            <button class="chip active" data-toggle="zones">Leveranszoner</button>
+            <button class="chip" data-toggle="groups">Leveransgrupper</button>
+            <button class="chip refresh" id="regenerate-btn">↻ Nya ordrar</button>
+        </div>
+
+        <div class="map-wrap">
+            <div id="map"></div>
+
+            <div class="map-legend">
+                <h4>Teckenförklaring</h4>
+                <div class="legend-row"><span class="dot zone-fast"></span>Snabb zon (0–2 km)</div>
+                <div class="legend-row"><span class="dot zone-standard"></span>Standard zon (2–4 km)</div>
+                <div class="legend-row"><span class="dot zone-extended"></span>Utökad zon (4–6 km)</div>
+                <div class="legend-row"><span class="dot pin"></span>Pizzeria Bella Vista</div>
+            </div>
+        </div>
+        <p class="map-hint">Klicka på en order på kartan för uppskattad leveranstid från pizzerian.</p>
+    </section>
+
+    <section class="stats-section" id="statistik">
+        <div class="section-heading">
+            <p>DASHBOARD</p>
+            <h2>Statistik i realtid</h2>
+            <span>Beräknas löpande utifrån de simulerade ordrarna på kartan.</span>
+        </div>
+        <div class="stats-grid" id="stats-grid"></div>
+    </section>
+
+    <section class="groups-section" id="grupper">
+        <div class="section-heading">
+            <p>RUTTOPTIMERING</p>
+            <h2>Föreslagna leveransgrupper</h2>
+            <span>Närliggande ordrar grupperas automatiskt för effektivare körrundor.</span>
+        </div>
+        <div class="groups-grid" id="groups-grid"></div>
+    </section>
+
+    <section class="ai-section" id="ai">
+        <div class="ai-box">
+            <div class="ai-box-text">
+                <p class="contact-small">AI-ANALYS</p>
+                <h2>Låt AI analysera dagens leveransdata</h2>
+                <p class="contact-text">
+                    Analysmotorn tittar på zonbelastning, leveranstider och
+                    grupperingar från kartan och tar fram konkreta
+                    affärsrekommendationer &mdash; på svenska, direkt i webbläsaren.
+                </p>
+                <button class="btn primary" id="analyze-btn">✨ Analysera med AI</button>
+            </div>
+
+            <div class="ai-result" id="ai-result">
+                <p class="ai-placeholder">Rekommendationerna visas här efter analys.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 <strong>CB Web &amp; GIS</strong> — Webb • GIS • Digitala lösningar</p>
+    <p class="footer-note">Demo: Smart leveransanalys för pizzerior. All data på denna sida är simulerad och skapad i syfte att visa GIS- och AI-förmåga.</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
