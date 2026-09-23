@@ -582,4 +582,4 @@ document.addEventListener("keydown", function (event) {
         renderStats();
         renderGroupsList();
     });
-
+})();
