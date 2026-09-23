@@ -377,6 +377,9 @@ a { color: inherit; text-decoration: none; }
     .menu-toggle { display: block; }
 
     .app-body { flex-direction: column; }
+   .creator-ticker {
+    display: none;
+}
 
     .sidebar {
         width: 100%;
@@ -394,6 +397,11 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 480px) {
     .app-header h1 { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .creator-ticker-track {
+        animation: none;
+    }
 }
 /* ==========================================
    BRANDED HEADER
@@ -707,5 +715,79 @@ a { color: inherit; text-decoration: none; }
 
     .header-actions {
         gap: 7px;
+    }
+}
+/* Larger header typography */
+
+.brand-owner {
+    margin-bottom: 3px;
+    font-size: 11px;
+    letter-spacing: 0.17em;
+}
+
+.app-header h1 {
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.app-header p {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+/* ==========================================
+   MOVING CB WEB & GIS MESSAGE
+========================================== */
+
+.creator-ticker {
+    position: relative;
+    flex: 1;
+    max-width: 540px;
+    height: 42px;
+    margin: 0 35px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid rgba(255, 255, 255, 0.09);
+    border-right: 1px solid rgba(255, 255, 255, 0.09);
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 12%,
+        black 88%,
+        transparent
+    );
+}
+
+.creator-ticker-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 55px;
+    white-space: nowrap;
+    animation: moveCreatorText 12s linear infinite;
+}
+
+.creator-ticker-track span {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.creator-ticker-track span:first-child {
+    color: #ff8a70;
+}
+
+.creator-ticker:hover .creator-ticker-track {
+    animation-play-state: paused;
+}
+
+@keyframes moveCreatorText {
+    from {
+        transform: translateX(540px);
+    }
+
+    to {
+        transform: translateX(-100%);
     }
 }
