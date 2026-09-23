@@ -880,3 +880,68 @@ a { color: inherit; text-decoration: none; }
     color: #ffffff;
     transform: translateX(3px);
 }
+/* Larger contact card on the map */
+
+.map-contact-card {
+    width: 420px;
+    padding: 24px;
+    grid-template-columns: 55px 1fr;
+    gap: 17px;
+    border-radius: 20px;
+}
+
+.map-contact-card .contact-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    font-size: 23px;
+}
+
+.map-contact-card .contact-label {
+    margin-bottom: 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+}
+
+.map-contact-card strong {
+    margin-bottom: 14px;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.map-contact-card a {
+    font-size: 13px;
+    line-height: 1.4;
+}
+/* Mobile size for the map contact card only */
+
+@media (max-width: 860px) {
+    .map-contact-card {
+        top: 12px;
+        right: 12px;
+        width: min(340px, calc(100% - 70px));
+        padding: 17px;
+        grid-template-columns: 44px 1fr;
+        gap: 12px;
+    }
+
+    .map-contact-card .contact-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+
+    .map-contact-card .contact-label {
+        font-size: 9px;
+    }
+
+    .map-contact-card strong {
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+
+    .map-contact-card a {
+        font-size: 11px;
+    }
+}
