@@ -305,7 +305,7 @@
 
         setTimeout(() => {
             const recs = buildRecommendations();
-            box.innerHTML =
+                        box.innerHTML =
                 '<ul class="ai-recs">' +
                 recs.map((r) => '<li><span class="rec-icon">' + r.icon + '</span><span>' + r.text + '</span></li>').join("") +
                 '</ul>' +
@@ -313,6 +313,282 @@
         }, 1000);
     });
 
+
+    /* ==========================================
+       INTERACTIVE DEMO GUIDE
+    ========================================== */
+
+    // PASTE ALL THE GUIDE JAVASCRIPT HERE
+
+
+    // ---- Init ----
+    document.addEventListener("DOMContentLoaded", () => {
+        generateOrders();
+        buildGroups();
+        initMap();
+        applyLayerState();
+        renderStats();
+        renderGroupsList();
+    });
+})();
+/* ==========================================
+   INTERACTIVE DEMO GUIDE
+========================================== */
+
+const tourStartButton = document.getElementById("tour-start-btn");
+
+let tourStepIndex = 0;
+let tourTimer = null;
+let tourPopover = null;
+let tourActive = false;
+
+const tourSteps = [
+    {
+        target: "#tour-pizzeria",
+        title: "Pizzeria Vesuvio",
+        text: "Detta är en simulerad pizzeria i Linköping. Demonstrationen visar hur AI och GIS kan hjälpa ett lokalt företag att planera sina leveranser."
+    },
+    {
+        target: "#tour-controls",
+        title: "Utforska efterfrågan",
+        text: "Värmekartan visar var dagens beställningar är koncentrerade. Guiden aktiverar värmekartan automatiskt.",
+        action: function () {
+            const heatmapToggle =
+                document.getElementById("toggle-heatmap");
+
+            if (heatmapToggle && !heatmapToggle.checked) {
+                heatmapToggle.checked = true;
+                heatmapToggle.dispatchEvent(
+                    new Event("change", { bubbles: true })
+                );
+            }
+        }
+    },
+    {
+        target: "#tour-statistics",
+        title: "Dagens leveransstatistik",
+        text: "Här visas antal aktiva beställningar, genomsnittlig leveranstid, föreslagna grupper och uppskattad tidsbesparing."
+    },
+    {
+        target: "#tour-groups",
+        title: "Smart ordergruppering",
+        text: "När beställningar ligger nära varandra kan de grupperas i samma leveransrunda. Det minskar körsträckan och sparar tid.",
+        action: function () {
+            const groupsToggle =
+                document.getElementById("toggle-groups");
+
+            if (groupsToggle && !groupsToggle.checked) {
+                groupsToggle.checked = true;
+                groupsToggle.dispatchEvent(
+                    new Event("change", { bubbles: true })
+                );
+            }
+        }
+    },
+    {
+        target: "#tour-ai",
+        title: "AI-baserade rekommendationer",
+        text: "AI-analysen granskar den simulerade orderdatan och föreslår praktiska åtgärder för effektivare leveranser.",
+        action: function () {
+            const analyzeButton =
+                document.getElementById("analyze-btn");
+
+            if (analyzeButton) {
+                analyzeButton.click();
+            }
+        }
+    },
+    {
+        target: "#tour-contact",
+        title: "En lösning för lokala företag",
+        text: "CB Web & GIS kan anpassa en liknande kart- och analyslösning för en riktig pizzeria eller annan lokal verksamhet."
+    }
+];
+
+
+/* Create the floating guide box */
+function createTourPopover() {
+    if (tourPopover) {
+        return;
+    }
+
+    tourPopover = document.createElement("div");
+    tourPopover.className = "tour-popover";
+    tourPopover.setAttribute("role", "dialog");
+    tourPopover.setAttribute("aria-live", "polite");
+    tourPopover.setAttribute("aria-label", "Interaktiv guide");
+
+    tourPopover.innerHTML = `
+        <span class="tour-progress"></span>
+        <h2 class="tour-title"></h2>
+        <p class="tour-text"></p>
+
+        <div class="tour-actions">
+            <button class="tour-close" type="button">
+                Avsluta
+            </button>
+
+            <button class="tour-next" type="button">
+                Nästa →
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(tourPopover);
+
+    tourPopover
+        .querySelector(".tour-close")
+        .addEventListener("click", stopTour);
+
+    tourPopover
+        .querySelector(".tour-next")
+        .addEventListener("click", function () {
+            showTourStep(tourStepIndex + 1);
+        });
+}
+
+
+/* Remove the highlight from the previous section */
+function removeTourHighlight() {
+    document
+        .querySelectorAll(".tour-highlight")
+        .forEach(function (element) {
+            element.classList.remove("tour-highlight");
+        });
+}
+
+
+/* Display one guide step */
+function showTourStep(index) {
+    clearTimeout(tourTimer);
+    removeTourHighlight();
+
+    if (index >= tourSteps.length) {
+        stopTour();
+        return;
+    }
+
+    tourStepIndex = index;
+
+    const step = tourSteps[tourStepIndex];
+    const target = document.querySelector(step.target);
+
+    if (!target) {
+        showTourStep(tourStepIndex + 1);
+        return;
+    }
+
+    /*
+       On mobile, open the sidebar when the current
+       guide element is located inside the sidebar.
+    */
+    const sidebar = document.getElementById("sidebar");
+
+    if (
+        window.innerWidth <= 860 &&
+        sidebar &&
+        target.closest("#sidebar")
+    ) {
+        sidebar.classList.add("open");
+    }
+
+    target.classList.add("tour-highlight");
+
+    target.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest"
+    });
+
+    const progress =
+        tourPopover.querySelector(".tour-progress");
+
+    const title =
+        tourPopover.querySelector(".tour-title");
+
+    const text =
+        tourPopover.querySelector(".tour-text");
+
+    const nextButton =
+        tourPopover.querySelector(".tour-next");
+
+    progress.textContent =
+        `Steg ${tourStepIndex + 1} av ${tourSteps.length}`;
+
+    title.textContent = step.title;
+    text.textContent = step.text;
+
+    nextButton.textContent =
+        tourStepIndex === tourSteps.length - 1
+            ? "Slutför ✓"
+            : "Nästa →";
+
+    if (typeof step.action === "function") {
+        window.setTimeout(step.action, 550);
+    }
+
+    /*
+       Automatically continue after 6.5 seconds.
+       The visitor can also use the Next button.
+    */
+    tourTimer = window.setTimeout(function () {
+        showTourStep(tourStepIndex + 1);
+    }, 6500);
+}
+
+
+/* Start the guide */
+function startTour() {
+    clearTimeout(tourTimer);
+
+    tourActive = true;
+    tourStepIndex = 0;
+
+    createTourPopover();
+
+    tourPopover.hidden = false;
+    document.body.classList.add("tour-running");
+
+    showTourStep(0);
+}
+
+
+/* End the guide and clean up */
+function stopTour() {
+    clearTimeout(tourTimer);
+    removeTourHighlight();
+
+    tourActive = false;
+    document.body.classList.remove("tour-running");
+
+    if (tourPopover) {
+        tourPopover.hidden = true;
+    }
+
+    if (tourStartButton) {
+        tourStartButton.focus();
+    }
+}
+
+
+/* Start button */
+if (tourStartButton) {
+    tourStartButton.addEventListener("click", function () {
+        if (tourActive) {
+            stopTour();
+        } else {
+            startTour();
+        }
+    });
+}
+
+
+/* Allow the visitor to close the guide with Escape */
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && tourActive) {
+        stopTour();
+    }
+});
     // ---- Init ----
     document.addEventListener("DOMContentLoaded", () => {
         generateOrders();
