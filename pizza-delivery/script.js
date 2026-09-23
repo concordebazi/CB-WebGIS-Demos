@@ -436,6 +436,36 @@ function renderDriverRoutes() {
         });
     });
 }  
+   /* Select a driver and display only that driver's route */
+function setupDriverCardInteractions() {
+    const driverCards =
+        document.querySelectorAll(".driver-card");
+
+    driverCards.forEach((card) => {
+        card.addEventListener("click", function () {
+            const driverId =
+                Number(card.dataset.driverId);
+
+            if (selectedDriverId === driverId) {
+                selectedDriverId = null;
+            } else {
+                selectedDriverId = driverId;
+            }
+
+            driverCards.forEach((item) => {
+                const itemDriverId =
+                    Number(item.dataset.driverId);
+
+                item.classList.toggle(
+                    "driver-card--selected",
+                    itemDriverId === selectedDriverId
+                );
+            });
+
+            renderDriverRoutes();
+        });
+    });
+}
     // ---- Map setup ----
     function initMap() {
         map = L.map("map", { scrollWheelZoom: true }).setView([PIZZERIA.lat, PIZZERIA.lng], 13);
@@ -910,6 +940,7 @@ document.addEventListener("keydown", function (event) {
         buildGroups();
         assignGroupsToDrivers();
         initMap();
+       setupDriverCardInteractions();
         applyLayerState();
         renderStats();
         renderGroupsList();
