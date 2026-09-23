@@ -30,6 +30,7 @@ let ordersLayer;
 let heatLayer;
 let groupsLayer;
 let driverRoutesLayer;
+   let selectedDriverId = null;
 let zoneLayers = [];
     let orders = [];
     let groups = [];
