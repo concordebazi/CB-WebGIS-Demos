@@ -507,6 +507,19 @@ a { color: inherit; text-decoration: none; }
 .driver-status--available::before {
     background: #42b978;
 }
+.driver-status--delivering {
+    background: rgba(242, 107, 79, 0.14);
+    color: #d84f37;
+}
+
+.driver-status--delivering::before {
+    background: #f26b4f;
+    box-shadow: 0 0 0 4px rgba(242, 107, 79, 0.12);
+}
+
+.driver-card--busy {
+    border-color: rgba(242, 107, 79, 0.3);
+}
 /* Driver panel positioned over the map */
 
 .map-driver-panel {
