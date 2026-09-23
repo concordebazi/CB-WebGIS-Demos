@@ -375,7 +375,7 @@ function renderDriverRoutes() {
         return;
     }
 
-    const stops = optimiseDriverStops(driver);
+ 
         const stops = optimiseDriverStops(driver);
 
         if (!stops.length) {
