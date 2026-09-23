@@ -112,10 +112,10 @@
     function initMap() {
         map = L.map("map", { scrollWheelZoom: true }).setView([PIZZERIA.lat, PIZZERIA.lng], 13);
 
-        L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png", {
-            attribution: '&copy; OpenStreetMap &copy; CARTO',
-            maxZoom: 19
-        }).addTo(map);
+       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+}).addTo(map);
 
         const pizzeriaIcon = L.divIcon({
             className: "",
