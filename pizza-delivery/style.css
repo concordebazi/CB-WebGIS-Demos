@@ -406,24 +406,25 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand-logo {
-    width: 50px;
-    height: 50px;
+    width: 72px;
+    height: 48px;
     flex-shrink: 0;
-    display: grid;
-    place-items: center;
+    display: block;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 14px;
-    background: #ffffff;
-    box-shadow: 0 9px 22px rgba(242, 107, 79, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 11px;
+    background: #07121f;
+    box-shadow: 0 9px 22px rgba(242, 107, 79, 0.20);
 }
 
 .brand-logo img {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: contain;
-    padding: 4px;
+    object-fit: cover;
+    object-position: center;
+    padding: 0;
+    transform: scale(1.15);
 }
 
 .brand-text {
@@ -668,8 +669,15 @@ a { color: inherit; text-decoration: none; }
     }
 
     .brand-logo {
-        width: 40px;
-        height: 40px;
+        width: 62px;
+        height: 42px;
+    }
+}
+
+@media (max-width: 560px) {
+    .brand-logo {
+        width: 52px;
+        height: 38px;
     }
 
     .app-header p {
