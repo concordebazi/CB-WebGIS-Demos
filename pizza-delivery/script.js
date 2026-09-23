@@ -25,7 +25,12 @@
     const ORDER_COUNT = 32;
     const STREETS = ["Storgatan", "Drottninggatan", "Hamngatan", "Ågatan", "Klostergatan", "Nygatan", "Tanneforsvägen", "Malmslättsvägen", "Vasavägen", "Repslagaregatan"];
 
-    let map, ordersLayer, heatLayer, zoneLayers = [], groupsLayer;
+  let map;
+let ordersLayer;
+let heatLayer;
+let groupsLayer;
+let driverRoutesLayer;
+let zoneLayers = [];
     let orders = [];
     let groups = [];
     const state = { heatmap: false, groups: true };
@@ -133,7 +138,32 @@ const deliveryDrivers = [
         groups: []
     }
 ];
-
+const deliveryDrivers = [
+    {
+        id: 1,
+        name: "Anna Karlsson",
+        vehicle: "Cykelbud",
+        preferredZone: "fast",
+        color: "#3678e5",
+        groups: []
+    },
+    {
+        id: 2,
+        name: "Mohamed Said",
+        vehicle: "Bil",
+        preferredZone: "standard",
+        color: "#8b5bd7",
+        groups: []
+    },
+    {
+        id: 3,
+        name: "Erik Lind",
+        vehicle: "Bil",
+        preferredZone: "extended",
+        color: "#e38a32",
+        groups: []
+    }
+];
 
 /*
    Assign each delivery group to the driver
@@ -253,6 +283,171 @@ function renderDrivers() {
         }
     });
 }
+ // ---- Driver route visualisation ----
+
+/*
+   Approximate distance between two coordinates.
+   This is sufficient for sorting simulated stops.
+*/
+function coordinateDistance(pointA, pointB) {
+    const latitudeDistance =
+        (pointB.lat - pointA.lat) * 111;
+
+    const longitudeDistance =
+        (pointB.lng - pointA.lng) *
+        111 *
+        Math.cos(PIZZERIA.lat * Math.PI / 180);
+
+    return Math.sqrt(
+        latitudeDistance ** 2 +
+        longitudeDistance ** 2
+    );
+}
+
+
+/*
+   Simple nearest-neighbour route:
+   starting at the pizzeria, repeatedly select
+   the closest remaining delivery stop.
+*/
+function optimiseDriverStops(driver) {
+    const remainingStops = driver.groups
+        .flatMap((group) => group.orders)
+        .slice();
+
+    const orderedStops = [];
+
+    let currentPoint = {
+        lat: PIZZERIA.lat,
+        lng: PIZZERIA.lng
+    };
+
+    while (remainingStops.length > 0) {
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        remainingStops.forEach((stop, index) => {
+            const distance =
+                coordinateDistance(currentPoint, stop);
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        const closestStop =
+            remainingStops.splice(closestIndex, 1)[0];
+
+        orderedStops.push(closestStop);
+        currentPoint = closestStop;
+    }
+
+    return orderedStops;
+}
+
+
+/* Create a numbered map marker for one stop */
+function createDriverStopIcon(number, color) {
+    return L.divIcon({
+        className: "",
+        html:
+            '<div style="' +
+                'width:24px;' +
+                'height:24px;' +
+                'display:flex;' +
+                'align-items:center;' +
+                'justify-content:center;' +
+                'border-radius:50%;' +
+                'background:' + color + ';' +
+                'color:#ffffff;' +
+                'border:3px solid #ffffff;' +
+                'box-shadow:0 4px 12px rgba(0,0,0,0.28);' +
+                'font-family:Manrope,sans-serif;' +
+                'font-size:10px;' +
+                'font-weight:800;' +
+            '">' +
+                number +
+            '</div>',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+    });
+}
+
+
+/* Draw all assigned driver routes on the map */
+function renderDriverRoutes() {
+    if (!map) {
+        return;
+    }
+
+    if (driverRoutesLayer) {
+        map.removeLayer(driverRoutesLayer);
+    }
+
+    driverRoutesLayer = L.layerGroup().addTo(map);
+
+    deliveryDrivers.forEach((driver) => {
+        const stops = optimiseDriverStops(driver);
+
+        if (!stops.length) {
+            return;
+        }
+
+        const routeCoordinates = [
+            [PIZZERIA.lat, PIZZERIA.lng],
+            ...stops.map((stop) => [
+                stop.lat,
+                stop.lng
+            ]),
+            [PIZZERIA.lat, PIZZERIA.lng]
+        ];
+
+        const routeLine = L.polyline(
+            routeCoordinates,
+            {
+                color: driver.color,
+                weight: 4,
+                opacity: 0.82,
+                dashArray: "10 7",
+                lineCap: "round",
+                lineJoin: "round"
+            }
+        );
+
+        routeLine.bindPopup(
+            "<b>" + driver.name + "</b><br>" +
+            driver.vehicle + "<br>" +
+            stops.length + " tilldelade leveranser"
+        );
+
+        driverRoutesLayer.addLayer(routeLine);
+
+        stops.forEach((stop, index) => {
+            const marker = L.marker(
+                [stop.lat, stop.lng],
+                {
+                    icon: createDriverStopIcon(
+                        index + 1,
+                        driver.color
+                    ),
+                    zIndexOffset: 500
+                }
+            );
+
+            marker.bindPopup(
+                "<b>" + driver.name + "</b><br>" +
+                "Stopp " + (index + 1) +
+                " av " + stops.length + "<br>" +
+                stop.id + " · " + stop.street + "<br>" +
+                "Beräknad leveranstid: " +
+                stop.etaMinutes + " min"
+            );
+
+            driverRoutesLayer.addLayer(marker);
+        });
+    });
+}  
     // ---- Map setup ----
     function initMap() {
         map = L.map("map", { scrollWheelZoom: true }).setView([PIZZERIA.lat, PIZZERIA.lng], 13);
@@ -287,7 +482,8 @@ function renderDrivers() {
         });
 
         renderOrders();
-        renderGroupsLayer();
+renderGroupsLayer();
+renderDriverRoutes();
     }
 
     function orderIcon(zone) {
@@ -365,8 +561,9 @@ function renderDrivers() {
         buildGroups();
        assignGroupsToDrivers();
         renderOrders();
-       renderGroupsLayer();
-        applyLayerState();
+renderGroupsLayer();
+renderDriverRoutes();
+applyLayerState();
         renderStats();
         renderGroupsList();
         resetAiPanel();
