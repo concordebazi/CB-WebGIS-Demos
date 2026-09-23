@@ -107,7 +107,152 @@
             .slice(0, 6);
         groups.forEach((g, i) => (g.id = i + 1));
     }
+  
+// ---- Delivery drivers ----
 
+const deliveryDrivers = [
+    {
+        id: 1,
+        name: "Anna Karlsson",
+        vehicle: "Cykelbud",
+        preferredZone: "fast",
+        groups: []
+    },
+    {
+        id: 2,
+        name: "Mohamed Said",
+        vehicle: "Bil",
+        preferredZone: "standard",
+        groups: []
+    },
+    {
+        id: 3,
+        name: "Erik Lind",
+        vehicle: "Bil",
+        preferredZone: "extended",
+        groups: []
+    }
+];
+
+
+/*
+   Assign each delivery group to the driver
+   responsible for that delivery zone.
+*/
+function assignGroupsToDrivers() {
+    deliveryDrivers.forEach((driver) => {
+        driver.groups = [];
+    });
+
+    groups.forEach((group) => {
+        let driver = deliveryDrivers.find(
+            (item) => item.preferredZone === group.zone
+        );
+
+        /*
+           Fallback: if a group has no matching driver,
+           assign it to the driver with the fewest orders.
+        */
+        if (!driver) {
+            driver = deliveryDrivers
+                .slice()
+                .sort((a, b) =>
+                    getDriverOrderCount(a) -
+                    getDriverOrderCount(b)
+                )[0];
+        }
+
+        driver.groups.push(group);
+    });
+
+    renderDrivers();
+}
+
+
+/* Count all orders assigned to one driver */
+function getDriverOrderCount(driver) {
+    return driver.groups.reduce(
+        (total, group) => total + group.orders.length,
+        0
+    );
+}
+
+
+/* Calculate an estimated completion time */
+function getDriverEstimatedTime(driver) {
+    if (!driver.groups.length) {
+        return 0;
+    }
+
+    return driver.groups.reduce((total, group) => {
+        const longestOrderTime = Math.max(
+            ...group.orders.map((order) => order.etaMinutes)
+        );
+
+        const additionalStops =
+            Math.max(0, group.orders.length - 1) * 4;
+
+        return total + longestOrderTime + additionalStops;
+    }, 0);
+}
+
+
+/* Update the driver cards in the HTML */
+function renderDrivers() {
+    deliveryDrivers.forEach((driver) => {
+        const card = document.querySelector(
+            `[data-driver-id="${driver.id}"]`
+        );
+
+        if (!card) {
+            return;
+        }
+
+        const information =
+            card.querySelector(".driver-information span");
+
+        const status =
+            card.querySelector(".driver-status");
+
+        const orderCount =
+            getDriverOrderCount(driver);
+
+        const estimatedTime =
+            getDriverEstimatedTime(driver);
+
+        if (orderCount > 0) {
+            information.textContent =
+                `${driver.vehicle} · ${orderCount} ordrar · ~${estimatedTime} min`;
+
+            status.textContent = "Levererar";
+
+            status.classList.remove(
+                "driver-status--available"
+            );
+
+            status.classList.add(
+                "driver-status--delivering"
+            );
+
+            card.classList.add("driver-card--busy");
+        } else {
+            information.textContent =
+                `${driver.vehicle} · Ingen tilldelad grupp`;
+
+            status.textContent = "Tillgänglig";
+
+            status.classList.remove(
+                "driver-status--delivering"
+            );
+
+            status.classList.add(
+                "driver-status--available"
+            );
+
+            card.classList.remove("driver-card--busy");
+        }
+    });
+}
     // ---- Map setup ----
     function initMap() {
         map = L.map("map", { scrollWheelZoom: true }).setView([PIZZERIA.lat, PIZZERIA.lng], 13);
@@ -218,8 +363,9 @@
     document.getElementById("regenerate-btn").addEventListener("click", () => {
         generateOrders();
         buildGroups();
+       assignGroupsToDrivers();
         renderOrders();
-        renderGroupsLayer();
+       renderGroupsLayer();
         applyLayerState();
         renderStats();
         renderGroupsList();
@@ -577,6 +723,7 @@ document.addEventListener("keydown", function (event) {
     document.addEventListener("DOMContentLoaded", () => {
         generateOrders();
         buildGroups();
+        assignGroupsToDrivers();
         initMap();
         applyLayerState();
         renderStats();
