@@ -603,18 +603,32 @@ renderDriverRoutes();
     });
 
     document.getElementById("regenerate-btn").addEventListener("click", () => {
-        generateOrders();
-        buildGroups();
-       assignGroupsToDrivers();
-        renderOrders();
-renderGroupsLayer();
-renderDriverRoutes();
-applyLayerState();
-        renderStats();
-        renderGroupsList();
-        resetAiPanel();
-    });
+    selectedDriverId = null;
 
+    document
+        .querySelectorAll(".driver-card")
+        .forEach((card) => {
+            card.classList.remove(
+                "driver-card--selected"
+            );
+        });
+
+    generateOrders();
+    buildGroups();
+    assignGroupsToDrivers();
+    renderOrders();
+    renderGroupsLayer();
+    renderDriverRoutes();
+    applyLayerState();
+    renderStats();
+    renderGroupsList();
+    resetAiPanel();
+
+    map.setView(
+        [PIZZERIA.lat, PIZZERIA.lng],
+        13
+    );
+});
     // ---- Stats ----
     function renderStats() {
         const total = orders.length;
