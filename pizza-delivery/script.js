@@ -433,10 +433,16 @@ function renderDriverRoutes() {
         );
 
         routeLine.bindPopup(
-            "<b>" + driver.name + "</b><br>" +
-            driver.vehicle + "<br>" +
-            stops.length + " tilldelade leveranser"
-        );
+    "<b>" + driver.name + "</b><br>" +
+    driver.vehicle + "<br>" +
+    stops.length + " tilldelade leveranser<br>" +
+    "Beräknad rutt: " +
+    getDriverRouteDistance(driver).toFixed(1) +
+    " km<br>" +
+    "Beräknad tid: ~" +
+    getDriverEstimatedTime(driver) +
+    " min"
+);
 
         driverRoutesLayer.addLayer(routeLine);
 
