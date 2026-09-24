@@ -234,7 +234,7 @@ moveActiveDriverMarker(delivery);
 
     simulationTimer = window.setTimeout(
         processNextDelivery,
-        950
+        1100
     );
 }
 
@@ -736,7 +736,7 @@ function createActiveDriverMarkers() {
             };
         });
 }
-/* Move the correct driver marker to the delivered order */
+/* Smoothly move a driver marker to the next stop */
 function moveActiveDriverMarker(delivery) {
     const activeMarker =
         activeDriverMarkers.find(
@@ -749,15 +749,81 @@ function moveActiveDriverMarker(delivery) {
         return;
     }
 
-    activeMarker.marker.setLatLng([
+    const marker = activeMarker.marker;
+    const startPosition = marker.getLatLng();
+
+    const destination = L.latLng(
         delivery.order.lat,
         delivery.order.lng
-    ]);
+    );
 
-    activeMarker.marker.setTooltipContent(
+    const animationDuration = 850;
+    const animationStart =
+        performance.now();
+
+    marker.setTooltipContent(
         delivery.driver.name +
-        " · " +
+        " · På väg till " +
         delivery.order.id
+    );
+
+    function animateMarker(currentTime) {
+        if (!simulationRunning) {
+            return;
+        }
+
+        const elapsedTime =
+            currentTime - animationStart;
+
+        const progress = Math.min(
+            elapsedTime / animationDuration,
+            1
+        );
+
+        /*
+           Ease-out movement:
+           the marker moves quickly at first and
+           slows slightly near the destination.
+        */
+        const easedProgress =
+            1 - Math.pow(1 - progress, 3);
+
+        const currentLatitude =
+            startPosition.lat +
+            (
+                destination.lat -
+                startPosition.lat
+            ) * easedProgress;
+
+        const currentLongitude =
+            startPosition.lng +
+            (
+                destination.lng -
+                startPosition.lng
+            ) * easedProgress;
+
+        marker.setLatLng([
+            currentLatitude,
+            currentLongitude
+        ]);
+
+        if (progress < 1) {
+            window.requestAnimationFrame(
+                animateMarker
+            );
+        } else {
+            marker.setLatLng(destination);
+
+            marker.setTooltipContent(
+                delivery.driver.name +
+                " · Levererat " +
+                delivery.order.id
+            );
+        }
+    }
+
+    window.requestAnimationFrame(
+        animateMarker
     );
 }
 
