@@ -1,0 +1,908 @@
+/* =========================================
+   MOBILE MECHANIC — AI & GIS DEMO
+========================================= */
+
+const mapElement = document.getElementById("map");
+
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.getElementById("menu-toggle");
+
+const bookingForm = document.getElementById("booking-form");
+const customerNameInput = document.getElementById("customer-name");
+const serviceTypeInput = document.getElementById("service-type");
+const customerAreaInput = document.getElementById("customer-area");
+
+const jobsList = document.getElementById("jobs-list");
+const mechanicsList = document.getElementById("mechanics-list");
+const jobsCount = document.getElementById("jobs-count");
+
+const statJobs = document.getElementById("stat-jobs");
+const statMechanics = document.getElementById("stat-mechanics");
+const statEta = document.getElementById("stat-eta");
+const statDistance = document.getElementById("stat-distance");
+
+const startSimulationButton =
+    document.getElementById("start-simulation-btn");
+
+const resetSimulationButton =
+    document.getElementById("reset-simulation-btn");
+
+const simulationMessage =
+    document.getElementById("simulation-message");
+
+const simulationProgressBar =
+    document.getElementById("simulation-progress-bar");
+
+const analyzeButton =
+    document.getElementById("analyze-btn");
+
+const aiResult =
+    document.getElementById("ai-result");
+
+
+/* =========================================
+   MAP
+========================================= */
+
+const workshopPosition = [58.4108, 15.6214];
+
+const map = L.map(mapElement, {
+    zoomControl: true
+}).setView(workshopPosition, 12);
+
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        maxZoom: 19,
+        attribution:
+            "&copy; OpenStreetMap contributors"
+    }
+).addTo(map);
+
+
+/* =========================================
+   MAP LAYERS
+========================================= */
+
+const bookingLayer = L.layerGroup().addTo(map);
+const mechanicLayer = L.layerGroup().addTo(map);
+const routeLayer = L.layerGroup().addTo(map);
+
+
+/* =========================================
+   SERVICE INFORMATION
+========================================= */
+
+const serviceInformation = {
+    battery: {
+        name: "Batterihjälp",
+        icon: "⚡",
+        color: "#ef3340",
+        duration: 25
+    },
+
+    diagnostics: {
+        name: "Felsökning",
+        icon: "⌕",
+        color: "#3979f6",
+        duration: 40
+    },
+
+    tyres: {
+        name: "Däckservice",
+        icon: "◉",
+        color: "#8d62e8",
+        duration: 35
+    },
+
+    repair: {
+        name: "Mindre reparation",
+        icon: "🔧",
+        color: "#f4b942",
+        duration: 50
+    }
+};
+
+
+/* =========================================
+   AREA POSITIONS
+========================================= */
+
+const areaPositions = {
+    linkoping: {
+        name: "Linköping",
+        position: [58.4108, 15.6214]
+    },
+
+    mjolby: {
+        name: "Mjölby",
+        position: [58.3250, 15.1250]
+    },
+
+    motala: {
+        name: "Motala",
+        position: [58.5371, 15.0365]
+    },
+
+    norrkoping: {
+        name: "Norrköping",
+        position: [58.5877, 16.1924]
+    }
+};
+
+
+/* =========================================
+   MECHANICS
+========================================= */
+
+const mechanics = [
+    {
+        id: 1,
+        name: "Johan Andersson",
+        initials: "JA",
+        vehicle: "Servicebil 01",
+        specialty: "Batteri och diagnostik",
+        position: [58.4118, 15.6214],
+        color: "#3979f6",
+        status: "Tillgänglig",
+        assignedJobs: []
+    },
+
+    {
+        id: 2,
+        name: "Sara Lind",
+        initials: "SL",
+        vehicle: "Servicebil 02",
+        specialty: "Däck och reparation",
+        position: [58.3955, 15.6502],
+        color: "#8d62e8",
+        status: "Tillgänglig",
+        assignedJobs: []
+    },
+
+    {
+        id: 3,
+        name: "Erik Nilsson",
+        initials: "EN",
+        vehicle: "Servicebil 03",
+        specialty: "Felsökning och el",
+        position: [58.4282, 15.5945],
+        color: "#ef3340",
+        status: "Tillgänglig",
+        assignedJobs: []
+    }
+];
+
+
+/* =========================================
+   INITIAL BOOKINGS
+========================================= */
+
+const initialJobs = [
+    {
+        id: 1,
+        customer: "Anna Karlsson",
+        service: "battery",
+        area: "Linköping",
+        position: [58.4185, 15.6068],
+        status: "Väntar",
+        assignedMechanic: null
+    },
+
+    {
+        id: 2,
+        customer: "Mohamed Said",
+        service: "diagnostics",
+        area: "Tannefors",
+        position: [58.4074, 15.6518],
+        status: "Väntar",
+        assignedMechanic: null
+    },
+
+    {
+        id: 3,
+        customer: "Maria Svensson",
+        service: "tyres",
+        area: "Ryd",
+        position: [58.4048, 15.5618],
+        status: "Väntar",
+        assignedMechanic: null
+    },
+
+    {
+        id: 4,
+        customer: "Daniel Eriksson",
+        service: "repair",
+        area: "Tallboda",
+        position: [58.4268, 15.6842],
+        status: "Väntar",
+        assignedMechanic: null
+    },
+
+    {
+        id: 5,
+        customer: "Linnea Berg",
+        service: "battery",
+        area: "Berga",
+        position: [58.3908, 15.6241],
+        status: "Väntar",
+        assignedMechanic: null
+    },
+
+    {
+        id: 6,
+        customer: "Peter Holm",
+        service: "diagnostics",
+        area: "Vimanshäll",
+        position: [58.3925, 15.6474],
+        status: "Väntar",
+        assignedMechanic: null
+    }
+];
+
+let jobs = cloneJobs(initialJobs);
+let nextJobId = 7;
+
+
+/* =========================================
+   WORKSHOP MARKER
+========================================= */
+
+const workshopIcon = L.divIcon({
+    className: "",
+    html: `
+        <div style="
+            width:48px;
+            height:48px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#ffffff;
+            background:linear-gradient(135deg,#ef3340,#c91f37);
+            border:4px solid #ffffff;
+            border-radius:16px;
+            box-shadow:0 10px 25px rgba(12,23,40,0.32);
+            font-size:21px;
+        ">
+            🔧
+        </div>
+    `,
+    iconSize: [48, 48],
+    iconAnchor: [24, 24]
+});
+
+L.marker(workshopPosition, {
+    icon: workshopIcon,
+    zIndexOffset: 1000
+})
+.addTo(map)
+.bindPopup(`
+    <strong>Mobil Bilservice</strong><br>
+    Central servicepunkt i Linköping
+`);
+
+
+/* =========================================
+   COPY INITIAL DATA
+========================================= */
+
+function cloneJobs(sourceJobs) {
+    return sourceJobs.map(job => ({
+        ...job
+    }));
+}
+
+
+/* =========================================
+   CALCULATE DISTANCE
+========================================= */
+
+function calculateDistance(positionOne, positionTwo) {
+
+    const latitudeOne = positionOne[0];
+    const longitudeOne = positionOne[1];
+
+    const latitudeTwo = positionTwo[0];
+    const longitudeTwo = positionTwo[1];
+
+    const radius = 6371;
+
+    const latitudeDifference =
+        degreesToRadians(latitudeTwo - latitudeOne);
+
+    const longitudeDifference =
+        degreesToRadians(longitudeTwo - longitudeOne);
+
+    const value =
+        Math.sin(latitudeDifference / 2) *
+        Math.sin(latitudeDifference / 2) +
+        Math.cos(degreesToRadians(latitudeOne)) *
+        Math.cos(degreesToRadians(latitudeTwo)) *
+        Math.sin(longitudeDifference / 2) *
+        Math.sin(longitudeDifference / 2);
+
+    const angle =
+        2 * Math.atan2(
+            Math.sqrt(value),
+            Math.sqrt(1 - value)
+        );
+
+    return radius * angle;
+}
+
+
+function degreesToRadians(value) {
+    return value * Math.PI / 180;
+}
+
+
+/* =========================================
+   BOOKING MARKER
+========================================= */
+
+function createBookingIcon(job) {
+
+    const service =
+        serviceInformation[job.service];
+
+    const borderColor =
+        job.status === "Tilldelad"
+            ? "#ffffff"
+            : service.color;
+
+    return L.divIcon({
+        className: "",
+
+        html: `
+            <div style="
+                width:38px;
+                height:38px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#ffffff;
+                background:${service.color};
+                border:3px solid ${borderColor};
+                border-radius:12px;
+                box-shadow:0 9px 20px rgba(15,31,52,0.28);
+                font-size:16px;
+                font-weight:800;
+            ">
+                ${service.icon}
+            </div>
+        `,
+
+        iconSize: [38, 38],
+        iconAnchor: [19, 19],
+        popupAnchor: [0, -18]
+    });
+}
+
+
+/* =========================================
+   MECHANIC MARKER
+========================================= */
+
+function createMechanicIcon(mechanic) {
+
+    return L.divIcon({
+        className: "",
+
+        html: `
+            <div style="
+                width:44px;
+                height:44px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#ffffff;
+                background:${mechanic.color};
+                border:4px solid #ffffff;
+                border-radius:50%;
+                box-shadow:0 10px 24px rgba(15,31,52,0.3);
+                font-size:11px;
+                font-weight:800;
+            ">
+                ${mechanic.initials}
+            </div>
+        `,
+
+        iconSize: [44, 44],
+        iconAnchor: [22, 22],
+        popupAnchor: [0, -20]
+    });
+}
+
+
+/* =========================================
+   RENDER MAP BOOKINGS
+========================================= */
+
+function renderBookingMarkers() {
+
+    bookingLayer.clearLayers();
+
+    jobs.forEach(job => {
+
+        const service =
+            serviceInformation[job.service];
+
+        const marker = L.marker(
+            job.position,
+            {
+                icon: createBookingIcon(job)
+            }
+        );
+
+        marker.bindPopup(`
+            <strong>${job.customer}</strong><br>
+            ${service.name}<br>
+            ${job.area}<br>
+            Status: ${job.status}
+        `);
+
+        marker.addTo(bookingLayer);
+    });
+}
+
+
+/* =========================================
+   RENDER MECHANIC MARKERS
+========================================= */
+
+function renderMechanicMarkers() {
+
+    mechanicLayer.clearLayers();
+
+    mechanics.forEach(mechanic => {
+
+        const marker = L.marker(
+            mechanic.position,
+            {
+                icon: createMechanicIcon(mechanic),
+                zIndexOffset: 500
+            }
+        );
+
+        marker.bindPopup(`
+            <strong>${mechanic.name}</strong><br>
+            ${mechanic.vehicle}<br>
+            ${mechanic.specialty}<br>
+            Status: ${mechanic.status}
+        `);
+
+        marker.addTo(mechanicLayer);
+    });
+}
+
+
+/* =========================================
+   RENDER JOB LIST
+========================================= */
+
+function renderJobsList() {
+
+    jobsList.innerHTML = "";
+
+    jobs.forEach(job => {
+
+        const service =
+            serviceInformation[job.service];
+
+        const article =
+            document.createElement("article");
+
+        article.className = "job-card";
+
+        article.innerHTML = `
+            <div
+                class="job-icon"
+                style="
+                    background:
+                    linear-gradient(
+                        135deg,
+                        ${service.color},
+                        ${service.color}cc
+                    );
+                "
+            >
+                ${service.icon}
+            </div>
+
+            <div class="job-information">
+                <strong>${job.customer}</strong>
+
+                <span>
+                    ${service.name} · ${job.area}
+                </span>
+            </div>
+
+            <span class="job-status">
+                ${job.status}
+            </span>
+        `;
+
+        jobsList.appendChild(article);
+    });
+
+    jobsCount.textContent = jobs.length;
+}
+
+
+/* =========================================
+   RENDER MECHANICS LIST
+========================================= */
+
+function renderMechanicsList() {
+
+    mechanicsList.innerHTML = "";
+
+    mechanics.forEach(mechanic => {
+
+        const assignedText =
+            mechanic.assignedJobs.length > 0
+                ? `${mechanic.assignedJobs.length} uppdrag`
+                : mechanic.specialty;
+
+        const article =
+            document.createElement("article");
+
+        article.className = "mechanic-card";
+
+        article.innerHTML = `
+            <div
+                class="mechanic-avatar"
+                style="background:${mechanic.color};"
+            >
+                ${mechanic.initials}
+            </div>
+
+            <div class="mechanic-information">
+                <strong>${mechanic.name}</strong>
+
+                <span>
+                    ${mechanic.vehicle} · ${assignedText}
+                </span>
+            </div>
+
+            <span class="mechanic-status">
+                ${mechanic.status}
+            </span>
+        `;
+
+        mechanicsList.appendChild(article);
+    });
+}
+
+
+/* =========================================
+   UPDATE STATISTICS
+========================================= */
+
+function updateStatistics() {
+
+    let totalDistance = 0;
+    let totalMinutes = 0;
+
+    jobs.forEach(job => {
+
+        const distance =
+            calculateDistance(
+                workshopPosition,
+                job.position
+            );
+
+        totalDistance += distance;
+
+        totalMinutes +=
+            serviceInformation[job.service].duration +
+            Math.round(distance * 3);
+    });
+
+    const averageMinutes =
+        jobs.length > 0
+            ? Math.round(totalMinutes / jobs.length)
+            : 0;
+
+    statJobs.textContent = jobs.length;
+    statMechanics.textContent = mechanics.length;
+
+    statEta.textContent =
+        jobs.length > 0
+            ? `${averageMinutes} min`
+            : "–";
+
+    statDistance.textContent =
+        jobs.length > 0
+            ? `${totalDistance.toFixed(1)} km`
+            : "–";
+}
+
+
+/* =========================================
+   ASSIGN JOBS
+========================================= */
+
+function assignJobsToMechanics() {
+
+    routeLayer.clearLayers();
+
+    mechanics.forEach(mechanic => {
+        mechanic.assignedJobs = [];
+        mechanic.status = "Tilldelad";
+    });
+
+    jobs.forEach((job, index) => {
+
+        const mechanic =
+            mechanics[index % mechanics.length];
+
+        job.assignedMechanic = mechanic.id;
+        job.status = "Tilldelad";
+
+        mechanic.assignedJobs.push(job.id);
+
+        L.polyline(
+            [
+                mechanic.position,
+                job.position
+            ],
+            {
+                color: mechanic.color,
+                weight: 4,
+                opacity: 0.78,
+                dashArray: "9 8"
+            }
+        ).addTo(routeLayer);
+    });
+
+    renderAll();
+
+    simulationMessage.textContent =
+        "AI har tilldelat varje bokning till en lämplig mekaniker.";
+
+    simulationProgressBar.style.width = "100%";
+
+    startSimulationButton.textContent =
+        "✓ Planeringen är klar";
+
+    startSimulationButton.disabled = true;
+}
+
+
+/* =========================================
+   RESET SIMULATION
+========================================= */
+
+function resetSimulation() {
+
+    jobs = cloneJobs(initialJobs);
+    nextJobId = 7;
+
+    routeLayer.clearLayers();
+
+    mechanics.forEach(mechanic => {
+        mechanic.assignedJobs = [];
+        mechanic.status = "Tillgänglig";
+    });
+
+    simulationMessage.textContent =
+        "Bokningarna väntar på att tilldelas till rätt mekaniker.";
+
+    simulationProgressBar.style.width = "0";
+
+    startSimulationButton.textContent =
+        "▶ Starta planering";
+
+    startSimulationButton.disabled = false;
+
+    aiResult.classList.remove("active");
+    aiResult.innerHTML = "";
+
+    renderAll();
+
+    map.setView(workshopPosition, 12);
+}
+
+
+/* =========================================
+   CREATE A NEW BOOKING
+========================================= */
+
+function createBooking(event) {
+
+    event.preventDefault();
+
+    const customerName =
+        customerNameInput.value.trim();
+
+    const serviceType =
+        serviceTypeInput.value;
+
+    const areaKey =
+        customerAreaInput.value;
+
+    const selectedArea =
+        areaPositions[areaKey];
+
+    if (!customerName) {
+        return;
+    }
+
+    const randomLatitude =
+        (Math.random() - 0.5) * 0.035;
+
+    const randomLongitude =
+        (Math.random() - 0.5) * 0.05;
+
+    const newJob = {
+        id: nextJobId,
+        customer: customerName,
+        service: serviceType,
+        area: selectedArea.name,
+
+        position: [
+            selectedArea.position[0] + randomLatitude,
+            selectedArea.position[1] + randomLongitude
+        ],
+
+        status: "Väntar",
+        assignedMechanic: null
+    };
+
+    jobs.push(newJob);
+    nextJobId += 1;
+
+    bookingForm.reset();
+
+    routeLayer.clearLayers();
+
+    mechanics.forEach(mechanic => {
+        mechanic.assignedJobs = [];
+        mechanic.status = "Tillgänglig";
+    });
+
+    jobs.forEach(job => {
+        job.status = "Väntar";
+        job.assignedMechanic = null;
+    });
+
+    startSimulationButton.textContent =
+        "▶ Starta planering";
+
+    startSimulationButton.disabled = false;
+
+    simulationProgressBar.style.width = "0";
+
+    simulationMessage.textContent =
+        `${customerName}s bokning har lagts till och väntar på planering.`;
+
+    renderAll();
+
+    map.flyTo(newJob.position, 13, {
+        duration: 1.2
+    });
+
+    if (window.innerWidth <= 820) {
+        sidebar.classList.remove("active");
+    }
+}
+
+
+/* =========================================
+   AI ANALYSIS
+========================================= */
+
+function showAIAnalysis() {
+
+    const waitingJobs =
+        jobs.filter(job =>
+            job.status === "Väntar"
+        ).length;
+
+    const assignedJobs =
+        jobs.filter(job =>
+            job.status === "Tilldelad"
+        ).length;
+
+    aiResult.classList.add("active");
+
+    if (assignedJobs === 0) {
+
+        aiResult.innerHTML = `
+            <strong>Rekommendation:</strong><br>
+            ${waitingJobs} bokningar väntar.
+            Starta den automatiska planeringen för att
+            fördela uppdragen efter avstånd och kompetens.
+        `;
+
+        return;
+    }
+
+    aiResult.innerHTML = `
+        <strong>AI-analys klar:</strong><br>
+        ${assignedJobs} uppdrag har fördelats mellan
+        ${mechanics.length} mekaniker.
+
+        Rutterna visas på kartan och uppdragen har
+        grupperats för att minska onödig körning.
+    `;
+}
+
+
+/* =========================================
+   RENDER EVERYTHING
+========================================= */
+
+function renderAll() {
+
+    renderBookingMarkers();
+    renderMechanicMarkers();
+    renderJobsList();
+    renderMechanicsList();
+    updateStatistics();
+}
+
+
+/* =========================================
+   EVENTS
+========================================= */
+
+bookingForm.addEventListener(
+    "submit",
+    createBooking
+);
+
+startSimulationButton.addEventListener(
+    "click",
+    assignJobsToMechanics
+);
+
+resetSimulationButton.addEventListener(
+    "click",
+    resetSimulation
+);
+
+analyzeButton.addEventListener(
+    "click",
+    showAIAnalysis
+);
+
+menuToggle.addEventListener(
+    "click",
+    function () {
+        sidebar.classList.toggle("active");
+
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 320);
+    }
+);
+
+
+/* =========================================
+   WINDOW RESIZE
+========================================= */
+
+window.addEventListener(
+    "resize",
+    function () {
+
+        map.invalidateSize();
+
+        if (window.innerWidth > 820) {
+            sidebar.classList.remove("active");
+        }
+    }
+);
+
+
+/* =========================================
+   START APPLICATION
+========================================= */
+
+renderAll();
+
+setTimeout(() => {
+    map.invalidateSize();
+}, 250);
