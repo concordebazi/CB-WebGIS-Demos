@@ -706,30 +706,7 @@ function createLiveDriverIcon(driver) {
 /* Add one live marker for each driver */
 function createActiveDriverMarkers() {
     clearActiveDriverMarkers();
-/* Move the correct driver marker to the delivered order */
-function moveActiveDriverMarker(delivery) {
-    const activeMarker =
-        activeDriverMarkers.find(
-            (item) =>
-                item.driverId ===
-                delivery.driver.id
-        );
 
-    if (!activeMarker) {
-        return;
-    }
-
-    activeMarker.marker.setLatLng([
-        delivery.order.lat,
-        delivery.order.lng
-    ]);
-
-    activeMarker.marker.setTooltipContent(
-        delivery.driver.name +
-        " · " +
-        delivery.order.id
-    );
-}
     activeDriverMarkers =
         deliveryDrivers.map((driver) => {
             const marker = L.marker(
@@ -759,7 +736,30 @@ function moveActiveDriverMarker(delivery) {
             };
         });
 }
+/* Move the correct driver marker to the delivered order */
+function moveActiveDriverMarker(delivery) {
+    const activeMarker =
+        activeDriverMarkers.find(
+            (item) =>
+                item.driverId ===
+                delivery.driver.id
+        );
 
+    if (!activeMarker) {
+        return;
+    }
+
+    activeMarker.marker.setLatLng([
+        delivery.order.lat,
+        delivery.order.lng
+    ]);
+
+    activeMarker.marker.setTooltipContent(
+        delivery.driver.name +
+        " · " +
+        delivery.order.id
+    );
+}
 
 /* Remove all live driver markers */
 function clearActiveDriverMarkers() {
