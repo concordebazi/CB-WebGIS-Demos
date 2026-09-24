@@ -836,6 +836,22 @@ function moveActiveDriverMarker(delivery) {
             currentLatitude,
             currentLongitude
         ]);
+       /*
+   Extend the coloured route to the driver's
+   current position during every animation frame.
+*/
+const currentRoutePoint = [
+    currentLatitude,
+    currentLongitude
+];
+
+activeMarker.routeCoordinates.push(
+    currentRoutePoint
+);
+
+activeMarker.routeLine.setLatLngs(
+    activeMarker.routeCoordinates
+);
 
         if (progress < 1) {
             window.requestAnimationFrame(
