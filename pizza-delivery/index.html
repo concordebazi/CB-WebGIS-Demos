@@ -181,7 +181,51 @@
         <p class="driver-intro">
             Tillgängliga förare för dagens aktiva leveranser.
         </p>
+<div class="delivery-simulation" id="delivery-simulation">
 
+    <div class="simulation-heading">
+        <div>
+            <span class="simulation-label">
+                LIVELEVERANS
+            </span>
+
+            <strong id="simulation-status">
+                Redo att starta
+            </strong>
+        </div>
+
+        <span class="simulation-counter">
+            <b id="completed-orders">0</b>
+            /
+            <span id="simulation-total">0</span>
+            levererade
+        </span>
+    </div>
+
+    <div class="simulation-progress">
+        <span id="simulation-progress-bar"></span>
+    </div>
+
+    <div class="simulation-actions">
+        <button
+            class="simulation-button simulation-button--start"
+            id="simulation-start-btn"
+            type="button"
+        >
+            ▶ Starta leveranser
+        </button>
+
+        <button
+            class="simulation-button simulation-button--reset"
+            id="simulation-reset-btn"
+            type="button"
+            disabled
+        >
+            ↻ Återställ
+        </button>
+    </div>
+
+</div>
         <div class="drivers-list" id="drivers-list">
 
             <article class="driver-card" data-driver-id="1">
