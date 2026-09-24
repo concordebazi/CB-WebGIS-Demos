@@ -11,8 +11,8 @@
     --blue: #3979f6;
     --blue-dark: #2463db;
     --cyan: #33c7d8;
-    --orange: #ff7855;
-    --orange-dark: #e95f3e;
+   --orange: #ef3340;
+--orange-dark: #c91f37;
     --green: #3ecf8e;
     --yellow: #f4b942;
     --purple: #8d62e8;
@@ -282,8 +282,8 @@ button {
 }
 
 .guide-button {
-    background: rgba(255, 120, 85, 0.12);
-    border: 1px solid rgba(255, 120, 85, 0.65);
+    background: rgba(239, 51, 64, 0.12);
+    border: 1px solid rgba(239, 51, 64, 0.65);
 }
 
 .guide-button span {
@@ -292,7 +292,7 @@ button {
 
 .guide-button:hover {
     transform: translateY(-2px);
-    background: rgba(255, 120, 85, 0.22);
+    background: rgba(239, 51, 64, 0.22);
 }
 
 .contact-button {
@@ -304,13 +304,13 @@ button {
         );
 
     box-shadow:
-        0 10px 24px rgba(255, 120, 85, 0.22);
+        0 10px 24px rgba(239, 51, 64, 0.22);
 }
 
 .contact-button:hover {
     transform: translateY(-2px);
     box-shadow:
-        0 14px 30px rgba(255, 120, 85, 0.32);
+        0 14px 30px rgba(239, 51, 64, 0.32);
 }
 
 .header-link {
@@ -697,7 +697,7 @@ button {
         );
 
     box-shadow:
-        0 9px 20px rgba(255, 120, 85, 0.22);
+        0 9px 20px rgba(239, 51, 64, 0.22);
 }
 
 #booking-form .primary-button {
@@ -784,7 +784,7 @@ button {
     padding: 0 9px;
 
     color: var(--orange-dark);
-    background: rgba(255, 120, 85, 0.12);
+    background: rgba(239, 51, 64, 0.12);
     border-radius: 30px;
 
     font-size: 10px;
@@ -1131,7 +1131,7 @@ button {
 
     font-size: 21px;
     box-shadow:
-        0 12px 26px rgba(255, 120, 85, 0.27);
+        0 12px 26px rgba(239, 51, 64, 0.27);
 }
 
 .contact-card > div {
@@ -1142,7 +1142,7 @@ button {
     display: block;
     margin-bottom: 5px;
 
-    color: #ff9b82;
+    color: #ff7b86;
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.08em;
