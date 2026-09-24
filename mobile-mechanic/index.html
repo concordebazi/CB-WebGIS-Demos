@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mobil Bilservice | CB Web & GIS</title>
+
+    <meta name="description"
+          content="Interaktiv AI- och GIS-demo för bokning, planering och ruttoptimering av mobila mekaniker. Alla data är simulerade.">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link rel="stylesheet"
+          href="style.css">
+</head>
+
+<body>
+
+<div class="top-accent"></div>
+
+<header class="app-header">
+
+    <a href="../index.html" class="brand">
+
+        <span class="brand-logo">
+            <img src="cbwebgis-logo.png"
+                 alt="CB Web & GIS logotyp">
+        </span>
+
+        <div class="brand-text">
+            <span class="brand-owner">CB WEB & GIS</span>
+
+            <h1>Mobil Bilservice</h1>
+
+            <p>Smart bokning och ruttplanering</p>
+        </div>
+
+    </a>
+
+    <div class="header-center">
+        <span>AI · GIS · AUTOMATION</span>
+    </div>
+
+    <div class="header-actions">
+
+        <button class="guide-button"
+                id="tour-start-btn"
+                type="button">
+            <span aria-hidden="true">▶</span>
+            Visa guide
+        </button>
+
+        <span class="demo-status">
+            <i></i>
+            Interaktiv demo
+        </span>
+
+        <a href="../index.html"
+           class="header-link">
+            Alla demos
+        </a>
+
+        <a href="https://cbwebgis.se/#contact"
+           class="contact-button"
+           target="_blank"
+           rel="noopener">
+            Kontakta oss
+        </a>
+
+        <button class="menu-toggle"
+                id="menu-toggle"
+                type="button"
+                aria-label="Visa kontrollpanelen">
+            ☰ Panel
+        </button>
+
+    </div>
+
+</header>
+
+<div class="app-body">
+
+    <aside class="sidebar" id="sidebar">
+
+        <section class="service-hero"
+                 id="tour-introduction">
+
+            <img src="mechanic-hero.jpg"
+                 alt="Mobil mekaniker som hjälper en kund">
+
+            <div class="service-hero-overlay"></div>
+
+            <div class="service-hero-content">
+
+                <span class="service-status">
+                    <i></i>
+                    Öppet för bokningar
+                </span>
+
+                <div>
+                    <p class="service-type">
+                        DEMOVERKSAMHET · ÖSTERGÖTLAND
+                    </p>
+
+                    <h2>Mobil Bilservice</h2>
+
+                    <p>
+                        Mekaniker kommer direkt till kunden.
+                        AI fördelar uppdragen och GIS optimerar
+                        dagens körvägar.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="panel"
+                 id="tour-booking">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">NY BOKNING</span>
+                    <h2>Boka mobil mekaniker</h2>
+                </div>
+
+                <span class="panel-icon">＋</span>
+            </div>
+
+            <form id="booking-form">
+
+                <label for="customer-name">
+                    Kundens namn
+                </label>
+
+                <input id="customer-name"
+                       type="text"
+                       placeholder="Exempel: Anna Karlsson"
+                       required>
+
+                <label for="service-type">
+                    Typ av hjälp
+                </label>
+
+                <select id="service-type" required>
+                    <option value="battery">Batterihjälp</option>
+                    <option value="diagnostics">Felsökning</option>
+                    <option value="tyres">Däckservice</option>
+                    <option value="repair">Mindre reparation</option>
+                </select>
+
+                <label for="customer-area">
+                    Område
+                </label>
+
+                <select id="customer-area" required>
+                    <option value="linkoping">Linköping</option>
+                    <option value="mjolby">Mjölby</option>
+                    <option value="motala">Motala</option>
+                    <option value="norrkoping">Norrköping</option>
+                </select>
+
+                <button class="primary-button"
+                        type="submit">
+                    Skapa bokning
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="panel"
+                 id="tour-statistics">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">DAGENS ÖVERSIKT</span>
+                    <h2>Aktiva uppdrag</h2>
+                </div>
+            </div>
+
+            <div class="statistics-grid">
+
+                <div class="stat-card">
+                    <strong id="stat-jobs">0</strong>
+                    <span>bokningar</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong id="stat-mechanics">3</strong>
+                    <span>mekaniker</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong id="stat-eta">–</strong>
+                    <span>snittid</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong id="stat-distance">–</strong>
+                    <span>körsträcka</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="panel"
+                 id="tour-jobs">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">UPPDRAG</span>
+                    <h2>Dagens bokningar</h2>
+                </div>
+
+                <span class="count-badge"
+                      id="jobs-count">
+                    0
+                </span>
+            </div>
+
+            <div class="jobs-list"
+                 id="jobs-list"></div>
+
+        </section>
+
+        <section class="panel"
+                 id="tour-mechanics">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">TEAM</span>
+                    <h2>Tillgängliga mekaniker</h2>
+                </div>
+            </div>
+
+            <div class="mechanics-list"
+                 id="mechanics-list"></div>
+
+        </section>
+
+        <section class="panel ai-panel"
+                 id="tour-ai">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">AI-ANALYS</span>
+                    <h2>Smart rekommendation</h2>
+                </div>
+
+                <span class="ai-symbol">✦</span>
+            </div>
+
+            <p>
+                AI analyserar bokningar, avstånd,
+                mekanikernas kompetens och tillgänglighet.
+            </p>
+
+            <button class="primary-button"
+                    id="analyze-btn"
+                    type="button">
+                Analysera dagens uppdrag
+            </button>
+
+            <div class="ai-result"
+                 id="ai-result"></div>
+
+        </section>
+
+        <p class="sidebar-credit">
+            Demo av
+            <a href="https://cbwebgis.se/"
+               target="_blank"
+               rel="noopener">
+                CB Web &amp; GIS
+            </a>
+            – alla data är simulerade.
+        </p>
+
+    </aside>
+
+    <main class="map-pane">
+
+        <div id="map"></div>
+
+        <section class="map-control-card"
+                 id="tour-simulation">
+
+            <span class="eyebrow">LIVEPLANERING</span>
+
+            <h2>Automatisk uppdragsfördelning</h2>
+
+            <p id="simulation-message">
+                Bokningarna väntar på att tilldelas
+                till rätt mekaniker.
+            </p>
+
+            <div class="simulation-progress">
+                <span id="simulation-progress-bar"></span>
+            </div>
+
+            <div class="simulation-actions">
+
+                <button class="primary-button"
+                        id="start-simulation-btn"
+                        type="button">
+                    ▶ Starta planering
+                </button>
+
+                <button class="secondary-button"
+                        id="reset-simulation-btn"
+                        type="button">
+                    ↻ Återställ
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="contact-card"
+                 id="tour-contact">
+
+            <span class="contact-icon">✦</span>
+
+            <div>
+                <span class="contact-label">
+                    Vill du ha en liknande lösning?
+                </span>
+
+                <strong>
+                    Vi bygger smarta system för lokala företag.
+                </strong>
+
+                <a href="https://cbwebgis.se/#contact"
+                   target="_blank"
+                   rel="noopener">
+                    Kontakta CB Web &amp; GIS →
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
