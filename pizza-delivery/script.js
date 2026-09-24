@@ -668,7 +668,92 @@ function createDriverStopIcon(number, color) {
         iconAnchor: [12, 12]
     });
 }
+/* Create a live map icon for a delivery driver */
+function createLiveDriverIcon(driver) {
+    const initials = driver.name
+        .split(" ")
+        .map((namePart) => namePart[0])
+        .join("")
+        .slice(0, 2);
 
+    return L.divIcon({
+        className: "",
+        html:
+            '<div style="' +
+                'width:34px;' +
+                'height:34px;' +
+                'display:flex;' +
+                'align-items:center;' +
+                'justify-content:center;' +
+                'border-radius:50%;' +
+                'background:' + driver.color + ';' +
+                'color:#ffffff;' +
+                'border:4px solid #ffffff;' +
+                'box-shadow:0 5px 18px rgba(0,0,0,0.35);' +
+                'font-family:Manrope,sans-serif;' +
+                'font-size:10px;' +
+                'font-weight:800;' +
+            '">' +
+                initials +
+            '</div>',
+        iconSize: [34, 34],
+        iconAnchor: [17, 17]
+    });
+}
+
+
+/* Add one live marker for each driver */
+function createActiveDriverMarkers() {
+    clearActiveDriverMarkers();
+
+    activeDriverMarkers =
+        deliveryDrivers.map((driver) => {
+            const marker = L.marker(
+                [PIZZERIA.lat, PIZZERIA.lng],
+                {
+                    icon:
+                        createLiveDriverIcon(
+                            driver
+                        ),
+                    zIndexOffset: 1200
+                }
+            );
+
+            marker
+                .addTo(map)
+                .bindTooltip(
+                    driver.name,
+                    {
+                        direction: "top",
+                        offset: [0, -18]
+                    }
+                );
+
+            return {
+                driverId: driver.id,
+                marker: marker
+            };
+        });
+}
+
+
+/* Remove all live driver markers */
+function clearActiveDriverMarkers() {
+    activeDriverMarkers.forEach(
+        (driverMarker) => {
+            if (
+                map &&
+                driverMarker.marker
+            ) {
+                map.removeLayer(
+                    driverMarker.marker
+                );
+            }
+        }
+    );
+
+    activeDriverMarkers = [];
+}
 
 /* Draw all assigned driver routes on the map */
 function renderDriverRoutes() {
