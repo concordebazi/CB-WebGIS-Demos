@@ -637,7 +637,135 @@ function updateStatistics() {
             ? `${totalDistance.toFixed(1)} km`
             : "–";
 }
+/* =========================================
+   GET ROAD ROUTE
+========================================= */
 
+async function getRoadRoute(
+    startPosition,
+    endPosition
+) {
+
+    const startLongitude =
+        startPosition[1];
+
+    const startLatitude =
+        startPosition[0];
+
+    const endLongitude =
+        endPosition[1];
+
+    const endLatitude =
+        endPosition[0];
+
+    const routeUrl =
+        "https://router.project-osrm.org/route/v1/driving/" +
+        `${startLongitude},${startLatitude};` +
+        `${endLongitude},${endLatitude}` +
+        "?overview=full&geometries=geojson";
+
+    try {
+
+        const response =
+            await fetch(routeUrl);
+
+        if (!response.ok) {
+            throw new Error("Routing service unavailable");
+        }
+
+        const data =
+            await response.json();
+
+        if (
+            !data.routes ||
+            data.routes.length === 0
+        ) {
+            throw new Error("No route found");
+        }
+
+        const coordinates =
+            data.routes[0]
+                .geometry
+                .coordinates
+                .map(coordinate => [
+                    coordinate[1],
+                    coordinate[0]
+                ]);
+
+        return {
+            coordinates: coordinates,
+
+            distance:
+                data.routes[0].distance / 1000,
+
+            duration:
+                data.routes[0].duration / 60
+        };
+
+    } catch (error) {
+
+        console.warn(
+            "Road route could not be loaded:",
+            error
+        );
+
+        return {
+            coordinates: [
+                startPosition,
+                endPosition
+            ],
+
+            distance:
+                calculateDistance(
+                    startPosition,
+                    endPosition
+                ),
+
+            duration: 0
+        };
+    }
+}
+
+
+/* =========================================
+   DRAW ROAD ROUTE
+========================================= */
+
+async function drawRoadRoute(
+    startPosition,
+    endPosition,
+    mechanic,
+    job
+) {
+
+    const route =
+        await getRoadRoute(
+            startPosition,
+            endPosition
+        );
+
+    const routeLine =
+        L.polyline(
+            route.coordinates,
+            {
+                color: mechanic.color,
+                weight: 5,
+                opacity: 0.88,
+                lineCap: "round",
+                lineJoin: "round"
+            }
+        );
+
+    routeLine.bindTooltip(`
+        <strong>${mechanic.name}</strong><br>
+        ${job.customer}<br>
+        ${route.distance.toFixed(1)} km
+    `);
+
+    routeLine.addTo(routeLayer);
+
+    return route;
+}
 
 /* =========================================
    FIND BEST MECHANIC
@@ -740,24 +868,12 @@ function assignJobsToMechanics() {
             const routeStart =
                 mechanicPositions[mechanic.id];
 
-            L.polyline(
-                [
-                    routeStart,
-                    job.position
-                ],
-                {
-                    color: mechanic.color,
-                    weight: 5,
-                    opacity: 0.82,
-                    dashArray: "10 8",
-                    lineCap: "round",
-                    lineJoin: "round"
-                }
-            )
-            .bindTooltip(
-                `${mechanic.name} → ${job.customer}`
-            )
-            .addTo(routeLayer);
+           await drawRoadRoute(
+    routeStart,
+    job.position,
+    mechanic,
+    job
+);
 
             mechanicPositions[mechanic.id] = [
                 job.position[0],
