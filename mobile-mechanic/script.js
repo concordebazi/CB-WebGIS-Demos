@@ -172,7 +172,27 @@ const mechanics = [
         assignedJobs: []
     }
 ];
+/* =========================================
+   MECHANIC SKILLS
+========================================= */
 
+const mechanicSkills = {
+    1: [
+        "battery",
+        "diagnostics"
+    ],
+
+    2: [
+        "tyres",
+        "repair"
+    ],
+
+    3: [
+        "diagnostics",
+        "battery",
+        "repair"
+    ]
+};
 
 /* =========================================
    INITIAL BOOKINGS
@@ -620,6 +640,53 @@ function updateStatistics() {
 
 
 /* =========================================
+   FIND BEST MECHANIC
+========================================= */
+
+function findBestMechanic(job, mechanicPositions) {
+
+    let bestMechanic = null;
+    let bestScore = Infinity;
+
+    mechanics.forEach(mechanic => {
+
+        const currentPosition =
+            mechanicPositions[mechanic.id];
+
+        const distance =
+            calculateDistance(
+                currentPosition,
+                job.position
+            );
+
+        const hasCorrectSkill =
+            mechanicSkills[mechanic.id]
+                .includes(job.service);
+
+        const skillPenalty =
+            hasCorrectSkill
+                ? 0
+                : 18;
+
+        const workloadPenalty =
+            mechanic.assignedJobs.length * 4;
+
+        const score =
+            distance +
+            skillPenalty +
+            workloadPenalty;
+
+        if (score < bestScore) {
+            bestScore = score;
+            bestMechanic = mechanic;
+        }
+    });
+
+    return bestMechanic;
+}
+
+
+/* =========================================
    ASSIGN JOBS
 ========================================= */
 
@@ -627,49 +694,97 @@ function assignJobsToMechanics() {
 
     routeLayer.clearLayers();
 
-    mechanics.forEach(mechanic => {
-        mechanic.assignedJobs = [];
-        mechanic.status = "Tilldelad";
-    });
-
-    jobs.forEach((job, index) => {
-
-        const mechanic =
-            mechanics[index % mechanics.length];
-
-        job.assignedMechanic = mechanic.id;
-        job.status = "Tilldelad";
-
-        mechanic.assignedJobs.push(job.id);
-
-        L.polyline(
-            [
-                mechanic.position,
-                job.position
-            ],
-            {
-                color: mechanic.color,
-                weight: 4,
-                opacity: 0.78,
-                dashArray: "9 8"
-            }
-        ).addTo(routeLayer);
-    });
-
-    renderAll();
-
     simulationMessage.textContent =
-        "AI har tilldelat varje bokning till en lämplig mekaniker.";
+        "AI analyserar kompetens, avstånd och arbetsbelastning...";
 
-    simulationProgressBar.style.width = "100%";
-
-    startSimulationButton.textContent =
-        "✓ Planeringen är klar";
+    simulationProgressBar.style.width = "25%";
 
     startSimulationButton.disabled = true;
+
+    mechanics.forEach(mechanic => {
+        mechanic.assignedJobs = [];
+        mechanic.status = "Analyserar";
+    });
+
+    const mechanicPositions = {};
+
+    mechanics.forEach(mechanic => {
+        mechanicPositions[mechanic.id] = [
+            mechanic.position[0],
+            mechanic.position[1]
+        ];
+    });
+
+    setTimeout(() => {
+
+        simulationProgressBar.style.width = "55%";
+
+        jobs.forEach(job => {
+
+            const mechanic =
+                findBestMechanic(
+                    job,
+                    mechanicPositions
+                );
+
+            job.assignedMechanic =
+                mechanic.id;
+
+            job.status =
+                "Tilldelad";
+
+            mechanic.assignedJobs.push(
+                job.id
+            );
+
+            const routeStart =
+                mechanicPositions[mechanic.id];
+
+            L.polyline(
+                [
+                    routeStart,
+                    job.position
+                ],
+                {
+                    color: mechanic.color,
+                    weight: 5,
+                    opacity: 0.82,
+                    dashArray: "10 8",
+                    lineCap: "round",
+                    lineJoin: "round"
+                }
+            )
+            .bindTooltip(
+                `${mechanic.name} → ${job.customer}`
+            )
+            .addTo(routeLayer);
+
+            mechanicPositions[mechanic.id] = [
+                job.position[0],
+                job.position[1]
+            ];
+        });
+
+        mechanics.forEach(mechanic => {
+
+            mechanic.status =
+                mechanic.assignedJobs.length > 0
+                    ? "Planerad"
+                    : "Tillgänglig";
+        });
+
+        renderAll();
+
+        simulationProgressBar.style.width = "100%";
+
+        simulationMessage.textContent =
+            "Planeringen är klar. Uppdragen har fördelats efter kompetens, avstånd och arbetsbelastning.";
+
+        startSimulationButton.textContent =
+            "✓ Planeringen är klar";
+
+    }, 700);
 }
-
-
 /* =========================================
    RESET SIMULATION
 ========================================= */
