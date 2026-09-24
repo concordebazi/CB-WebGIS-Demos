@@ -147,18 +147,8 @@ function updateSimulationInterface(statusText) {
 function buildSimulationQueue() {
     const driverStops =
         deliveryDrivers.map((driver) => {
-            const assignedOrders = orders
-                .filter(
-                    (order) =>
-                        order.zone ===
-                        driver.preferredZone
-                )
-                .slice()
-                .sort(
-                    (orderA, orderB) =>
-                        orderA.distanceKm -
-                        orderB.distanceKm
-                );
+            const assignedOrders =
+    getAllDriverStops(driver);
 
             return {
                 driver: driver,
@@ -886,7 +876,7 @@ function renderDriverRoutes() {
     }
 
  
-        const stops = optimiseDriverStops(driver);
+      const stops = getAllDriverStops(driver);
 
         if (!stops.length) {
             return;
