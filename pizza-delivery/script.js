@@ -641,7 +641,26 @@ function optimiseDriverStops(driver) {
 
     return orderedStops;
 }
+/* Return all orders assigned to a driver's delivery zone */
+function getAllDriverStops(driver) {
+    const zoneOrders = orders.filter(
+        (order) =>
+            order.zone ===
+            driver.preferredZone
+    );
 
+    /*
+       Reuse the existing nearest-neighbour
+       optimisation with a temporary group.
+    */
+    return optimiseDriverStops({
+        groups: [
+            {
+                orders: zoneOrders
+            }
+        ]
+    });
+}
 
 /* Create a numbered map marker for one stop */
 function createDriverStopIcon(number, color) {
