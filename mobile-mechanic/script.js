@@ -67,12 +67,15 @@ L.tileLayer(
 const bookingLayer = L.layerGroup().addTo(map);
 const mechanicLayer = L.layerGroup().addTo(map);
 const routeLayer = L.layerGroup().addTo(map);
+const travelledRouteLayer =
+    L.layerGroup().addTo(map);
 /* =========================================
    MECHANIC MOVEMENT STATE
 ========================================= */
 
 const mechanicRoutes = {};
 const movingMechanicMarkers = {};
+const mechanicTravelLines = {};
 
 let movementAnimationId = null;
 let movementIsRunning = false;
@@ -780,8 +783,8 @@ if (mechanicRoutes[mechanic.id].length === 0) {
             route.coordinates,
             {
                 color: mechanic.color,
-                weight: 5,
-                opacity: 0.88,
+weight: 5,
+opacity: 0.28,
                 lineCap: "round",
                 lineJoin: "round"
             }
@@ -817,12 +820,16 @@ function startMechanicMovement() {
 
     stopMechanicMovement();
 
-    mechanicLayer.clearLayers();
+       mechanicLayer.clearLayers();
+    travelledRouteLayer.clearLayers();
 
     Object.keys(movingMechanicMarkers).forEach(mechanicId => {
         delete movingMechanicMarkers[mechanicId];
     });
 
+    Object.keys(mechanicTravelLines).forEach(mechanicId => {
+        delete mechanicTravelLines[mechanicId];
+    });
 
     mechanics.forEach(mechanic => {
 
@@ -852,6 +859,24 @@ function startMechanicMovement() {
 
         movingMechanicMarkers[mechanic.id] =
             marker;
+               const travelledLine =
+            L.polyline(
+                [route[0]],
+                {
+                    color: mechanic.color,
+                    weight: 7,
+                    opacity: 1,
+                    lineCap: "round",
+                    lineJoin: "round"
+                }
+            );
+
+        travelledLine.addTo(
+            travelledRouteLayer
+        );
+
+        mechanicTravelLines[mechanic.id] =
+            travelledLine;
     });
 
 
