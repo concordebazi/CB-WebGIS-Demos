@@ -272,7 +272,7 @@ function toggleDeliverySimulation() {
 }
 
 
-/* Return the simulation to its initial state */
+/* Return the simulation and map to their initial state */
 function resetDeliverySimulation() {
     window.clearTimeout(simulationTimer);
 
@@ -281,12 +281,39 @@ function resetDeliverySimulation() {
     simulationPaused = false;
     completedOrderCount = 0;
     simulationQueue = [];
-clearActiveDriverMarkers();
+
+    clearActiveDriverMarkers();
+
+    /*
+       Remove the complete numbered driver routes,
+       leaving the ordinary destination dots visible.
+    */
+    if (driverRoutesLayer && map) {
+        map.removeLayer(driverRoutesLayer);
+        driverRoutesLayer = null;
+    }
+
+    selectedDriverId = null;
+
+    document
+        .querySelectorAll(".driver-card")
+        .forEach((card) => {
+            card.classList.remove(
+                "driver-card--selected"
+            );
+        });
+
     updateSimulationInterface(
         "Redo att starta"
     );
-}
 
+    if (map) {
+        map.setView(
+            [PIZZERIA.lat, PIZZERIA.lng],
+            13
+        );
+    }
+}
 
 /* Connect the simulation buttons */
 function setupDeliverySimulation() {
@@ -873,16 +900,23 @@ activeMarker.routeLine.setLatLngs(
     );
 }
 
-/* Remove all live driver markers */
+/* Remove all live driver markers and their drawn routes */
 function clearActiveDriverMarkers() {
     activeDriverMarkers.forEach(
         (driverMarker) => {
-            if (
-                map &&
-                driverMarker.marker
-            ) {
+            if (!map) {
+                return;
+            }
+
+            if (driverMarker.marker) {
                 map.removeLayer(
                     driverMarker.marker
+                );
+            }
+
+            if (driverMarker.routeLine) {
+                map.removeLayer(
+                    driverMarker.routeLine
                 );
             }
         }
