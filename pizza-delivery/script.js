@@ -231,10 +231,29 @@ moveActiveDriverMarker(delivery);
 
 /* Start, pause or continue the simulation */
 function toggleDeliverySimulation() {
-    if (!simulationRunning) {
-        completedOrderCount = 0;
-        simulationQueue =
-            buildSimulationQueue();
+   if (!simulationRunning) {
+    /*
+       Remove any complete route previously displayed
+       by clicking a driver card.
+    */
+    if (driverRoutesLayer && map) {
+        map.removeLayer(driverRoutesLayer);
+        driverRoutesLayer = null;
+    }
+
+    selectedDriverId = null;
+
+    document
+        .querySelectorAll(".driver-card")
+        .forEach((card) => {
+            card.classList.remove(
+                "driver-card--selected"
+            );
+        });
+
+    completedOrderCount = 0;
+    simulationQueue =
+        buildSimulationQueue();
 
         simulationRunning = true;
        createActiveDriverMarkers();
