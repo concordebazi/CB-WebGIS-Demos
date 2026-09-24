@@ -1106,7 +1106,7 @@ function setupDriverCardInteractions() {
 
         renderOrders();
 renderGroupsLayer();
-renderDriverRoutes();
+
     }
 
     function orderIcon(zone) {
