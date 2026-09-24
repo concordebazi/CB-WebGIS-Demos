@@ -143,19 +143,38 @@ function updateSimulationInterface(statusText) {
             completedOrderCount === 0;
     }
 }
-   /* Build a delivery queue shared between the drivers */
+  /* Build a delivery queue containing every active order */
 function buildSimulationQueue() {
-    const driverStops = deliveryDrivers.map(
-        (driver) => ({
-            driver: driver,
-            stops: optimiseDriverStops(driver)
-        })
-    );
+    const driverStops =
+        deliveryDrivers.map((driver) => {
+            const assignedOrders = orders
+                .filter(
+                    (order) =>
+                        order.zone ===
+                        driver.preferredZone
+                )
+                .slice()
+                .sort(
+                    (orderA, orderB) =>
+                        orderA.distanceKm -
+                        orderB.distanceKm
+                );
+
+            return {
+                driver: driver,
+                stops: assignedOrders
+            };
+        });
 
     const queue = [];
     let stopIndex = 0;
     let stopsRemaining = true;
 
+    /*
+       Add one order per driver during each cycle.
+       This makes the three drivers appear to work
+       at approximately the same time.
+    */
     while (stopsRemaining) {
         stopsRemaining = false;
 
@@ -167,7 +186,8 @@ function buildSimulationQueue() {
                 queue.push({
                     driver: item.driver,
                     order: order,
-                    stopNumber: stopIndex + 1
+                    stopNumber:
+                        stopIndex + 1
                 });
 
                 stopsRemaining = true;
@@ -179,7 +199,6 @@ function buildSimulationQueue() {
 
     return queue;
 }
-
 
 /* Complete the next simulated delivery */
 function processNextDelivery() {
