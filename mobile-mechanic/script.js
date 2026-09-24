@@ -67,6 +67,16 @@ L.tileLayer(
 const bookingLayer = L.layerGroup().addTo(map);
 const mechanicLayer = L.layerGroup().addTo(map);
 const routeLayer = L.layerGroup().addTo(map);
+/* =========================================
+   MECHANIC MOVEMENT STATE
+========================================= */
+
+const mechanicRoutes = {};
+const movingMechanicMarkers = {};
+
+let movementAnimationId = null;
+let movementIsRunning = false;
+let movementIsPaused = false;
 
 
 /* =========================================
@@ -743,7 +753,28 @@ async function drawRoadRoute(
             startPosition,
             endPosition
         );
+/* Save this route for mechanic movement */
 
+if (!mechanicRoutes[mechanic.id]) {
+    mechanicRoutes[mechanic.id] = [];
+}
+
+if (mechanicRoutes[mechanic.id].length === 0) {
+
+    mechanicRoutes[mechanic.id].push(
+        ...route.coordinates
+    );
+
+} else {
+
+    /*
+     * Skip the first coordinate because it is already
+     * the final coordinate of the previous route.
+     */
+    mechanicRoutes[mechanic.id].push(
+        ...route.coordinates.slice(1)
+    );
+}
     const routeLine =
         L.polyline(
             route.coordinates,
@@ -821,6 +852,9 @@ function findBestMechanic(job, mechanicPositions) {
 async function assignJobsToMechanics() {
 
     routeLayer.clearLayers();
+       Object.keys(mechanicRoutes).forEach(mechanicId => {
+        delete mechanicRoutes[mechanicId];
+    });
 
     simulationMessage.textContent =
         "AI analyserar kompetens, avstånd och arbetsbelastning...";
@@ -915,6 +949,9 @@ function resetSimulation() {
     nextJobId = 7;
 
     routeLayer.clearLayers();
+       Object.keys(mechanicRoutes).forEach(mechanicId => {
+        delete mechanicRoutes[mechanicId];
+    });
 
     mechanics.forEach(mechanic => {
         mechanic.assignedJobs = [];
