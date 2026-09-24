@@ -797,7 +797,168 @@ if (mechanicRoutes[mechanic.id].length === 0) {
 
     return route;
 }
+/* =========================================
+   SMOOTH MECHANIC MOVEMENT
+========================================= */
 
+function stopMechanicMovement() {
+
+    if (movementAnimationId !== null) {
+        cancelAnimationFrame(movementAnimationId);
+        movementAnimationId = null;
+    }
+
+    movementIsRunning = false;
+    movementIsPaused = false;
+}
+
+
+function startMechanicMovement() {
+
+    stopMechanicMovement();
+
+    mechanicLayer.clearLayers();
+
+    Object.keys(movingMechanicMarkers).forEach(mechanicId => {
+        delete movingMechanicMarkers[mechanicId];
+    });
+
+
+    mechanics.forEach(mechanic => {
+
+        const route =
+            mechanicRoutes[mechanic.id];
+
+        if (!route || route.length < 2) {
+            return;
+        }
+
+        const marker =
+            L.marker(
+                route[0],
+                {
+                    icon: createMechanicIcon(mechanic),
+                    zIndexOffset: 1000
+                }
+            );
+
+        marker.bindPopup(`
+            <strong>${mechanic.name}</strong><br>
+            ${mechanic.vehicle}<br>
+            Status: På väg
+        `);
+
+        marker.addTo(mechanicLayer);
+
+        movingMechanicMarkers[mechanic.id] =
+            marker;
+    });
+
+
+    const animationDuration = 15000;
+    const animationStart = performance.now();
+
+    movementIsRunning = true;
+    movementIsPaused = false;
+
+
+    function animateMechanics(currentTime) {
+
+        if (!movementIsRunning) {
+            return;
+        }
+
+        const elapsedTime =
+            currentTime - animationStart;
+
+        const progress =
+            Math.min(
+                elapsedTime / animationDuration,
+                1
+            );
+
+
+        mechanics.forEach(mechanic => {
+
+            const route =
+                mechanicRoutes[mechanic.id];
+
+            const marker =
+                movingMechanicMarkers[mechanic.id];
+
+            if (!route || !marker || route.length < 2) {
+                return;
+            }
+
+
+            const exactPosition =
+                progress * (route.length - 1);
+
+            const currentIndex =
+                Math.floor(exactPosition);
+
+            const nextIndex =
+                Math.min(
+                    currentIndex + 1,
+                    route.length - 1
+                );
+
+            const sectionProgress =
+                exactPosition - currentIndex;
+
+
+            const currentCoordinate =
+                route[currentIndex];
+
+            const nextCoordinate =
+                route[nextIndex];
+
+
+            const latitude =
+                currentCoordinate[0] +
+                (
+                    nextCoordinate[0] -
+                    currentCoordinate[0]
+                ) * sectionProgress;
+
+            const longitude =
+                currentCoordinate[1] +
+                (
+                    nextCoordinate[1] -
+                    currentCoordinate[1]
+                ) * sectionProgress;
+
+
+            marker.setLatLng([
+                latitude,
+                longitude
+            ]);
+        });
+
+
+        if (progress < 1) {
+
+            movementAnimationId =
+                requestAnimationFrame(
+                    animateMechanics
+                );
+
+        } else {
+
+            movementIsRunning = false;
+            movementAnimationId = null;
+
+            simulationMessage.textContent =
+                "Alla mekaniker har nått sina planerade uppdrag.";
+        }
+    }
+
+
+    movementAnimationId =
+        requestAnimationFrame(
+            animateMechanics
+        );
+}
 /* =========================================
    FIND BEST MECHANIC
 ========================================= */
@@ -937,6 +1098,7 @@ async function assignJobsToMechanics() {
 
     startSimulationButton.textContent =
         "✓ Planeringen är klar";
+       startMechanicMovement();
 }
 
 /* =========================================
