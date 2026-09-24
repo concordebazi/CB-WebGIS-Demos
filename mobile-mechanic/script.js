@@ -784,7 +784,7 @@ if (mechanicRoutes[mechanic.id].length === 0) {
             {
                 color: mechanic.color,
 weight: 5,
-opacity: 0.28,
+opacity:  0.62,
                 lineCap: "round",
                 lineJoin: "round"
             }
