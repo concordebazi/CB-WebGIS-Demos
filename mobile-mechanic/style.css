@@ -1550,3 +1550,25 @@ button {
 .map-data-panel .mechanic-information span {
     font-size: 8px;
 }
+@media (max-width: 1100px) {
+
+    .map-data-panel {
+        width: 285px;
+    }
+
+    .map-jobs-panel {
+        left: 15px;
+        bottom: 15px;
+    }
+
+    .map-team-panel {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+@media (max-width: 820px) {
+
+    .map-data-panel {
+        display: none;
+    }
+}
