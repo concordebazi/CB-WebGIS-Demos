@@ -904,7 +904,7 @@ async function assignJobsToMechanics() {
     startSimulationButton.textContent =
         "✓ Planeringen är klar";
 }
-}
+
 /* =========================================
    RESET SIMULATION
 ========================================= */
