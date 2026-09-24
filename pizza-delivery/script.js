@@ -791,11 +791,7 @@ const tourSteps = [
         title: "Dagens leveransstatistik",
         text: "Här visas antal aktiva beställningar, genomsnittlig leveranstid, föreslagna grupper och uppskattad tidsbesparing."
     },
-   {
-    target: "#tour-statistics",
-    title: "Dagens leveransstatistik",
-    text: "Här visas antal aktiva beställningar, genomsnittlig leveranstid, föreslagna grupper och uppskattad tidsbesparing."
-},
+   
 {
     target: "#driver-panel",
     title: "Förare och optimerade rutter",
@@ -818,8 +814,7 @@ const tourSteps = [
     target: "#tour-groups",
     {
         target: "#tour-groups",
-        title: "Smart ordergruppering",
-        text: "När beställningar ligger nära varandra kan de grupperas i samma leveransrunda. Det minskar körsträckan och sparar tid.",
+        
         action: function () {
             const groupsToggle =
                 document.getElementById("toggle-groups");
