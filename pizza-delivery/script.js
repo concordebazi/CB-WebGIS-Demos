@@ -1211,12 +1211,12 @@ renderGroupsLayer();
         });
 
     generateOrders();
-    buildGroups();
-    assignGroupsToDrivers();
-   
-    renderGroupsLayer();
-    renderDriverRoutes();
-    applyLayerState();
+buildGroups();
+assignGroupsToDrivers();
+
+renderOrders();
+renderGroupsLayer();
+applyLayerState();
     renderStats();
     renderGroupsList();
    resetAiPanel();
