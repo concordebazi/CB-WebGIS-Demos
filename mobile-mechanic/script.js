@@ -1108,9 +1108,21 @@ function findBestMechanic(job, mechanicPositions) {
 
 async function assignJobsToMechanics() {
 
+        stopMechanicMovement();
+
     routeLayer.clearLayers();
-       Object.keys(mechanicRoutes).forEach(mechanicId => {
+    travelledRouteLayer.clearLayers();
+
+    Object.keys(mechanicRoutes).forEach(mechanicId => {
         delete mechanicRoutes[mechanicId];
+    });
+
+    Object.keys(movingMechanicMarkers).forEach(mechanicId => {
+        delete movingMechanicMarkers[mechanicId];
+    });
+
+    Object.keys(mechanicTravelLines).forEach(mechanicId => {
+        delete mechanicTravelLines[mechanicId];
     });
 
     simulationMessage.textContent =
