@@ -1456,3 +1456,97 @@ button {
         font-size: 9px;
     }
 }
+/* =========================================
+   FLOATING MAP DATA PANELS
+========================================= */
+
+.map-data-panel {
+    position: absolute;
+    z-index: 650;
+
+    width: 330px;
+    max-height: 390px;
+    margin: 0;
+    padding: 17px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    border:
+        1px solid rgba(210, 220, 232, 0.95);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 22px 55px rgba(10, 25, 45, 0.2);
+
+    backdrop-filter: blur(15px);
+}
+
+.map-jobs-panel {
+    bottom: 24px;
+    left: 24px;
+}
+
+.map-team-panel {
+    right: 24px;
+    bottom: 24px;
+}
+
+.map-data-panel .panel-heading {
+    margin-bottom: 12px;
+}
+
+.map-data-panel .panel-heading h2 {
+    font-size: 15px;
+}
+
+.map-scroll-list {
+    max-height: 300px;
+    padding-right: 5px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        #9ba9ba
+        transparent;
+}
+
+.map-scroll-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.map-scroll-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.map-scroll-list::-webkit-scrollbar-thumb {
+    background: #9ba9ba;
+    border-radius: 20px;
+}
+
+.map-data-panel .job-card,
+.map-data-panel .mechanic-card {
+    padding: 10px;
+}
+
+.map-data-panel .job-icon,
+.map-data-panel .mechanic-avatar {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+}
+
+.map-data-panel .job-information strong,
+.map-data-panel .mechanic-information strong {
+    font-size: 10px;
+}
+
+.map-data-panel .job-information span,
+.map-data-panel .mechanic-information span {
+    font-size: 8px;
+}
