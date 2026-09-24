@@ -34,8 +34,115 @@ let driverRoutesLayer;
 let zoneLayers = [];
     let orders = [];
     let groups = [];
+   /* Live delivery simulation state */
+let simulationTimer = null;
+let simulationRunning = false;
+let simulationPaused = false;
+let completedOrderCount = 0;
+let simulationQueue = [];
+let activeDriverMarkers = [];
     const state = { heatmap: false, groups: true };
+/* Update the live-delivery control panel */
+function updateSimulationInterface(statusText) {
+    const simulationPanel =
+        document.getElementById(
+            "delivery-simulation"
+        );
 
+    const statusElement =
+        document.getElementById(
+            "simulation-status"
+        );
+
+    const completedElement =
+        document.getElementById(
+            "completed-orders"
+        );
+
+    const totalElement =
+        document.getElementById(
+            "simulation-total"
+        );
+
+    const progressBar =
+        document.getElementById(
+            "simulation-progress-bar"
+        );
+
+    const startButton =
+        document.getElementById(
+            "simulation-start-btn"
+        );
+
+    const resetButton =
+        document.getElementById(
+            "simulation-reset-btn"
+        );
+
+    const totalOrders = orders.length;
+
+    const progress =
+        totalOrders > 0
+            ? Math.min(
+                100,
+                (completedOrderCount /
+                    totalOrders) * 100
+            )
+            : 0;
+
+    if (statusElement && statusText) {
+        statusElement.textContent =
+            statusText;
+    }
+
+    if (completedElement) {
+        completedElement.textContent =
+            completedOrderCount;
+    }
+
+    if (totalElement) {
+        totalElement.textContent =
+            totalOrders;
+    }
+
+    if (progressBar) {
+        progressBar.style.width =
+            progress + "%";
+    }
+
+    if (simulationPanel) {
+        simulationPanel.classList.toggle(
+            "is-running",
+            simulationRunning &&
+            !simulationPaused
+        );
+    }
+
+    if (startButton) {
+        if (
+            simulationRunning &&
+            !simulationPaused
+        ) {
+            startButton.textContent =
+                "⏸ Pausa";
+        } else if (
+            simulationRunning &&
+            simulationPaused
+        ) {
+            startButton.textContent =
+                "▶ Fortsätt";
+        } else {
+            startButton.textContent =
+                "▶ Starta leveranser";
+        }
+    }
+
+    if (resetButton) {
+        resetButton.disabled =
+            !simulationRunning &&
+            completedOrderCount === 0;
+    }
+}
     // ---- Helpers ----
     function rand(min, max) { return Math.random() * (max - min) + min; }
     function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
@@ -657,7 +764,7 @@ renderDriverRoutes();
     applyLayerState();
     renderStats();
     renderGroupsList();
-    resetAiPanel();
+   resetAiPanel();
 
     map.setView(
         [PIZZERIA.lat, PIZZERIA.lng],
@@ -1043,5 +1150,6 @@ document.addEventListener("keydown", function (event) {
         applyLayerState();
         renderStats();
         renderGroupsList();
+        updateSimulationInterface("Redo att starta");
     });
 })();
