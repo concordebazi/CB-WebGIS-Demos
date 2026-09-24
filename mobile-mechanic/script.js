@@ -958,6 +958,26 @@ function startMechanicMovement() {
                 latitude,
                 longitude
             ]);
+                       const travelledLine =
+                mechanicTravelLines[mechanic.id];
+
+            if (travelledLine) {
+
+                const travelledCoordinates =
+                    route.slice(
+                        0,
+                        currentIndex + 1
+                    );
+
+                travelledCoordinates.push([
+                    latitude,
+                    longitude
+                ]);
+
+                travelledLine.setLatLngs(
+                    travelledCoordinates
+                );
+            }
         });
 
 
