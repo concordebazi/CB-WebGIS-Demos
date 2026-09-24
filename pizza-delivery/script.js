@@ -712,19 +712,36 @@ function createLiveDriverIcon(driver) {
 }
 
 
-/* Add one live marker for each driver */
+/* Add one live marker and one empty route for each driver */
 function createActiveDriverMarkers() {
     clearActiveDriverMarkers();
 
     activeDriverMarkers =
         deliveryDrivers.map((driver) => {
-            const marker = L.marker(
-                [PIZZERIA.lat, PIZZERIA.lng],
+            const startingPoint = [
+                PIZZERIA.lat,
+                PIZZERIA.lng
+            ];
+
+            /*
+               This line starts at the pizzeria.
+               It will grow while the driver moves.
+            */
+            const routeLine = L.polyline(
+                [startingPoint],
                 {
-                    icon:
-                        createLiveDriverIcon(
-                            driver
-                        ),
+                    color: driver.color,
+                    weight: 5,
+                    opacity: 0.9,
+                    lineCap: "round",
+                    lineJoin: "round"
+                }
+            ).addTo(map);
+
+            const marker = L.marker(
+                startingPoint,
+                {
+                    icon: createLiveDriverIcon(driver),
                     zIndexOffset: 1200
                 }
             );
@@ -741,7 +758,11 @@ function createActiveDriverMarkers() {
 
             return {
                 driverId: driver.id,
-                marker: marker
+                marker: marker,
+                routeLine: routeLine,
+                routeCoordinates: [
+                    startingPoint
+                ]
             };
         });
 }
