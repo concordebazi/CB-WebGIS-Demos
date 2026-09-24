@@ -810,23 +810,7 @@ const tourSteps = [
         }
     }
 },
-{
-    target: "#tour-groups",
-    {
-        target: "#tour-groups",
-        
-        action: function () {
-            const groupsToggle =
-                document.getElementById("toggle-groups");
 
-            if (groupsToggle && !groupsToggle.checked) {
-                groupsToggle.checked = true;
-                groupsToggle.dispatchEvent(
-                    new Event("change", { bubbles: true })
-                );
-            }
-        }
-    },
     {
         target: "#tour-ai",
         title: "AI-baserade rekommendationer",
