@@ -143,6 +143,167 @@ function updateSimulationInterface(statusText) {
             completedOrderCount === 0;
     }
 }
+   /* Build a delivery queue shared between the drivers */
+function buildSimulationQueue() {
+    const driverStops = deliveryDrivers.map(
+        (driver) => ({
+            driver: driver,
+            stops: optimiseDriverStops(driver)
+        })
+    );
+
+    const queue = [];
+    let stopIndex = 0;
+    let stopsRemaining = true;
+
+    while (stopsRemaining) {
+        stopsRemaining = false;
+
+        driverStops.forEach((item) => {
+            const order =
+                item.stops[stopIndex];
+
+            if (order) {
+                queue.push({
+                    driver: item.driver,
+                    order: order,
+                    stopNumber: stopIndex + 1
+                });
+
+                stopsRemaining = true;
+            }
+        });
+
+        stopIndex++;
+    }
+
+    return queue;
+}
+
+
+/* Complete the next simulated delivery */
+function processNextDelivery() {
+    if (
+        !simulationRunning ||
+        simulationPaused
+    ) {
+        return;
+    }
+
+    if (simulationQueue.length === 0) {
+        simulationRunning = false;
+        simulationPaused = false;
+        simulationTimer = null;
+
+        updateSimulationInterface(
+            "Alla leveranser är klara ✓"
+        );
+
+        return;
+    }
+
+    const delivery =
+        simulationQueue.shift();
+
+    completedOrderCount++;
+
+    updateSimulationInterface(
+        delivery.driver.name +
+        " levererade " +
+        delivery.order.id
+    );
+
+    simulationTimer = window.setTimeout(
+        processNextDelivery,
+        950
+    );
+}
+
+
+/* Start, pause or continue the simulation */
+function toggleDeliverySimulation() {
+    if (!simulationRunning) {
+        completedOrderCount = 0;
+        simulationQueue =
+            buildSimulationQueue();
+
+        simulationRunning = true;
+        simulationPaused = false;
+
+        updateSimulationInterface(
+            "Leveranser pågår"
+        );
+
+        processNextDelivery();
+        return;
+    }
+
+    if (simulationPaused) {
+        simulationPaused = false;
+
+        updateSimulationInterface(
+            "Leveranser fortsätter"
+        );
+
+        processNextDelivery();
+    } else {
+        simulationPaused = true;
+
+        window.clearTimeout(
+            simulationTimer
+        );
+
+        simulationTimer = null;
+
+        updateSimulationInterface(
+            "Leveranser pausade"
+        );
+    }
+}
+
+
+/* Return the simulation to its initial state */
+function resetDeliverySimulation() {
+    window.clearTimeout(simulationTimer);
+
+    simulationTimer = null;
+    simulationRunning = false;
+    simulationPaused = false;
+    completedOrderCount = 0;
+    simulationQueue = [];
+
+    updateSimulationInterface(
+        "Redo att starta"
+    );
+}
+
+
+/* Connect the simulation buttons */
+function setupDeliverySimulation() {
+    const startButton =
+        document.getElementById(
+            "simulation-start-btn"
+        );
+
+    const resetButton =
+        document.getElementById(
+            "simulation-reset-btn"
+        );
+
+    if (startButton) {
+        startButton.addEventListener(
+            "click",
+            toggleDeliverySimulation
+        );
+    }
+
+    if (resetButton) {
+        resetButton.addEventListener(
+            "click",
+            resetDeliverySimulation
+        );
+    }
+}
     // ---- Helpers ----
     function rand(min, max) { return Math.random() * (max - min) + min; }
     function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
@@ -1150,6 +1311,7 @@ document.addEventListener("keydown", function (event) {
         applyLayerState();
         renderStats();
         renderGroupsList();
+       setupDeliverySimulation();
         updateSimulationInterface("Redo att starta");
     });
 })();
