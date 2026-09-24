@@ -1199,6 +1199,7 @@ renderGroupsLayer();
     });
 
     document.getElementById("regenerate-btn").addEventListener("click", () => {
+           resetDeliverySimulation();
     selectedDriverId = null;
 
     document
@@ -1212,7 +1213,7 @@ renderGroupsLayer();
     generateOrders();
     buildGroups();
     assignGroupsToDrivers();
-    renderOrders();
+   
     renderGroupsLayer();
     renderDriverRoutes();
     applyLayerState();
