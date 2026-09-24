@@ -204,7 +204,33 @@ function getDriverEstimatedTime(driver) {
         return total + longestOrderTime + additionalStops;
     }, 0);
 }
+/* Calculate the driver's approximate complete route distance */
+function getDriverRouteDistance(driver) {
+    const stops = optimiseDriverStops(driver);
 
+    if (!stops.length) {
+        return 0;
+    }
+
+    let totalDistance = 0;
+    let previousPoint = PIZZERIA;
+
+    stops.forEach((stop) => {
+        totalDistance += coordinateDistance(
+            previousPoint,
+            stop
+        );
+
+        previousPoint = stop;
+    });
+
+    totalDistance += coordinateDistance(
+        previousPoint,
+        PIZZERIA
+    );
+
+    return totalDistance;
+}
 
 /* Update the driver cards in the HTML */
 function renderDrivers() {
