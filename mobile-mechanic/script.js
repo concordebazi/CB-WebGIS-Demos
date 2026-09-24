@@ -423,30 +423,81 @@ function createMechanicIcon(mechanic) {
 
         html: `
             <div style="
-                width:44px;
-                height:44px;
+                position:relative;
+                width:50px;
+                height:42px;
                 display:flex;
                 align-items:center;
                 justify-content:center;
-                color:#ffffff;
-                background:${mechanic.color};
-                border:4px solid #ffffff;
-                border-radius:50%;
-                box-shadow:0 10px 24px rgba(15,31,52,0.3);
-                font-size:11px;
-                font-weight:800;
             ">
-                ${mechanic.initials}
+
+                <div style="
+                    position:relative;
+                    width:46px;
+                    height:32px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:${mechanic.color};
+                    border:3px solid #ffffff;
+                    border-radius:12px;
+                    box-shadow:0 10px 24px rgba(15,31,52,0.35);
+                    font-size:21px;
+                ">
+                    🚗
+
+                    <span style="
+                        position:absolute;
+                        right:-7px;
+                        top:-9px;
+                        min-width:20px;
+                        height:20px;
+                        padding:0 3px;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        background:#0d1728;
+                        color:#ffffff;
+                        border:2px solid #ffffff;
+                        border-radius:10px;
+                        font-family:Manrope, sans-serif;
+                        font-size:8px;
+                        font-weight:800;
+                    ">
+                        ${mechanic.initials}
+                    </span>
+                </div>
+
+                <span style="
+                    position:absolute;
+                    left:9px;
+                    bottom:1px;
+                    width:9px;
+                    height:9px;
+                    background:#172033;
+                    border:2px solid #ffffff;
+                    border-radius:50%;
+                "></span>
+
+                <span style="
+                    position:absolute;
+                    right:9px;
+                    bottom:1px;
+                    width:9px;
+                    height:9px;
+                    background:#172033;
+                    border:2px solid #ffffff;
+                    border-radius:50%;
+                "></span>
+
             </div>
         `,
 
-        iconSize: [44, 44],
-        iconAnchor: [22, 22],
-        popupAnchor: [0, -20]
+        iconSize: [50, 42],
+        iconAnchor: [25, 21],
+        popupAnchor: [0, -22]
     });
 }
-
-
 /* =========================================
    RENDER MAP BOOKINGS
 ========================================= */
