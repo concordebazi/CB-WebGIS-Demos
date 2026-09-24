@@ -818,7 +818,7 @@ function findBestMechanic(job, mechanicPositions) {
    ASSIGN JOBS
 ========================================= */
 
-function assignJobsToMechanics() {
+async function assignJobsToMechanics() {
 
     routeLayer.clearLayers();
 
@@ -834,72 +834,76 @@ function assignJobsToMechanics() {
         mechanic.status = "Analyserar";
     });
 
+    renderMechanicsList();
+
     const mechanicPositions = {};
 
     mechanics.forEach(mechanic => {
+
         mechanicPositions[mechanic.id] = [
             mechanic.position[0],
             mechanic.position[1]
         ];
     });
 
-    setTimeout(() => {
+    await new Promise(resolve => {
+        setTimeout(resolve, 700);
+    });
 
-        simulationProgressBar.style.width = "55%";
+    simulationProgressBar.style.width = "55%";
 
-        jobs.forEach(job => {
+    for (const job of jobs) {
 
-            const mechanic =
-                findBestMechanic(
-                    job,
-                    mechanicPositions
-                );
-
-            job.assignedMechanic =
-                mechanic.id;
-
-            job.status =
-                "Tilldelad";
-
-            mechanic.assignedJobs.push(
-                job.id
+        const mechanic =
+            findBestMechanic(
+                job,
+                mechanicPositions
             );
 
-            const routeStart =
-                mechanicPositions[mechanic.id];
+        job.assignedMechanic =
+            mechanic.id;
 
-           await drawRoadRoute(
-    routeStart,
-    job.position,
-    mechanic,
-    job
-);
+        job.status =
+            "Tilldelad";
 
-            mechanicPositions[mechanic.id] = [
-                job.position[0],
-                job.position[1]
-            ];
-        });
+        mechanic.assignedJobs.push(
+            job.id
+        );
 
-        mechanics.forEach(mechanic => {
+        const routeStart =
+            mechanicPositions[mechanic.id];
 
-            mechanic.status =
-                mechanic.assignedJobs.length > 0
-                    ? "Planerad"
-                    : "Tillgänglig";
-        });
+        await drawRoadRoute(
+            routeStart,
+            job.position,
+            mechanic,
+            job
+        );
 
-        renderAll();
+        mechanicPositions[mechanic.id] = [
+            job.position[0],
+            job.position[1]
+        ];
+    }
 
-        simulationProgressBar.style.width = "100%";
+    mechanics.forEach(mechanic => {
 
-        simulationMessage.textContent =
-            "Planeringen är klar. Uppdragen har fördelats efter kompetens, avstånd och arbetsbelastning.";
+        mechanic.status =
+            mechanic.assignedJobs.length > 0
+                ? "Planerad"
+                : "Tillgänglig";
+    });
 
-        startSimulationButton.textContent =
-            "✓ Planeringen är klar";
+    renderAll();
 
-    }, 700);
+    simulationProgressBar.style.width = "100%";
+
+    simulationMessage.textContent =
+        "Planeringen är klar. Uppdragen har fördelats efter kompetens, avstånd och arbetsbelastning.";
+
+    startSimulationButton.textContent =
+        "✓ Planeringen är klar";
+}
 }
 /* =========================================
    RESET SIMULATION
