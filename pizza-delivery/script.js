@@ -254,10 +254,13 @@ function renderDrivers() {
 
         const estimatedTime =
             getDriverEstimatedTime(driver);
+       const routeDistance =
+    getDriverRouteDistance(driver);
 
         if (orderCount > 0) {
-            information.textContent =
-                `${driver.vehicle} · ${orderCount} ordrar · ~${estimatedTime} min`;
+           information.textContent =
+    `${driver.vehicle} · ${orderCount} ordrar · ` +
+    `${routeDistance.toFixed(1)} km · ~${estimatedTime} min`;
 
             status.textContent = "Levererar";
 
