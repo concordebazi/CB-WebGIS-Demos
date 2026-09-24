@@ -791,6 +791,31 @@ const tourSteps = [
         title: "Dagens leveransstatistik",
         text: "Här visas antal aktiva beställningar, genomsnittlig leveranstid, föreslagna grupper och uppskattad tidsbesparing."
     },
+   {
+    target: "#tour-statistics",
+    title: "Dagens leveransstatistik",
+    text: "Här visas antal aktiva beställningar, genomsnittlig leveranstid, föreslagna grupper och uppskattad tidsbesparing."
+},
+{
+    target: "#driver-panel",
+    title: "Förare och optimerade rutter",
+    text: "Beställningarna fördelas automatiskt mellan tillgängliga förare. Klicka på ett förarkort för att visa förarens rutt, stopp, körsträcka och beräknade leveranstid.",
+    action: function () {
+        const firstDriver =
+            document.querySelector(
+                '.driver-card[data-driver-id="1"]'
+            );
+
+        if (
+            firstDriver &&
+            selectedDriverId !== 1
+        ) {
+            firstDriver.click();
+        }
+    }
+},
+{
+    target: "#tour-groups",
     {
         target: "#tour-groups",
         title: "Smart ordergruppering",
@@ -979,6 +1004,24 @@ function startTour() {
 function stopTour() {
     clearTimeout(tourTimer);
     removeTourHighlight();
+       selectedDriverId = null;
+
+    document
+        .querySelectorAll(".driver-card")
+        .forEach((card) => {
+            card.classList.remove(
+                "driver-card--selected"
+            );
+        });
+
+    if (map) {
+        renderDriverRoutes();
+
+        map.setView(
+            [PIZZERIA.lat, PIZZERIA.lng],
+            13
+        );
+    }
 
     tourActive = false;
     document.body.classList.remove("tour-running");
