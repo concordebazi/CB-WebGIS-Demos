@@ -1591,7 +1591,7 @@ const tourSteps = [
 let currentTourStep = 0;
 let activeTourTarget = null;
 let tourAutoTimer = null;
-const tourAutoDelay = 6000;
+const tourAutoDelay = 4000;
 
 
 const tourOverlay =
