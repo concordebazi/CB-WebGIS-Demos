@@ -576,7 +576,18 @@ function renderJobsList() {
 
         const article =
             document.createElement("article");
+        let statusClass =
+            "job-status--assigned";
 
+        if (job.status === "På väg") {
+            statusClass =
+                "job-status--travelling";
+        }
+
+        if (job.status === "Slutförd") {
+            statusClass =
+                "job-status--completed";
+        }
         article.className = "job-card";
 
         article.innerHTML = `
@@ -602,9 +613,9 @@ function renderJobsList() {
                 </span>
             </div>
 
-            <span class="job-status">
-                ${job.status}
-            </span>
+           <span class="job-status ${statusClass}">
+    ${job.status}
+</span>
         `;
 
         jobsList.appendChild(article);
@@ -883,7 +894,15 @@ function stopMechanicMovement() {
 function startMechanicMovement() {
 
     stopMechanicMovement();
+    jobs.forEach(job => {
 
+        if (job.status === "Tilldelad") {
+            job.status = "På väg";
+        }
+    });
+
+    renderJobsList();
+    renderBookingMarkers();
        mechanicLayer.clearLayers();
     travelledRouteLayer.clearLayers();
 
