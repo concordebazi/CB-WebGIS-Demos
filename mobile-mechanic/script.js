@@ -379,10 +379,28 @@ function createBookingIcon(job) {
     const service =
         serviceInformation[job.service];
 
-    const borderColor =
-        job.status === "Tilldelad"
-            ? "#ffffff"
+    const isCompleted =
+        job.status === "Slutförd";
+
+    const isTravelling =
+        job.status === "På väg";
+
+    const markerColor =
+        isCompleted
+            ? "#168253"
             : service.color;
+
+    const markerSymbol =
+        isCompleted
+            ? "✓"
+            : service.icon;
+
+    const borderColor =
+        isCompleted
+            ? "#dff7ea"
+            : isTravelling
+                ? "#ffffff"
+                : service.color;
 
     return L.divIcon({
         className: "",
@@ -395,14 +413,14 @@ function createBookingIcon(job) {
                 align-items:center;
                 justify-content:center;
                 color:#ffffff;
-                background:${service.color};
+               background:${markerColor};
                 border:3px solid ${borderColor};
                 border-radius:12px;
                 box-shadow:0 9px 20px rgba(15,31,52,0.28);
                 font-size:16px;
                 font-weight:800;
             ">
-                ${service.icon}
+                ${markerSymbol}
             </div>
         `,
 
