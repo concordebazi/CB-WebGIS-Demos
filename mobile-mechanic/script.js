@@ -1590,6 +1590,8 @@ const tourSteps = [
 
 let currentTourStep = 0;
 let activeTourTarget = null;
+let tourAutoTimer = null;
+const tourAutoDelay = 8000;
 
 
 const tourOverlay =
@@ -1773,7 +1775,28 @@ function positionTourElements(target) {
         `${Math.max(14, dialogTop)}px`;
 }
 
+function scheduleAutomaticTourStep() {
 
+    if (tourAutoTimer !== null) {
+        clearTimeout(tourAutoTimer);
+    }
+
+    tourAutoTimer =
+        setTimeout(() => {
+
+            if (
+                currentTourStep >=
+                tourSteps.length - 1
+            ) {
+                endTour();
+                return;
+            }
+
+            currentTourStep++;
+            showTourStep();
+
+        }, tourAutoDelay);
+}
 function showTourStep() {
 
     const step =
@@ -1843,9 +1866,11 @@ function showTourStep() {
 
         positionTourElements(target);
 
-        tourOverlay.classList.add("active");
+                tourOverlay.classList.add("active");
         tourSpotlight.classList.add("active");
         tourDialog.classList.add("active");
+
+        scheduleAutomaticTourStep();
 
     }, 380);
 }
@@ -1864,6 +1889,10 @@ function startTour() {
 
 
 function endTour() {
+       if (tourAutoTimer !== null) {
+        clearTimeout(tourAutoTimer);
+        tourAutoTimer = null;
+    }
 
     document.body.classList.remove(
         "tour-is-open"
