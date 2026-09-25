@@ -394,6 +394,31 @@ a {
 
     border-color: rgba(32, 199, 183, 0.40);
 }
+/* Mobil Bilservice — red and dark navy */
+
+.demo-card--mobile {
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(239, 51, 64, 0.30),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            #7d1825,
+            #35101a 58%,
+            #111827
+        );
+
+    border-color: rgba(239, 51, 64, 0.45);
+}
+
+.demo-card--mobile:hover {
+    border-color: rgba(255, 100, 112, 0.75);
+
+    box-shadow:
+        0 25px 55px rgba(80, 5, 18, 0.38);
+}
 /* Dark text for light-coloured cards */
 
 .demo-card--gron .demo-content h3,
@@ -971,4 +996,13 @@ a {
 
 .demo-card--gis .demo-btn {
     border-color: #63f5dc;
+}
+.demo-category.mechanic {
+    color: #ffb4ba;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 180, 186, 0.35);
+}
+
+.demo-card--mobile .demo-btn {
+    border-color: #ff7b86;
 }
