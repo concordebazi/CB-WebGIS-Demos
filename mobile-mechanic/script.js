@@ -1129,6 +1129,9 @@ async function assignJobsToMechanics() {
     Object.keys(mechanicRoutes).forEach(mechanicId => {
         delete mechanicRoutes[mechanicId];
     });
+       Object.keys(mechanicRouteStops).forEach(mechanicId => {
+        delete mechanicRouteStops[mechanicId];
+    });
 
     Object.keys(movingMechanicMarkers).forEach(mechanicId => {
         delete movingMechanicMarkers[mechanicId];
