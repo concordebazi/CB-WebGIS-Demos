@@ -1042,6 +1042,42 @@ function startMechanicMovement() {
                     travelledCoordinates
                 );
             }
+                      const mechanicStops =
+                mechanicRouteStops[mechanic.id] || [];
+
+            mechanicStops.forEach(stop => {
+
+                if (
+                    !stop.reached &&
+                    currentIndex >= stop.routeIndex
+                ) {
+
+                    stop.reached = true;
+
+                    const completedJob =
+                        jobs.find(job =>
+                            job.id === stop.jobId
+                        );
+
+                    if (completedJob) {
+
+                        completedJob.status =
+                            "Slutförd";
+
+                        const completedCount =
+                            jobs.filter(job =>
+                                job.status === "Slutförd"
+                            ).length;
+
+                        simulationMessage.textContent =
+                            `${mechanic.name} har nått ${completedJob.customer}. ` +
+                            `${completedCount} av ${jobs.length} uppdrag slutförda.`;
+
+                        renderJobsList();
+                        renderBookingMarkers();
+                    }
+                }
+            }); 
         });
 
 
