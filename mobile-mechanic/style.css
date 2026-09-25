@@ -931,7 +931,26 @@ button {
     background: currentColor;
     border-radius: 50%;
 }
+.job-status--assigned {
+    color: #9b6000;
+    background: rgba(244, 185, 66, 0.17);
+}
 
+.job-status--travelling {
+    color: #2563c9;
+    background: rgba(57, 121, 246, 0.14);
+}
+
+.job-status--completed {
+    color: #168253;
+    background: rgba(62, 207, 142, 0.16);
+}
+
+.job-status--assigned::before,
+.job-status--travelling::before,
+.job-status--completed::before {
+    background: currentColor;
+}
 /* =========================================
    AI PANEL
 ========================================= */
