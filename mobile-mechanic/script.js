@@ -1537,3 +1537,429 @@ renderAll();
 setTimeout(() => {
     map.invalidateSize();
 }, 250);
+/* =========================================
+   INTERACTIVE GUIDE
+========================================= */
+
+const tourStartButton =
+    document.getElementById("tour-start-btn");
+
+const tourSteps = [
+    {
+        target: "#tour-introduction",
+        title: "Mobil Bilservice",
+        text: "Här visas tjänsten och hur AI och GIS används för att planera mobila mekaniker."
+    },
+    {
+        target: "#tour-booking",
+        title: "Skapa en bokning",
+        text: "Kunden väljer typ av hjälp och område. Bokningen placeras automatiskt på kartan."
+    },
+    {
+        target: "#tour-statistics",
+        title: "Dagens översikt",
+        text: "Här ser företaget antal bokningar, mekaniker, genomsnittlig tid och körsträcka."
+    },
+    {
+        target: "#tour-simulation",
+        title: "Automatisk planering",
+        text: "AI fördelar uppdragen efter kompetens, avstånd och arbetsbelastning."
+    },
+    {
+        target: "#tour-jobs",
+        title: "Dagens bokningar",
+        text: "Här visas alla kunduppdrag och deras aktuella status."
+    },
+    {
+        target: "#tour-mechanics",
+        title: "Tillgängliga mekaniker",
+        text: "Här ser du mekanikerna, deras tilldelade uppdrag och planeringsstatus."
+    },
+    {
+        target: "#tour-ai",
+        title: "AI-analys",
+        text: "AI sammanfattar dagens bokningar och föreslår hur arbetet kan effektiviseras."
+    },
+    {
+        target: "#tour-contact",
+        title: "Liknande lösning",
+        text: "Besökaren kan kontakta CB Web & GIS för en anpassad lösning."
+    }
+];
+
+
+let currentTourStep = 0;
+let activeTourTarget = null;
+
+
+const tourOverlay =
+    document.createElement("div");
+
+tourOverlay.className = "tour-overlay";
+
+
+const tourSpotlight =
+    document.createElement("div");
+
+tourSpotlight.className = "tour-spotlight";
+
+
+const tourDialog =
+    document.createElement("div");
+
+tourDialog.className = "tour-dialog";
+
+tourDialog.setAttribute(
+    "role",
+    "dialog"
+);
+
+tourDialog.setAttribute(
+    "aria-modal",
+    "true"
+);
+
+tourDialog.innerHTML = `
+    <button
+        class="tour-close"
+        type="button"
+        aria-label="Stäng guiden"
+    >
+        ×
+    </button>
+
+    <span class="tour-counter"></span>
+
+    <h3 class="tour-title"></h3>
+
+    <p class="tour-text"></p>
+
+    <div class="tour-actions">
+
+        <button
+            class="tour-back"
+            type="button"
+        >
+            ← Tillbaka
+        </button>
+
+        <button
+            class="tour-next"
+            type="button"
+        >
+            Nästa →
+        </button>
+
+    </div>
+`;
+
+
+document.body.appendChild(tourOverlay);
+document.body.appendChild(tourSpotlight);
+document.body.appendChild(tourDialog);
+
+
+const tourCounter =
+    tourDialog.querySelector(".tour-counter");
+
+const tourTitle =
+    tourDialog.querySelector(".tour-title");
+
+const tourText =
+    tourDialog.querySelector(".tour-text");
+
+const tourBackButton =
+    tourDialog.querySelector(".tour-back");
+
+const tourNextButton =
+    tourDialog.querySelector(".tour-next");
+
+const tourCloseButton =
+    tourDialog.querySelector(".tour-close");
+
+
+function positionTourElements(target) {
+
+    const targetRectangle =
+        target.getBoundingClientRect();
+
+    const spacing = 12;
+
+    tourSpotlight.style.left =
+        `${targetRectangle.left - 5}px`;
+
+    tourSpotlight.style.top =
+        `${targetRectangle.top - 5}px`;
+
+    tourSpotlight.style.width =
+        `${targetRectangle.width + 10}px`;
+
+    tourSpotlight.style.height =
+        `${targetRectangle.height + 10}px`;
+
+
+    const dialogWidth =
+        tourDialog.offsetWidth;
+
+    const dialogHeight =
+        tourDialog.offsetHeight;
+
+    let dialogLeft =
+        targetRectangle.right + spacing;
+
+    let dialogTop =
+        targetRectangle.top;
+
+
+    if (
+        dialogLeft + dialogWidth >
+        window.innerWidth - spacing
+    ) {
+        dialogLeft =
+            targetRectangle.left -
+            dialogWidth -
+            spacing;
+    }
+
+
+    if (dialogLeft < spacing) {
+        dialogLeft =
+            Math.max(
+                spacing,
+                (
+                    window.innerWidth -
+                    dialogWidth
+                ) / 2
+            );
+
+        dialogTop =
+            targetRectangle.bottom + spacing;
+    }
+
+
+    if (
+        dialogTop + dialogHeight >
+        window.innerHeight - spacing
+    ) {
+        dialogTop =
+            window.innerHeight -
+            dialogHeight -
+            spacing;
+    }
+
+
+    dialogTop =
+        Math.max(
+            spacing,
+            dialogTop
+        );
+
+
+    if (window.innerWidth <= 640) {
+
+        dialogLeft = 14;
+
+        dialogTop =
+            window.innerHeight -
+            dialogHeight -
+            14;
+    }
+
+
+    tourDialog.style.left =
+        `${dialogLeft}px`;
+
+    tourDialog.style.top =
+        `${Math.max(14, dialogTop)}px`;
+}
+
+
+function showTourStep() {
+
+    const step =
+        tourSteps[currentTourStep];
+
+    if (!step) {
+        endTour();
+        return;
+    }
+
+    const target =
+        document.querySelector(step.target);
+
+    if (!target) {
+        currentTourStep++;
+        showTourStep();
+        return;
+    }
+
+
+    const targetIsInsideSidebar =
+        Boolean(target.closest(".sidebar"));
+
+
+    if (window.innerWidth <= 820) {
+
+        if (targetIsInsideSidebar) {
+            sidebar.classList.add("active");
+        } else {
+            sidebar.classList.remove("active");
+        }
+
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 320);
+    }
+
+
+    activeTourTarget = target;
+
+    target.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center"
+    });
+
+
+    tourCounter.textContent =
+        `STEG ${currentTourStep + 1} AV ${tourSteps.length}`;
+
+    tourTitle.textContent =
+        step.title;
+
+    tourText.textContent =
+        step.text;
+
+    tourBackButton.disabled =
+        currentTourStep === 0;
+
+    tourNextButton.textContent =
+        currentTourStep === tourSteps.length - 1
+            ? "Avsluta ✓"
+            : "Nästa →";
+
+
+    setTimeout(() => {
+
+        positionTourElements(target);
+
+        tourOverlay.classList.add("active");
+        tourSpotlight.classList.add("active");
+        tourDialog.classList.add("active");
+
+    }, 380);
+}
+
+
+function startTour() {
+
+    currentTourStep = 0;
+
+    document.body.classList.add(
+        "tour-is-open"
+    );
+
+    showTourStep();
+}
+
+
+function endTour() {
+
+    document.body.classList.remove(
+        "tour-is-open"
+    );
+
+    tourOverlay.classList.remove("active");
+    tourSpotlight.classList.remove("active");
+    tourDialog.classList.remove("active");
+
+    activeTourTarget = null;
+
+    if (window.innerWidth <= 820) {
+        sidebar.classList.remove("active");
+
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 320);
+    }
+}
+
+
+tourStartButton.addEventListener(
+    "click",
+    startTour
+);
+
+
+tourNextButton.addEventListener(
+    "click",
+    function () {
+
+        if (
+            currentTourStep >=
+            tourSteps.length - 1
+        ) {
+            endTour();
+            return;
+        }
+
+        currentTourStep++;
+        showTourStep();
+    }
+);
+
+
+tourBackButton.addEventListener(
+    "click",
+    function () {
+
+        if (currentTourStep === 0) {
+            return;
+        }
+
+        currentTourStep--;
+        showTourStep();
+    }
+);
+
+
+tourCloseButton.addEventListener(
+    "click",
+    endTour
+);
+
+
+tourOverlay.addEventListener(
+    "click",
+    endTour
+);
+
+
+window.addEventListener(
+    "resize",
+    function () {
+
+        if (
+            activeTourTarget &&
+            tourDialog.classList.contains("active")
+        ) {
+            positionTourElements(
+                activeTourTarget
+            );
+        }
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape" &&
+            tourDialog.classList.contains("active")
+        ) {
+            endTour();
+        }
+    }
+);
