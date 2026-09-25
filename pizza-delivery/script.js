@@ -191,7 +191,7 @@ function buildSimulationQueue() {
 }
 
 /* Complete the next simulated delivery */
-function processNextDelivery() {
+async function processNextDelivery() {
     if (
         !simulationRunning ||
         simulationPaused
@@ -212,9 +212,16 @@ function processNextDelivery() {
     }
 
     const delivery =
-        simulationQueue.shift();
-moveActiveDriverMarker(delivery);
-    completedOrderCount++;
+    simulationQueue.shift();
+
+const deliveryCompleted =
+    await moveActiveDriverMarker(delivery);
+
+if (!deliveryCompleted) {
+    return;
+}
+
+completedOrderCount++;
 
     updateSimulationInterface(
         delivery.driver.name +
@@ -223,9 +230,9 @@ moveActiveDriverMarker(delivery);
     );
 
     simulationTimer = window.setTimeout(
-        processNextDelivery,
-        1100
-    );
+    processNextDelivery,
+    350
+);
 }
 
 
@@ -697,7 +704,67 @@ function getAllDriverStops(driver) {
         ]
     });
 }
+/* Request a real road route between two map positions */
+async function getRoadRoute(startPoint, endPoint) {
+    const startLongitude = startPoint.lng;
+    const startLatitude = startPoint.lat;
 
+    const endLongitude = endPoint.lng;
+    const endLatitude = endPoint.lat;
+
+    const routeUrl =
+        "https://router.project-osrm.org/route/v1/driving/" +
+        startLongitude + "," + startLatitude + ";" +
+        endLongitude + "," + endLatitude +
+        "?overview=full&geometries=geojson";
+
+    try {
+        const response = await fetch(routeUrl);
+
+        if (!response.ok) {
+            throw new Error("Road route could not be loaded");
+        }
+
+        const routeData = await response.json();
+
+        if (
+            !routeData.routes ||
+            routeData.routes.length === 0
+        ) {
+            throw new Error("No road route was found");
+        }
+
+        /*
+           OSRM returns coordinates as:
+           [longitude, latitude]
+
+           Leaflet requires:
+           [latitude, longitude]
+        */
+        return routeData.routes[0]
+            .geometry
+            .coordinates
+            .map((coordinate) => [
+                coordinate[1],
+                coordinate[0]
+            ]);
+
+    } catch (error) {
+        console.warn(
+            "Using a direct fallback route:",
+            error
+        );
+
+        /*
+           If the road service is temporarily unavailable,
+           use a straight line so the demo still works.
+        */
+        return [
+            [startLatitude, startLongitude],
+            [endLatitude, endLongitude]
+        ];
+    }
+}
 /* Create a numbered map marker for one stop */
 function createDriverStopIcon(number, color) {
     return L.divIcon({
@@ -813,7 +880,8 @@ function createActiveDriverMarkers() {
         });
 }
 /* Smoothly move a driver marker to the next stop */
-function moveActiveDriverMarker(delivery) {
+/* Move a driver smoothly along the real road route */
+async function moveActiveDriverMarker(delivery) {
     const activeMarker =
         activeDriverMarkers.find(
             (item) =>
@@ -828,14 +896,24 @@ function moveActiveDriverMarker(delivery) {
     const marker = activeMarker.marker;
     const startPosition = marker.getLatLng();
 
-    const destination = L.latLng(
-        delivery.order.lat,
-        delivery.order.lng
+    const destination = {
+        lat: delivery.order.lat,
+        lng: delivery.order.lng
+    };
+
+    marker.setTooltipContent(
+        delivery.driver.name +
+        " · Hämtar vägrutt..."
     );
 
-    const animationDuration = 850;
-    const animationStart =
-        performance.now();
+    const roadCoordinates =
+        await getRoadRoute(
+            {
+                lat: startPosition.lat,
+                lng: startPosition.lng
+            },
+            destination
+        );
 
     marker.setTooltipContent(
         delivery.driver.name +
@@ -843,82 +921,139 @@ function moveActiveDriverMarker(delivery) {
         delivery.order.id
     );
 
-    function animateMarker(currentTime) {
-        if (!simulationRunning) {
-            return;
+    /*
+       The movement duration can be increased
+       if you want the drivers to move more slowly.
+    */
+    const animationDuration = 2400;
+
+    let travelledTime = 0;
+    let previousFrameTime = null;
+
+    const routeStartIndex =
+        activeMarker.routeCoordinates.length;
+
+    return new Promise((resolve) => {
+        function animateMarker(currentTime) {
+            if (!simulationRunning) {
+                resolve(false);
+                return;
+            }
+
+            /*
+               While paused, keep requesting frames,
+               but do not increase travelled time.
+            */
+            if (simulationPaused) {
+                previousFrameTime = currentTime;
+
+                window.requestAnimationFrame(
+                    animateMarker
+                );
+
+                return;
+            }
+
+            if (previousFrameTime === null) {
+                previousFrameTime = currentTime;
+            }
+
+            travelledTime +=
+                currentTime - previousFrameTime;
+
+            previousFrameTime = currentTime;
+
+            const progress = Math.min(
+                travelledTime / animationDuration,
+                1
+            );
+
+            const routePosition =
+                progress *
+                (roadCoordinates.length - 1);
+
+            const coordinateIndex = Math.min(
+                Math.floor(routePosition),
+                roadCoordinates.length - 2
+            );
+
+            const segmentProgress =
+                routePosition - coordinateIndex;
+
+            const pointA =
+                roadCoordinates[coordinateIndex];
+
+            const pointB =
+                roadCoordinates[
+                    coordinateIndex + 1
+                ];
+
+            const currentLatitude =
+                pointA[0] +
+                (pointB[0] - pointA[0]) *
+                segmentProgress;
+
+            const currentLongitude =
+                pointA[1] +
+                (pointB[1] - pointA[1]) *
+                segmentProgress;
+
+            const currentPoint = [
+                currentLatitude,
+                currentLongitude
+            ];
+
+            marker.setLatLng(currentPoint);
+
+            /*
+               Draw the completed part of the
+               road route behind the driver.
+            */
+            const completedCoordinateCount =
+                coordinateIndex + 1;
+
+            const completedRoadCoordinates =
+                roadCoordinates.slice(
+                    0,
+                    completedCoordinateCount
+                );
+
+            activeMarker.routeLine.setLatLngs([
+                ...activeMarker.routeCoordinates,
+                ...completedRoadCoordinates,
+                currentPoint
+            ]);
+
+            if (progress < 1) {
+                window.requestAnimationFrame(
+                    animateMarker
+                );
+            } else {
+                marker.setLatLng(destination);
+
+                activeMarker.routeCoordinates.push(
+                    ...roadCoordinates.slice(1)
+                );
+
+                activeMarker.routeLine.setLatLngs(
+                    activeMarker.routeCoordinates
+                );
+
+                marker.setTooltipContent(
+                    delivery.driver.name +
+                    " · Levererat " +
+                    delivery.order.id
+                );
+
+                resolve(true);
+            }
         }
 
-        const elapsedTime =
-            currentTime - animationStart;
-
-        const progress = Math.min(
-            elapsedTime / animationDuration,
-            1
+        window.requestAnimationFrame(
+            animateMarker
         );
-
-        /*
-           Ease-out movement:
-           the marker moves quickly at first and
-           slows slightly near the destination.
-        */
-        const easedProgress =
-            1 - Math.pow(1 - progress, 3);
-
-        const currentLatitude =
-            startPosition.lat +
-            (
-                destination.lat -
-                startPosition.lat
-            ) * easedProgress;
-
-        const currentLongitude =
-            startPosition.lng +
-            (
-                destination.lng -
-                startPosition.lng
-            ) * easedProgress;
-
-        marker.setLatLng([
-            currentLatitude,
-            currentLongitude
-        ]);
-       /*
-   Extend the coloured route to the driver's
-   current position during every animation frame.
-*/
-const currentRoutePoint = [
-    currentLatitude,
-    currentLongitude
-];
-
-activeMarker.routeCoordinates.push(
-    currentRoutePoint
-);
-
-activeMarker.routeLine.setLatLngs(
-    activeMarker.routeCoordinates
-);
-
-        if (progress < 1) {
-            window.requestAnimationFrame(
-                animateMarker
-            );
-        } else {
-            marker.setLatLng(destination);
-
-            marker.setTooltipContent(
-                delivery.driver.name +
-                " · Levererat " +
-                delivery.order.id
-            );
-        }
-    }
-
-    window.requestAnimationFrame(
-        animateMarker
-    );
+    });
 }
-
 /* Remove all live driver markers and their drawn routes */
 function clearActiveDriverMarkers() {
     activeDriverMarkers.forEach(
