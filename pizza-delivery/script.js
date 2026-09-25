@@ -765,6 +765,59 @@ async function getRoadRoute(startPoint, endPoint) {
         ];
     }
 }
+   /* Request one real road route through multiple delivery stops */
+async function getRoadRouteThroughPoints(points) {
+    const coordinateString = points
+        .map((point) =>
+            point.lng + "," + point.lat
+        )
+        .join(";");
+
+    const routeUrl =
+        "https://router.project-osrm.org/route/v1/driving/" +
+        coordinateString +
+        "?overview=full&geometries=geojson";
+
+    try {
+        const response = await fetch(routeUrl);
+
+        if (!response.ok) {
+            throw new Error(
+                "Complete road route could not be loaded"
+            );
+        }
+
+        const routeData = await response.json();
+
+        if (
+            !routeData.routes ||
+            routeData.routes.length === 0
+        ) {
+            throw new Error(
+                "No complete road route was found"
+            );
+        }
+
+        return routeData.routes[0]
+            .geometry
+            .coordinates
+            .map((coordinate) => [
+                coordinate[1],
+                coordinate[0]
+            ]);
+
+    } catch (error) {
+        console.warn(
+            "Using direct fallback route:",
+            error
+        );
+
+        return points.map((point) => [
+            point.lat,
+            point.lng
+        ]);
+    }
+}
 /* Create a numbered map marker for one stop */
 function createDriverStopIcon(number, color) {
     return L.divIcon({
@@ -1079,94 +1132,141 @@ function clearActiveDriverMarkers() {
     activeDriverMarkers = [];
 }
 
-/* Draw all assigned driver routes on the map */
-function renderDriverRoutes() {
+/* Draw assigned driver routes along real roads */
+async function renderDriverRoutes() {
     if (!map) {
         return;
     }
+
+    /*
+       A version number prevents an older request
+       from drawing after the user selects another driver.
+    */
+    const renderVersion =
+        (renderDriverRoutes.version || 0) + 1;
+
+    renderDriverRoutes.version =
+        renderVersion;
 
     if (driverRoutesLayer) {
         map.removeLayer(driverRoutesLayer);
     }
 
-    driverRoutesLayer = L.layerGroup().addTo(map);
+    const currentRoutesLayer =
+        L.layerGroup().addTo(map);
 
-   
-       deliveryDrivers.forEach((driver) => {
-    if (
-        selectedDriverId !== null &&
-        driver.id !== selectedDriverId
-    ) {
-        return;
-    }
+    driverRoutesLayer =
+        currentRoutesLayer;
 
- 
-      const stops = getAllDriverStops(driver);
+    const visibleDrivers =
+        deliveryDrivers.filter((driver) => {
+            return (
+                selectedDriverId === null ||
+                driver.id === selectedDriverId
+            );
+        });
 
-        if (!stops.length) {
-            return;
-        }
+    await Promise.all(
+        visibleDrivers.map(async (driver) => {
+            const stops =
+                getAllDriverStops(driver);
 
-        const routeCoordinates = [
-            [PIZZERIA.lat, PIZZERIA.lng],
-            ...stops.map((stop) => [
-                stop.lat,
-                stop.lng
-            ]),
-            [PIZZERIA.lat, PIZZERIA.lng]
-        ];
-
-        const routeLine = L.polyline(
-            routeCoordinates,
-            {
-                color: driver.color,
-                weight: 4,
-                opacity: 0.82,
-                dashArray: "10 7",
-                lineCap: "round",
-                lineJoin: "round"
+            if (!stops.length) {
+                return;
             }
-        );
 
-        routeLine.bindPopup(
-    "<b>" + driver.name + "</b><br>" +
-    driver.vehicle + "<br>" +
-    stops.length + " tilldelade leveranser<br>" +
-    "Beräknad rutt: " +
-    getDriverRouteDistance(driver).toFixed(1) +
-    " km<br>" +
-    "Beräknad tid: ~" +
-    getDriverEstimatedTime(driver) +
-    " min"
-);
-
-        driverRoutesLayer.addLayer(routeLine);
-
-        stops.forEach((stop, index) => {
-            const marker = L.marker(
-                [stop.lat, stop.lng],
+            const routePoints = [
                 {
-                    icon: createDriverStopIcon(
-                        index + 1,
-                        driver.color
-                    ),
-                    zIndexOffset: 500
+                    lat: PIZZERIA.lat,
+                    lng: PIZZERIA.lng
+                },
+
+                ...stops.map((stop) => ({
+                    lat: stop.lat,
+                    lng: stop.lng
+                })),
+
+                {
+                    lat: PIZZERIA.lat,
+                    lng: PIZZERIA.lng
+                }
+            ];
+
+            const roadCoordinates =
+                await getRoadRouteThroughPoints(
+                    routePoints
+                );
+
+            /*
+               Stop if another driver was selected
+               while this road route was loading.
+            */
+            if (
+                renderDriverRoutes.version !==
+                renderVersion
+            ) {
+                return;
+            }
+
+            const routeLine = L.polyline(
+                roadCoordinates,
+                {
+                    color: driver.color,
+                    weight: 5,
+                    opacity: 0.82,
+                    dashArray: "10 7",
+                    lineCap: "round",
+                    lineJoin: "round"
                 }
             );
 
-            marker.bindPopup(
+            routeLine.bindPopup(
                 "<b>" + driver.name + "</b><br>" +
-                "Stopp " + (index + 1) +
-                " av " + stops.length + "<br>" +
-                stop.id + " · " + stop.street + "<br>" +
-                "Beräknad leveranstid: " +
-                stop.etaMinutes + " min"
+                driver.vehicle + "<br>" +
+                stops.length +
+                " tilldelade leveranser<br>" +
+                "Beräknad rutt: " +
+                getDriverRouteDistance(driver)
+                    .toFixed(1) +
+                " km<br>" +
+                "Beräknad tid: ~" +
+                getDriverEstimatedTime(driver) +
+                " min"
             );
 
-            driverRoutesLayer.addLayer(marker);
-        });
-    });
-}  
+            currentRoutesLayer.addLayer(
+                routeLine
+            );
+
+            stops.forEach((stop, index) => {
+                const marker = L.marker(
+                    [stop.lat, stop.lng],
+                    {
+                        icon: createDriverStopIcon(
+                            index + 1,
+                            driver.color
+                        ),
+                        zIndexOffset: 500
+                    }
+                );
+
+                marker.bindPopup(
+                    "<b>" + driver.name + "</b><br>" +
+                    "Stopp " + (index + 1) +
+                    " av " + stops.length + "<br>" +
+                    stop.id + " · " +
+                    stop.street + "<br>" +
+                    "Beräknad leveranstid: " +
+                    stop.etaMinutes + " min"
+                );
+
+                currentRoutesLayer.addLayer(
+                    marker
+                );
+            });
+        })
+    );
+}
    /* Select a driver and display only that driver's route */
 function setupDriverCardInteractions() {
     const driverCards =
