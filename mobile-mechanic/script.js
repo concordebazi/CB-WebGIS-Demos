@@ -830,8 +830,7 @@ if (mechanicRoutes[mechanic.id].length === 0) {
         ...route.coordinates.slice(1)
     );
 }
-    const routeLine =
-           if (!mechanicRouteStops[mechanic.id]) {
+        if (!mechanicRouteStops[mechanic.id]) {
         mechanicRouteStops[mechanic.id] = [];
     }
 
@@ -841,12 +840,15 @@ if (mechanicRoutes[mechanic.id].length === 0) {
             mechanicRoutes[mechanic.id].length - 1,
         reached: false
     });
+
+
+    const routeLine =
         L.polyline(
             route.coordinates,
             {
                 color: mechanic.color,
-weight: 5,
-opacity:  0.62,
+                weight: 5,
+                opacity: 0.62,
                 lineCap: "round",
                 lineJoin: "round"
             }
