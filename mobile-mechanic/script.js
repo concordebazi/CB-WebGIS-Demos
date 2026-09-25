@@ -76,6 +76,7 @@ const travelledRouteLayer =
 const mechanicRoutes = {};
 const movingMechanicMarkers = {};
 const mechanicTravelLines = {};
+const mechanicRouteStops = {};
 
 let movementAnimationId = null;
 let movementIsRunning = false;
@@ -830,6 +831,16 @@ if (mechanicRoutes[mechanic.id].length === 0) {
     );
 }
     const routeLine =
+           if (!mechanicRouteStops[mechanic.id]) {
+        mechanicRouteStops[mechanic.id] = [];
+    }
+
+    mechanicRouteStops[mechanic.id].push({
+        jobId: job.id,
+        routeIndex:
+            mechanicRoutes[mechanic.id].length - 1,
+        reached: false
+    });
         L.polyline(
             route.coordinates,
             {
