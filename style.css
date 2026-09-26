@@ -1485,3 +1485,215 @@ a {
     filter: brightness(1.22);
     border-color: rgba(255, 255, 255, 0.55);
 }
+/* ==========================================
+   MIDDLE-COLUMN DEMO SLIDESHOW
+========================================== */
+
+.hero-website-center {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    min-height: 610px;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 28px;
+
+    background: #07111f;
+
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.35);
+}
+
+
+/* Slideshow container */
+
+.middle-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    overflow: hidden;
+}
+
+
+/* Individual images */
+
+.middle-slide {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    transform: scale(1.08);
+
+    animation: middleDemoSlideshow 45s infinite;
+}
+
+
+/* One image starts every five seconds */
+
+.middle-slide:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.middle-slide:nth-child(2) {
+    animation-delay: 5s;
+}
+
+.middle-slide:nth-child(3) {
+    animation-delay: 10s;
+}
+
+.middle-slide:nth-child(4) {
+    animation-delay: 15s;
+}
+
+.middle-slide:nth-child(5) {
+    animation-delay: 20s;
+}
+
+.middle-slide:nth-child(6) {
+    animation-delay: 25s;
+}
+
+.middle-slide:nth-child(7) {
+    animation-delay: 30s;
+}
+
+.middle-slide:nth-child(8) {
+    animation-delay: 35s;
+}
+
+.middle-slide:nth-child(9) {
+    animation-delay: 40s;
+}
+
+
+/* Dark overlay for readable text */
+
+.middle-slideshow-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(4, 12, 24, 0.48),
+            rgba(4, 12, 24, 0.8)
+        ),
+        radial-gradient(
+            circle at center,
+            rgba(9, 29, 48, 0.18),
+            rgba(3, 10, 20, 0.65)
+        );
+
+    pointer-events: none;
+}
+
+
+/* Website text above the images */
+
+.hero-website-content {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    min-height: 610px;
+
+    padding: 40px 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.hero-website-content > p {
+    margin-bottom: 18px;
+
+    color: #d5eaff;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 3px;
+
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+.hero-website-content .hero-website-description {
+    color: #d3e2ee;
+
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+
+/* Make CBWEBGIS.SE clearly visible */
+
+.hero-website-content .hero-website-link {
+    padding: 18px 20px;
+
+    background: rgba(4, 13, 25, 0.58);
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28);
+
+    backdrop-filter: blur(8px);
+
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+}
+
+
+/* Fade and subtle cinematic zoom */
+
+@keyframes middleDemoSlideshow {
+
+    0% {
+        opacity: 0;
+        transform: scale(1.08);
+    }
+
+    2% {
+        opacity: 1;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    11% {
+        opacity: 0;
+        transform: scale(1.16);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.16);
+    }
+}
+
+
+/* Accessibility: stop animation when requested */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .middle-slide {
+        animation: none;
+        opacity: 0;
+    }
+
+    .middle-slide:first-child {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
