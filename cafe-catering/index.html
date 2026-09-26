@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Cateringplanering | CB Web & GIS</title>
+
+    <meta name="description"
+          content="Modern AI- och GIS-demo för cateringbokning, orderplanering och smart leverans. Alla uppgifter är simulerade.">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="experience">
+
+    <!-- BACKGROUND SLIDESHOW -->
+
+    <div class="hero-background" aria-hidden="true">
+
+        <div class="hero-slide hero-slide--one active"></div>
+        <div class="hero-slide hero-slide--two"></div>
+        <div class="hero-slide hero-slide--three"></div>
+
+        <div class="hero-overlay"></div>
+        <div class="hero-light"></div>
+
+    </div>
+
+
+    <!-- DECORATIVE ELEMENTS -->
+
+    <div class="decor decor--one"></div>
+    <div class="decor decor--two"></div>
+    <div class="decor decor--three"></div>
+
+
+    <!-- HEADER -->
+
+    <header class="hero-header">
+
+        <a href="../index.html"
+           class="brand">
+
+            <span class="brand-logo">
+                <img src="cbwebgis-logo.png"
+                     alt="CB Web & GIS logotyp">
+            </span>
+
+            <span class="brand-copy">
+                <small>CB WEB & GIS</small>
+                <strong>Smart Catering</strong>
+            </span>
+
+        </a>
+
+        <div class="header-status">
+            <span class="status-dot"></span>
+            Interaktiv AI-demo
+        </div>
+
+        <a href="../index.html"
+           class="back-link">
+            Alla demos
+        </a>
+
+    </header>
+
+
+    <!-- MAIN HERO -->
+
+    <main class="hero-content">
+
+        <section class="hero-copy">
+
+            <div class="eyebrow">
+                <span>✦</span>
+                AI · GIS · CATERING
+            </div>
+
+            <h1>
+                Från bokning till
+                <em>perfekt leverans.</em>
+            </h1>
+
+            <p class="hero-description">
+                Ett smart digitalt flöde som hjälper lokala caféer
+                att ta emot cateringbeställningar, planera köket
+                och samordna dagens leveranser.
+            </p>
+
+            <div class="hero-actions">
+
+                <button class="primary-action"
+                        id="open-demo-btn"
+                        type="button">
+
+                    <span>Starta cateringdemo</span>
+
+                    <i aria-hidden="true">→</i>
+
+                </button>
+
+                <button class="video-action"
+                        id="show-process-btn"
+                        type="button">
+
+                    <span class="play-icon">▶</span>
+
+                    Se hur det fungerar
+
+                </button>
+
+            </div>
+
+            <div class="hero-metrics">
+
+                <div class="metric">
+                    <strong data-value="14">0</strong>
+                    <span>dagens beställningar</span>
+                </div>
+
+                <div class="metric">
+                    <strong data-value="96">0</strong>
+                    <span>% kökskapacitet</span>
+                </div>
+
+                <div class="metric">
+                    <strong data-value="28">0</strong>
+                    <span>min sparad restid</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FLOATING DEMO PREVIEW -->
+
+        <section class="planning-preview"
+                 aria-label="Förhandsvisning av cateringplanering">
+
+            <div class="preview-glow"></div>
+
+            <div class="preview-card">
+
+                <div class="preview-heading">
+
+                    <div>
+                        <span>LIVEPLANERING</span>
+                        <h2>Dagens catering</h2>
+                    </div>
+
+                    <div class="live-indicator">
+                        <i></i>
+                        Live
+                    </div>
+
+                </div>
+
+                <div class="capacity-block">
+
+                    <div class="capacity-heading">
+                        <span>Kökskapacitet</span>
+                        <strong>96%</strong>
+                    </div>
+
+                    <div class="capacity-track">
+                        <span></span>
+                    </div>
+
+                </div>
+
+                <div class="order-list">
+
+                    <article class="order-row order-row--active">
+
+                        <span class="order-icon">☕</span>
+
+                        <div>
+                            <strong>Frukostmöte</strong>
+                            <small>24 personer · Industrilandskapet</small>
+                        </div>
+
+                        <span class="order-status">
+                            Packas
+                        </span>
+
+                    </article>
+
+                    <article class="order-row">
+
+                        <span class="order-icon">🥗</span>
+
+                        <div>
+                            <strong>Företagslunch</strong>
+                            <small>42 personer · Norrköping City</small>
+                        </div>
+
+                        <span class="order-status order-status--ready">
+                            Klar
+                        </span>
+
+                    </article>
+
+                    <article class="order-row">
+
+                        <span class="order-icon">🍰</span>
+
+                        <div>
+                            <strong>Eftermiddagsfika</strong>
+                            <small>18 personer · Ingelsta</small>
+                        </div>
+
+                        <span class="order-status order-status--route">
+                            På väg
+                        </span>
+
+                    </article>
+
+                </div>
+
+                <div class="route-summary">
+
+                    <div class="route-symbol">
+                        <span></span>
+                        <i></i>
+                        <span></span>
+                    </div>
+
+                    <div>
+                        <small>OPTIMERAD LEVERANSRUTT</small>
+                        <strong>3 stopp · 18,4 km</strong>
+                    </div>
+
+                    <span class="route-saving">
+                        −28 min
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- SMALL FLOATING CARD -->
+
+            <div class="ai-float-card">
+
+                <span class="ai-float-icon">✦</span>
+
+                <div>
+                    <small>AI-REKOMMENDATION</small>
+                    <strong>Samordna två leveranser</strong>
+                    <p>Spara 8,2 km och cirka 14 minuter.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM TICKER -->
+
+    <div class="bottom-ticker">
+
+        <div class="ticker-track">
+
+            <span>Smart bokning</span>
+            <i>✦</i>
+
+            <span>Köksplanering</span>
+            <i>✦</i>
+
+            <span>Leveransoptimering</span>
+            <i>✦</i>
+
+            <span>AI-rekommendationer</span>
+            <i>✦</i>
+
+            <span>Smart bokning</span>
+            <i>✦</i>
+
+            <span>Köksplanering</span>
+            <i>✦</i>
+
+            <span>Leveransoptimering</span>
+            <i>✦</i>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BOOKING DRAWER -->
+
+<div class="demo-drawer"
+     id="demo-drawer"
+     aria-hidden="true">
+
+    <div class="drawer-backdrop"
+         id="drawer-backdrop"></div>
+
+    <section class="drawer-panel"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="drawer-title">
+
+        <button class="drawer-close"
+                id="drawer-close"
+                type="button"
+                aria-label="Stäng">
+            ×
+        </button>
+
+        <span class="drawer-eyebrow">
+            NY CATERINGBESTÄLLNING
+        </span>
+
+        <h2 id="drawer-title">
+            Vad vill du beställa?
+        </h2>
+
+        <p>
+            Skapa en simulerad cateringbokning och se hur
+            systemet planerar kapacitet och leverans.
+        </p>
+
+        <form id="catering-form">
+
+            <label for="customer-name">
+                Företag eller kund
+            </label>
+
+            <input id="customer-name"
+                   type="text"
+                   placeholder="Exempel: Nordic Tech AB"
+                   required>
+
+            <div class="form-grid">
+
+                <div>
+                    <label for="event-type">
+                        Typ av catering
+                    </label>
+
+                    <select id="event-type">
+                        <option>Frukostmöte</option>
+                        <option>Företagslunch</option>
+                        <option>Eftermiddagsfika</option>
+                        <option>Fest och evenemang</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="guest-count">
+                        Antal personer
+                    </label>
+
+                    <input id="guest-count"
+                           type="number"
+                           min="5"
+                           value="20">
+                </div>
+
+            </div>
+
+            <label for="delivery-area">
+                Leveransområde
+            </label>
+
+            <select id="delivery-area">
+                <option>Norrköping City</option>
+                <option>Industrilandskapet</option>
+                <option>Ingelsta</option>
+                <option>Hageby</option>
+                <option>Åby</option>
+            </select>
+
+            <button class="drawer-submit"
+                    type="submit">
+                Planera min beställning
+                <span>→</span>
+            </button>
+
+        </form>
+
+        <div class="booking-result"
+             id="booking-result"></div>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
