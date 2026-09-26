@@ -1723,3 +1723,66 @@ body.drawer-open {
         transition-duration: 0.01ms !important;
     }
 }
+/* =====================================================
+   IMPROVED DASHBOARD TEXT VISIBILITY
+===================================================== */
+
+.preview-heading span {
+    font-size: 0.78rem;
+}
+
+.preview-heading h2 {
+    font-size: 1.55rem;
+}
+
+.live-indicator {
+    font-size: 0.78rem;
+}
+
+.capacity-heading {
+    font-size: 0.86rem;
+}
+
+.capacity-heading strong {
+    font-size: 1rem;
+}
+
+.order-row strong {
+    font-size: 0.92rem;
+}
+
+.order-row small {
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.order-status {
+    font-size: 0.7rem;
+    padding: 7px 11px;
+}
+
+.route-summary small {
+    font-size: 0.67rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.route-summary strong {
+    font-size: 0.88rem;
+}
+
+.route-saving {
+    font-size: 0.84rem;
+}
+
+.ai-float-card small {
+    font-size: 0.65rem;
+}
+
+.ai-float-card strong {
+    font-size: 0.88rem;
+}
+
+.ai-float-card p {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.7);
+}
