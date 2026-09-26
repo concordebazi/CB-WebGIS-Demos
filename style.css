@@ -1049,56 +1049,236 @@ a {
 .demo-card--catering .demo-btn {
     border-color: #ff9d88;
 }
-/* Main CB Web & GIS website link */
+/* ==========================================
+   NEW THREE-COLUMN HERO
+========================================== */
 
-.hero-main-website {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+.hero {
+    min-height: 760px;
 }
 
-.hero-main-website p {
-    margin: 0 0 5px;
+.hero-content.hero-content--three-columns {
+    width: 100%;
+    max-width: 1750px;
+    margin: 0 auto;
+    padding: 80px 4%;
+
+    display: grid;
+    grid-template-columns:
+        minmax(280px, 0.9fr)
+        minmax(380px, 1.25fr)
+        minmax(330px, 0.95fr);
+
+    align-items: center;
+    gap: 45px;
+}
+
+
+/* LEFT SIDE */
+
+.hero-main--left {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-main--left h1 {
+    font-size: clamp(42px, 4vw, 65px);
+}
+
+.hero-main--left .hero-text {
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+
+/* MIDDLE WEBSITE LINK */
+
+.hero-website-center {
+    min-height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-website-center > p {
+    margin-bottom: 18px;
 
     color: #8fa8bd;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.hero-website-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    color: #ffffff;
+
+    font-size: clamp(50px, 5vw, 88px);
+    font-weight: 900;
+    letter-spacing: -5px;
+    line-height: 0.95;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.hero-website-link strong {
+    color: #59c3ff;
+    font-size: 0.55em;
+    letter-spacing: -2px;
+}
+
+.hero-website-link:hover {
+    color: #59c3ff;
+    transform: scale(1.04);
+}
+
+.hero-website-description {
+    margin-top: 24px;
+
+    color: #7890a5;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+/* RIGHT DEMO MENU */
+
+.hero-demo-menu {
+    padding: 25px;
+
+    background: rgba(7, 17, 31, 0.72);
+
+    border: 1px solid rgba(89, 195, 255, 0.2);
+    border-radius: 24px;
+
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.28);
+
+    backdrop-filter: blur(15px);
+}
+
+.demo-menu-heading {
+    margin-bottom: 16px;
+}
+
+.demo-menu-heading p {
+    margin-bottom: 5px;
+
+    color: #59c3ff;
+
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 2px;
 }
 
-.hero-main-website span {
-    color: #718ca3;
-    font-size: 10px;
+.demo-menu-heading h2 {
+    margin-bottom: 4px;
+
+    color: #ffffff;
+
+    font-size: 24px;
 }
 
-.hero-main-website > a {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+.demo-menu-heading > span {
+    color: #7890a5;
+    font-size: 11px;
+}
 
-    color: #59c3ff;
-    font-size: clamp(19px, 2vw, 28px);
-    font-weight: 900;
-    letter-spacing: -1px;
+.hero-demo-list {
+    display: grid;
+    gap: 6px;
+}
+
+.hero-demo-link {
+    display: grid;
+    grid-template-columns: 30px 1fr 20px;
+    align-items: center;
+    gap: 10px;
+
+    min-height: 48px;
+    padding: 7px 10px;
+
+    color: #ffffff;
     text-decoration: none;
 
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+
     transition:
-        color 0.25s ease,
-        transform 0.25s ease;
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
 }
 
-.hero-main-website > a:hover {
-    color: white;
-    transform: translateX(4px);
+.hero-demo-link > span {
+    color: #59c3ff;
+
+    font-size: 11px;
+    font-weight: 800;
 }
 
-.hero-main-website > a i {
+.hero-demo-link div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.hero-demo-link strong {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.hero-demo-link small {
+    color: #7890a5;
+    font-size: 9px;
+}
+
+.hero-demo-link i {
+    color: #59c3ff;
+
     font-size: 14px;
     font-style: normal;
+
+    transition: transform 0.25s ease;
+}
+
+.hero-demo-link:hover {
+    transform: translateX(5px);
+
+    background: rgba(89, 195, 255, 0.1);
+
+    border-color: rgba(89, 195, 255, 0.4);
+}
+
+.hero-demo-link:hover i {
+    transform: translateX(3px);
+}
+
+.hero-demo-link--new {
+    background: rgba(177, 66, 87, 0.16);
+    border-color: rgba(255, 126, 145, 0.3);
+}
+
+.hero-demo-link--new > span,
+.hero-demo-link--new i {
+    color: #ff8d9e;
 }
