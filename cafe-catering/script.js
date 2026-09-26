@@ -208,7 +208,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   ORDER PREVIEW ANIMATION
+   LIVE ORDER PREVIEW ANIMATION
 ===================================================== */
 
 const showProcessButton =
@@ -217,8 +217,57 @@ const showProcessButton =
 const orderRows =
     document.querySelectorAll(".order-row");
 
+let activeOrderIndex = 0;
+let livePreviewTimer = null;
 let processAnimationTimer = null;
 
+
+/* Highlight one order */
+
+function showActiveOrder(index) {
+
+    orderRows.forEach((order, orderIndex) => {
+
+        order.classList.toggle(
+            "order-row--active",
+            orderIndex === index
+        );
+
+    });
+
+}
+
+
+/* Automatic slow live animation */
+
+function startLivePreview() {
+
+    if (!orderRows.length) {
+        return;
+    }
+
+    if (livePreviewTimer) {
+        window.clearInterval(livePreviewTimer);
+    }
+
+    showActiveOrder(activeOrderIndex);
+
+    livePreviewTimer = window.setInterval(() => {
+
+        activeOrderIndex++;
+
+        if (activeOrderIndex >= orderRows.length) {
+            activeOrderIndex = 0;
+        }
+
+        showActiveOrder(activeOrderIndex);
+
+    }, 2400);
+
+}
+
+
+/* Faster animation when button is pressed */
 
 function demonstratePlanningProcess() {
 
@@ -226,72 +275,48 @@ function demonstratePlanningProcess() {
         return;
     }
 
-    if (processAnimationTimer) {
-        window.clearInterval(
-            processAnimationTimer
-        );
+    if (livePreviewTimer) {
+        window.clearInterval(livePreviewTimer);
+        livePreviewTimer = null;
     }
 
-    let activeOrderIndex = 0;
+    if (processAnimationTimer) {
+        window.clearInterval(processAnimationTimer);
+    }
 
-    orderRows.forEach(order => {
-        order.classList.remove(
-            "order-row--active"
-        );
-    });
+    activeOrderIndex = 0;
+    showActiveOrder(activeOrderIndex);
 
-    orderRows[0].classList.add(
-        "order-row--active"
-    );
+    processAnimationTimer = window.setInterval(() => {
 
-    processAnimationTimer =
-        window.setInterval(() => {
+        activeOrderIndex++;
 
-            orderRows[activeOrderIndex]
-                .classList.remove(
-                    "order-row--active"
-                );
+        if (activeOrderIndex >= orderRows.length) {
+            activeOrderIndex = 0;
+        }
 
-            activeOrderIndex++;
+        showActiveOrder(activeOrderIndex);
 
-            if (
-                activeOrderIndex >=
-                orderRows.length
-            ) {
-                activeOrderIndex = 0;
-            }
+    }, 750);
 
-            orderRows[activeOrderIndex]
-                .classList.add(
-                    "order-row--active"
-                );
-
-        }, 850);
 
     window.setTimeout(() => {
 
         if (processAnimationTimer) {
 
-            window.clearInterval(
-                processAnimationTimer
-            );
-
+            window.clearInterval(processAnimationTimer);
             processAnimationTimer = null;
+
         }
 
-        orderRows.forEach(order => {
-            order.classList.remove(
-                "order-row--active"
-            );
-        });
-
-        orderRows[0].classList.add(
-            "order-row--active"
-        );
+        showActiveOrder(0);
 
         openDemoDrawer();
 
-    }, 3300);
+        startLivePreview();
+
+    }, 3200);
+
 }
 
 
@@ -301,8 +326,13 @@ if (showProcessButton) {
         "click",
         demonstratePlanningProcess
     );
+
 }
 
+
+/* Start automatically when the page loads */
+
+startLivePreview();
 
 /* =====================================================
    CATERING BOOKING SIMULATION
