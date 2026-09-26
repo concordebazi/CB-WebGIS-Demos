@@ -1006,3 +1006,37 @@ a {
 .demo-card--mobile .demo-btn {
     border-color: #ff7b86;
 }
+/* Smart Catering — warm reddish plum */
+
+.demo-card--catering {
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(255, 137, 112, 0.25),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            #7a2638,
+            #351422
+        );
+
+    border-color: rgba(255, 137, 112, 0.45);
+}
+
+.demo-card--catering:hover {
+    border-color: rgba(255, 166, 145, 0.8);
+
+    box-shadow:
+        0 25px 55px rgba(84, 12, 32, 0.4);
+}
+
+.demo-category.catering {
+    color: #ffd0c5;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 180, 165, 0.35);
+}
+
+.demo-card--catering .demo-btn {
+    border-color: #ff9d88;
+}
