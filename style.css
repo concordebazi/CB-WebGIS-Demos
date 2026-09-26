@@ -1282,3 +1282,206 @@ a {
 .hero-demo-link--new i {
     color: #ff8d9e;
 }
+/* ==========================================
+   LARGER AND COLOURED DEMO LINKS
+========================================== */
+
+.hero-demo-link {
+    min-height: 57px;
+    padding: 9px 13px;
+
+    grid-template-columns: 34px 1fr 22px;
+}
+
+.hero-demo-link > span {
+    font-size: 13px;
+}
+
+.hero-demo-link strong {
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.hero-demo-link small {
+    margin-top: 3px;
+
+    font-size: 10.5px;
+    line-height: 1.25;
+}
+
+.hero-demo-link i {
+    font-size: 17px;
+}
+
+
+/* 01 — Salong Superclip */
+
+.hero-demo-link:nth-child(1) {
+    background: linear-gradient(
+        135deg,
+        rgba(42, 112, 160, 0.34),
+        rgba(22, 52, 80, 0.45)
+    );
+
+    border-color: rgba(89, 195, 255, 0.36);
+}
+
+
+/* 02 — AI Automation */
+
+.hero-demo-link:nth-child(2) {
+    background: linear-gradient(
+        135deg,
+        rgba(128, 72, 190, 0.34),
+        rgba(57, 31, 91, 0.45)
+    );
+
+    border-color: rgba(181, 119, 255, 0.38);
+}
+
+
+/* 03 — Express Bilverkstad */
+
+.hero-demo-link:nth-child(3) {
+    background: linear-gradient(
+        135deg,
+        rgba(178, 53, 58, 0.35),
+        rgba(82, 25, 30, 0.46)
+    );
+
+    border-color: rgba(255, 108, 112, 0.38);
+}
+
+
+/* 04 — Grön Städ */
+
+.hero-demo-link:nth-child(4) {
+    background: linear-gradient(
+        135deg,
+        rgba(45, 128, 82, 0.35),
+        rgba(20, 66, 45, 0.46)
+    );
+
+    border-color: rgba(102, 220, 147, 0.36);
+}
+
+
+/* 05 — Trend Frisören */
+
+.hero-demo-link:nth-child(5) {
+    background: linear-gradient(
+        135deg,
+        rgba(157, 103, 66, 0.35),
+        rgba(77, 46, 31, 0.46)
+    );
+
+    border-color: rgba(224, 160, 112, 0.38);
+}
+
+
+/* 06 — Företagskarta */
+
+.hero-demo-link:nth-child(6) {
+    background: linear-gradient(
+        135deg,
+        rgba(20, 130, 126, 0.35),
+        rgba(11, 66, 67, 0.46)
+    );
+
+    border-color: rgba(55, 222, 207, 0.36);
+}
+
+
+/* 07 — Pizza Delivery */
+
+.hero-demo-link:nth-child(7) {
+    background: linear-gradient(
+        135deg,
+        rgba(190, 104, 40, 0.36),
+        rgba(92, 46, 19, 0.46)
+    );
+
+    border-color: rgba(255, 159, 82, 0.4);
+}
+
+
+/* 08 — Mobil Bilservice */
+
+.hero-demo-link:nth-child(8) {
+    background: linear-gradient(
+        135deg,
+        rgba(53, 88, 181, 0.36),
+        rgba(25, 45, 98, 0.48)
+    );
+
+    border-color: rgba(99, 141, 255, 0.4);
+}
+
+
+/* 09 — Smart Catering */
+
+.hero-demo-link:nth-child(9) {
+    background: linear-gradient(
+        135deg,
+        rgba(170, 54, 83, 0.38),
+        rgba(83, 24, 45, 0.48)
+    );
+
+    border-color: rgba(255, 112, 145, 0.42);
+}
+
+
+/* Brighter text and arrows */
+
+.hero-demo-link:nth-child(1) > span,
+.hero-demo-link:nth-child(1) i {
+    color: #71ceff;
+}
+
+.hero-demo-link:nth-child(2) > span,
+.hero-demo-link:nth-child(2) i {
+    color: #c38cff;
+}
+
+.hero-demo-link:nth-child(3) > span,
+.hero-demo-link:nth-child(3) i {
+    color: #ff8589;
+}
+
+.hero-demo-link:nth-child(4) > span,
+.hero-demo-link:nth-child(4) i {
+    color: #72e49f;
+}
+
+.hero-demo-link:nth-child(5) > span,
+.hero-demo-link:nth-child(5) i {
+    color: #efb080;
+}
+
+.hero-demo-link:nth-child(6) > span,
+.hero-demo-link:nth-child(6) i {
+    color: #54e6d8;
+}
+
+.hero-demo-link:nth-child(7) > span,
+.hero-demo-link:nth-child(7) i {
+    color: #ffad68;
+}
+
+.hero-demo-link:nth-child(8) > span,
+.hero-demo-link:nth-child(8) i {
+    color: #86a8ff;
+}
+
+.hero-demo-link:nth-child(9) > span,
+.hero-demo-link:nth-child(9) i {
+    color: #ff8faa;
+}
+
+
+/* Keep the colours visible when hovering */
+
+.hero-demo-link:hover {
+    filter: brightness(1.22);
+    border-color: rgba(255, 255, 255, 0.55);
+}
