@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Projektplanering | CB Web & GIS</title>
+  <meta name="description" content="Interaktiv AI- och GIS-demo för bygg-, mark- och serviceföretag.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23090d18'/%3E%3Cpath d='M14 43V25l18-11 18 11v18' fill='none' stroke='%23ff6b35' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24 43V31h16v12' fill='none' stroke='%235ce1e6' stroke-width='6'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="brand" href="https://cbwebgis.se/" target="_blank" rel="noopener">
+      <span class="brand-mark">CB</span>
+      <span><b>CB WEB & GIS</b><small>AI · GIS · AUTOMATION</small></span>
+    </a>
+    <div class="live-pill"><i></i> Interaktiv demo</div>
+    <a class="contact-link" href="https://cbwebgis.se/#contact" target="_blank" rel="noopener">Kontakta oss <span>↗</span></a>
+  </header>
+
+  <main class="hero">
+    <section class="story-panel">
+      <div class="kicker"><span>09</span> SMART PROJEKTPLANERING</div>
+      <h1>Från offert till <em>färdigt projekt.</em></h1>
+      <p class="lead">AI fördelar team och maskiner. GIS visar uppdragen och planerar dagens smartaste körvägar.</p>
+
+      <div class="project-slider" aria-label="Exempel på bygg- och markprojekt">
+        <div class="slide active" style="--photo:url('https://unsplash.com/photos/Nc7LkAcJiJM/download?force=true&w=1600')">
+          <div><span>01 · DRÄNERING</span><strong>Vreta Kloster</strong></div>
+        </div>
+        <div class="slide" style="--photo:url('https://unsplash.com/photos/rf9pa66ANTQ/download?force=true&w=1600')">
+          <div><span>02 · ASFALTERING</span><strong>Mjölby industriområde</strong></div>
+        </div>
+        <div class="slide" style="--photo:url('https://unsplash.com/photos/C8P_UfmI6rw/download?force=true&w=1600')">
+          <div><span>03 · MARKARBETE</span><strong>Motala centrum</strong></div>
+        </div>
+        <div class="slider-dots" role="tablist" aria-label="Välj projektbild">
+          <button class="active" aria-label="Bild 1"></button><button aria-label="Bild 2"></button><button aria-label="Bild 3"></button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="plan-btn" class="plan-btn"><span>▶</span> Starta smart planering</button>
+        <button id="reset-btn" class="reset-btn" aria-label="Återställ planeringen">↻</button>
+      </div>
+
+      <div class="metrics">
+        <div><strong id="metric-projects">8</strong><span>aktiva projekt</span></div>
+        <div><strong id="metric-teams">3</strong><span>team i fält</span></div>
+        <div><strong id="metric-saving">–</strong><span>sparad körtid</span></div>
+      </div>
+    </section>
+
+    <section class="map-stage" aria-label="Interaktiv projektkarta">
+      <div id="map"></div>
+      <div class="map-glow"></div>
+
+      <div class="map-title-card">
+        <span class="eyebrow">LIVEÖVERSIKT</span>
+        <strong>Östergötland · idag</strong>
+        <small id="plan-status">8 projekt väntar på planering</small>
+      </div>
+
+      <div class="status-rail">
+        <button class="status-chip active" data-filter="all"><b>8</b><span>Alla</span></button>
+        <button class="status-chip" data-filter="new"><b>3</b><span>Nya</span></button>
+        <button class="status-chip" data-filter="planned"><b>3</b><span>Planerade</span></button>
+        <button class="status-chip" data-filter="active"><b>2</b><span>Pågår</span></button>
+      </div>
+
+      <aside class="team-card">
+        <div class="team-head"><span>TEAM & MASKINER</span><b>3 tillgängliga</b></div>
+        <article><i class="avatar blue">JA</i><div><strong>Johan Andersson</strong><small>Markteam · Grävmaskin</small></div><span class="state">Redo</span></article>
+        <article><i class="avatar orange">SL</i><div><strong>Sara Lind</strong><small>Byggteam · Servicebil</small></div><span class="state">Redo</span></article>
+        <article><i class="avatar lime">EN</i><div><strong>Erik Nilsson</strong><small>Utemiljö · Lastbil</small></div><span class="state">Redo</span></article>
+      </aside>
+
+      <button class="new-project" id="new-project-btn"><span>＋</span><b>Nytt projekt</b><small>Skapa offertförfrågan</small></button>
+
+      <div class="progress-card">
+        <div><span id="progress-label">AI-planering</span><b id="progress-value">0%</b></div>
+        <div class="progress-track"><i id="progress-bar"></i></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="project-dialog">
+    <button class="dialog-close" aria-label="Stäng">×</button>
+    <span class="eyebrow">NY OFFERTFÖRFRÅGAN</span>
+    <h2>Lägg till ett projekt</h2>
+    <form id="project-form">
+      <label>Projektadress<input required placeholder="Exempel: Storgatan 12, Linköping"></label>
+      <label>Typ av arbete<select><option>Markarbete</option><option>Dränering</option><option>Renovering</option><option>Trädgårdsskötsel</option></select></label>
+      <label>Önskad start<input type="date" required></label>
+      <button class="plan-btn" type="submit">Skapa förfrågan</button>
+    </form>
+  </dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
