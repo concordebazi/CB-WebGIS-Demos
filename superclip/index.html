@@ -7,475 +7,741 @@
 
     <title>Salong Superclip | Skäggetorp Linköping</title>
 
+    <meta
+        name="description"
+        content="Salong Superclip i Skäggetorp, Linköping. Modern klippning, skägg, styling och hårvård."
+    >
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
 
-    <div class="demo-notice">
-        Webbplatskoncept för Salong Superclip • Skapat av CB Web & GIS
-    </div>
 
+<!-- =========================================================
+     DEMO NOTICE
+========================================================= -->
+
+<div class="demo-notice">
+    <span>WEBBPLATSKONCEPT</span>
+    <strong>Skapat av CB Web & GIS</strong>
+</div>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+    <!-- NAVIGATION -->
     <header class="site-header">
 
         <nav class="navbar">
 
-            <div class="logo">
-                SALONG <span>SUPERCLIP</span>
-            </div>
-            <button class="menu-toggle"
-        id="menu-toggle"
-        aria-label="Öppna meny"
-        aria-expanded="false">
-    ☰
-</button>
-
-            <ul class="nav-links">
-                <li><a href="#home">Hem</a></li>
-                <li><a href="#services">Tjänster</a></li>
-                <li><a href="#about">Om oss</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-            </ul>
-
-            <a href="tel:0765823398" class="nav-btn">
-                Ring oss
+            <a href="#home" class="logo">
+                <span class="logo-top">SALONG</span>
+                <span class="logo-main">SUPERCLIP</span>
             </a>
+
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Öppna meny"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+
+            <div class="nav-right" id="nav-menu">
+
+                <ul class="nav-links">
+                    <li><a href="#services">Tjänster</a></li>
+                    <li><a href="#about">Salongen</a></li>
+                    <li><a href="#contact">Hitta oss</a></li>
+                </ul>
+
+                <a href="tel:0765823398" class="nav-book">
+                    Boka tid
+                    <span>↗</span>
+                </a>
+
+            </div>
 
         </nav>
 
-        </header>
+    </header>
 
-    <div class="demo-back-bar">
 
-        <a href="../index.html" class="back-to-portfolio">
-            ← Tillbaka till demoportföljen
-        </a>
+    <!-- HERO OVERLAY -->
+    <div class="hero-overlay"></div>
 
-    </div>
 
-    <main>
+    <!-- HERO CONTENT -->
+    <div class="hero-inner">
 
-        <section class="hero" id="home">
+        <div class="hero-content">
 
-            <div class="hero-content">
+            <div class="hero-location">
+                <span></span>
+                SKÄGGETORP · LINKÖPING
+            </div>
 
-                <p class="hero-small">
-                    BARBERSHOP • SKÄGGETORP
-                </p>
 
-                <h1>
-                    STIL SOM
-                    <span>PASSAR DIG</span>
-                </h1>
+            <h1>
+                DIN STIL.
+                <em>DIN SIGNATUR.</em>
+            </h1>
 
-                <p class="hero-text">
-                    Välkommen till Salong Superclip i Skäggetorp.
-                </p>
 
-                <div class="hero-buttons">
+            <p class="hero-description">
+                Modern klippning, skägg och styling —
+                med precision i varje detalj.
+            </p>
 
-                  <a href="tel:0765823398" class="hero-btn primary">
-    📅 Boka tid
-</a>
 
-                    <a href="#services" class="hero-btn secondary">
-                        Våra tjänster
-                    </a>
+            <div class="hero-actions">
 
-                </div>
+                <a href="tel:0765823398" class="btn btn-primary">
+                    Boka tid
+                    <span>→</span>
+                </a>
+
+                <a href="#services" class="btn btn-ghost">
+                    Se våra tjänster
+                </a>
 
             </div>
 
-            <div class="hero-visual">
+        </div>
 
-                <div class="hero-card">
-                    <p>ÖPPET ALLA DAGAR</p>
-                    <strong>09:00 – 21:00</strong>
-                </div>
+
+        <!-- OPEN CARD -->
+        <div class="open-card">
+
+            <div class="open-status">
+                <span class="status-dot"></span>
+                ÖPPET IDAG
+            </div>
+
+            <strong>09:00 — 21:00</strong>
+
+            <p>Alla dagar</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- HERO BOTTOM -->
+    <div class="hero-bottom">
+
+        <div class="hero-bottom-item">
+            <span>01</span>
+            <p>KLIPPNING</p>
+        </div>
+
+        <div class="hero-bottom-item">
+            <span>02</span>
+            <p>SKÄGG</p>
+        </div>
+
+        <div class="hero-bottom-item">
+            <span>03</span>
+            <p>STYLING</p>
+        </div>
+
+        <div class="hero-bottom-item">
+            <span>04</span>
+            <p>HÅRVÅRD</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section class="services section" id="services">
+
+    <div class="section-heading reveal">
+
+        <div>
+
+            <p class="eyebrow">
+                VÅRA TJÄNSTER
+            </p>
+
+            <h2>
+                Detaljerna gör
+                <em>skillnaden.</em>
+            </h2>
+
+        </div>
+
+
+        <p class="section-intro">
+            Klassiska tekniker möter modern stil.
+            Vi hjälper dig hitta ett uttryck som passar dig.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+
+        <!-- SERVICE 1 -->
+        <article class="service-card service-large reveal">
+
+            <img
+                src="images/herrklippning.jpg"
+                alt="Herrklippning på Salong Superclip"
+            >
+
+            <div class="service-overlay"></div>
+
+            <div class="service-number">
+                01
+            </div>
+
+            <div class="service-content">
+
+                <p>PRECISION & STIL</p>
+
+                <h3>Herrklippning</h3>
+
+                <span>
+                    Modern klippning anpassad efter
+                    din stil och dina önskemål.
+                </span>
 
             </div>
 
-        </section>
-        <!-- INFO STRIP -->
+        </article>
 
-<section class="info-strip">
 
-    <div class="info-item">
-        <span>📍</span>
-        <div>
-            <small>HITTA OSS</small>
-            <strong>Skäggetorps centrum 1</strong>
-        </div>
-    </div>
 
-    <div class="info-item">
-        <span>🕘</span>
-        <div>
-            <small>ÖPPETTIDER</small>
-            <strong>Alla dagar 09:00 – 21:00</strong>
-        </div>
-    </div>
+        <!-- SERVICE 2 -->
+        <article class="service-card reveal">
 
-    <div class="info-item">
-        <span>📞</span>
-        <div>
-            <small>RING OSS</small>
-            <strong>076-582 33 98</strong>
-        </div>
-    </div>
+            <img
+                src="images/skagg-styling.jpg"
+                alt="Skägg och styling"
+            >
 
-</section>
-        <!-- BRAND STRIP -->
+            <div class="service-overlay"></div>
 
-<section class="brand-strip">
+            <div class="service-number">
+                02
+            </div>
 
-    <div class="brand-strip-image">
-        <img src="images/storefront-superclip.jpg"
-             alt="Salong Superclip storefront in Skäggetorp">
-    </div>
+            <div class="service-content">
 
-    <div class="brand-strip-content">
+                <p>FORM & DETALJ</p>
 
-        <p class="brand-small">SALONG SUPERCLIP</p>
+                <h3>Skägg & styling</h3>
 
-        <h2>En modern salong med sin egen stil</h2>
+                <span>
+                    Ett välvårdat uttryck med rena linjer
+                    och personlig finish.
+                </span>
 
-        <p>
-            Inspirerad av salongens egna färger och uttryck i Skäggetorp.
-        </p>
+            </div>
 
-    </div>
+        </article>
 
-</section>
-        <!-- SERVICES -->
 
-<section class="services" id="services">
 
-    <div class="services-heading">
+        <!-- SERVICE 3 -->
+        <article class="service-card reveal">
 
-        <p>VÅRA TJÄNSTER</p>
+            <img
+                src="images/barnklippning.jpg"
+                alt="Barnklippning"
+            >
 
-        <h2>Din stil. Ditt uttryck.</h2>
+            <div class="service-overlay"></div>
 
-        <span>
-            Klippning och hårvård i Skäggetorp.
-        </span>
+            <div class="service-number">
+                03
+            </div>
 
-    </div>
+            <div class="service-content">
 
-    <div class="services-list">
+                <p>TRYGGT & ENKELT</p>
 
-       <div class="service-item service-with-image">
+                <h3>Barnklippning</h3>
 
-    <img src="images/herrklippning.jpg"
-         alt="Herrklippning">
+                <span>
+                    En lugn och avslappnad klippning
+                    för de yngre.
+                </span>
 
-   <div class="service-info">
+            </div>
 
-    <span>01</span>
+        </article>
 
-    <div class="service-text">
-        <h3>Herrklippning</h3>
-        <p>
-            Modern klippning anpassad efter din stil och dina önskemål.
-        </p>
-    </div>
 
-</div>
 
-</div>
+        <!-- SERVICE 4 -->
+        <article class="service-card service-wide reveal">
 
-    <div class="service-item service-with-image">
+            <img
+                src="images/harvard.jpg"
+                alt="Professionell hårvård"
+            >
 
-    <img src="images/barnklippning.jpg"
-         alt="Barnklippning">
+            <div class="service-overlay"></div>
 
-<div class="service-info">
+            <div class="service-number">
+                04
+            </div>
 
-    <span>02</span>
+            <div class="service-content">
 
-    <div class="service-text">
-        <h3>Barnklippning</h3>
-        <p>
-            Trygg och enkel klippning för barn i en avslappnad miljö.
-        </p>
-    </div>
+                <p>VÅRD & FINISH</p>
 
-</div>
+                <h3>Hårvård</h3>
 
-</div>
+                <span>
+                    Professionell hårvård för ett friskt,
+                    välvårdat och stilrent resultat.
+                </span>
 
-       <div class="service-item service-with-image">
+            </div>
 
-    <img src="images/skagg-styling.jpg"
-         alt="Skägg och styling">
-<div class="service-info">
-
-    <span>03</span>
-
-    <div class="service-text">
-        <h3>Skägg & styling</h3>
-        <p>
-            Formning och styling av skägg för ett välvårdat och personligt uttryck.
-        </p>
-    </div>
-
-</div>
-
-</div>
-
-       <div class="service-item service-with-image">
-
-    <img src="images/harvard.jpg"
-         alt="Hårvård">
-
-   <div class="service-info">
-
-    <span>04</span>
-
-    <div class="service-text">
-        <h3>Hårvård</h3>
-        <p>
-            Professionell hårvård som hjälper ditt hår att se friskt och välvårdat ut.
-        </p>
-    </div>
-
-</div>
-
-</div>
+        </article>
 
     </div>
 
 </section>
-        <!-- ABOUT -->
 
-<section class="about" id="about">
 
-    <div class="about-content">
 
-        <p class="about-small">
-            OM SALONG SUPERCLIP
+<!-- =========================================================
+     ABOUT / SALON
+========================================================= -->
+
+<section class="about section" id="about">
+
+
+    <div class="about-image reveal">
+
+        <img
+            src="images/storefront-superclip.jpg"
+            alt="Salong Superclip i Skäggetorp"
+        >
+
+        <div class="about-image-label">
+
+            <span>SINCE</span>
+            <strong>SUPERCLIP</strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-content reveal">
+
+        <p class="eyebrow">
+            SALONG SUPERCLIP
         </p>
 
         <h2>
-            Din barbershop i Skäggetorp
+            Mer än bara
+            <em>en klippning.</em>
         </h2>
 
-        <p class="about-text">
-            Salong Superclip erbjuder klippning, skäggstyling
-            och hårvård i Skäggetorp. Här står personlig service,
-            stil och ett välvårdat resultat i fokus.
+
+        <p class="about-lead">
+            En modern barbershop i hjärtat av Skäggetorp
+            där stil, precision och personlig service står i centrum.
         </p>
+
 
         <p class="about-text">
             Oavsett om du vill ha en klassisk klippning,
-            en modern stil eller hjälp med skägget är du
-            välkommen till oss.
+            en modern fade eller hjälp med skägget hjälper
+            vi dig hitta ett uttryck som känns rätt.
         </p>
 
-        <a href="tel:0765823398" class="about-btn">
-            📞 Ring och boka tid
-        </a>
 
-    </div>
+        <div class="about-features">
 
-    <div class="about-highlight">
-
-        <span>SUPERCLIP</span>
-
-        <h3>
-            Stil.<br>
-            Precision.<br>
-            Personlighet.
-        </h3>
-
-        <p>
-            Skäggetorp • Linköping
-        </p>
-
-    </div>
-
-</section>
-        <!-- CONTACT -->
-
-<section class="contact" id="contact">
-
-    <div class="contact-content">
-
-        <p class="contact-small">
-            KONTAKT
-        </p>
-
-        <h2>
-            Boka din tid hos Salong Superclip
-        </h2>
-
-        <p class="contact-text">
-            Ring oss för att boka tid eller besök oss i Skäggetorp.
-        </p>
-
-        <div class="contact-details">
-
-            <div class="contact-item">
-                <span>📞</span>
-
-                <div>
-                    <small>TELEFON</small>
-                    <a href="tel:0765823398">
-                        076-582 33 98
-                    </a>
-                </div>
+            <div>
+                <strong>7</strong>
+                <span>Dagar<br>i veckan</span>
             </div>
 
-            <div class="contact-item">
-                <span>📍</span>
-
-                <div>
-                    <small>ADRESS</small>
-                    <strong>
-                        Skäggetorps centrum 1
-                    </strong>
-                </div>
+            <div>
+                <strong>09–21</strong>
+                <span>Generösa<br>öppettider</span>
             </div>
 
-            <div class="contact-item">
-                <span>🕘</span>
-
-                <div>
-                    <small>ÖPPETTIDER</small>
-                    <strong>
-                        Alla dagar 09:00 – 21:00
-                    </strong>
-                </div>
+            <div>
+                <strong>100%</strong>
+                <span>Fokus på<br>din stil</span>
             </div>
 
         </div>
 
-        <a href="tel:0765823398" class="contact-btn">
-            📅 Ring och boka tid
-        </a>
 
-    </div>
-
-    <div class="contact-card">
-
-        <span>SALONG SUPERCLIP</span>
-
-        <h3>
-            Vi hjälper dig hitta din stil.
-        </h3>
-
-        <p>
-            Klippning • Skägg • Styling • Hårvård
-        </p>
-
-        <a href="tel:0765823398">
-            076-582 33 98
+        <a href="tel:0765823398" class="text-link">
+            Ring och boka din tid
+            <span>→</span>
         </a>
 
     </div>
 
 </section>
-        <!-- LOCATION -->
 
-<section class="location">
 
-    <div class="location-heading">
-        <p>HITTA TILL OSS</p>
-        <h2>Salong Superclip i Skäggetorp</h2>
-        <span>Skäggetorps centrum 1, Linköping</span>
-    </div>
 
-    <div class="map-container">
+<!-- =========================================================
+     CONTACT / LOCATION
+========================================================= -->
+
+<section class="contact" id="contact">
+
+
+    <div class="contact-map">
 
         <iframe
             src="https://www.google.com/maps?q=Skäggetorps+centrum+1,+Linköping&output=embed"
             loading="lazy"
             allowfullscreen=""
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Karta till Salong Superclip"
+        ></iframe>
 
     </div>
 
-</section>
-   <!-- CB WEB & GIS CTA -->
 
-<section class="demo-sales-cta">
+    <div class="contact-content">
 
-    <div class="demo-sales-cta-content">
-
-        <p class="demo-sales-label">
-            WEBBPLATSKONCEPT AV CB WEB & GIS
+        <p class="eyebrow light">
+            HITTA TILL OSS
         </p>
+
 
         <h2>
-            Vill du ha en liknande webbplats
-            för ditt företag?
+            Redo för
+            <em>nästa look?</em>
         </h2>
 
-        <p class="demo-sales-text">
-            Vi skapar moderna och mobilanpassade webbplatser
-            med tydliga tjänster, bokningsmöjligheter och en
-            design anpassad efter ditt företag.
+
+        <p class="contact-intro">
+            Kom förbi salongen i Skäggetorp
+            eller ring oss för att boka din tid.
         </p>
 
-        <a
-            href="https://cbwebgis.se/sv/contact/#contact-form"
-            class="demo-sales-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Begär en kostnadsfri offert
+
+        <div class="contact-details">
+
+            <div class="contact-row">
+
+                <span class="contact-label">
+                    ADRESS
+                </span>
+
+                <strong>
+                    Skäggetorps centrum 1<br>
+                    Linköping
+                </strong>
+
+            </div>
+
+
+            <div class="contact-row">
+
+                <span class="contact-label">
+                    ÖPPET
+                </span>
+
+                <strong>
+                    Alla dagar<br>
+                    09:00 — 21:00
+                </strong>
+
+            </div>
+
+
+            <div class="contact-row">
+
+                <span class="contact-label">
+                    TELEFON
+                </span>
+
+                <a href="tel:0765823398">
+                    076-582 33 98
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <a href="tel:0765823398" class="contact-book-btn">
+
+            <span>
+                Ring & boka
+            </span>
+
+            <strong>
+                076-582 33 98
+            </strong>
+
+            <b>→</b>
+
         </a>
 
     </div>
 
-</section>     
+</section>
 
-    </main>
-<!-- FOOTER -->
 
-<footer class="site-footer">
 
-    <div class="footer-content">
+<!-- =========================================================
+     CB WEB & GIS CTA
+========================================================= -->
+
+<section class="creator-cta">
+
+    <div class="creator-inner">
 
         <div>
-            <h3>SALONG <span>SUPERCLIP</span></h3>
-            <p>Klippning • Skägg • Styling • Hårvård</p>
+
+            <p>
+                WEBBPLATSKONCEPT AV
+            </p>
+
+            <h2>
+                CB Web & GIS
+            </h2>
+
         </div>
 
-        <div class="footer-contact">
-            <p>📍 Skäggetorps centrum 1, Linköping</p>
-            <p>📞 076-582 33 98</p>
-            <p>🕘 Alla dagar 09:00 – 21:00</p>
+
+        <div class="creator-message">
+
+            <p>
+                Vill du ha en modern webbplats
+                för ditt företag?
+            </p>
+
+            <a
+                href="https://cbwebgis.se/sv/contact/#contact-form"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Kontakta oss
+                <span>↗</span>
+            </a>
+
         </div>
 
     </div>
 
-    <div class="footer-bottom">
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="footer-main">
+
+        <a href="#home" class="footer-logo">
+
+            <small>SALONG</small>
+
+            SUPERCLIP
+
+        </a>
+
+
         <p>
+            Klippning · Skägg · Styling · Hårvård
+        </p>
+
+
+        <a
+            href="../index.html"
+            class="portfolio-link"
+        >
+            ← Tillbaka till alla demos
+        </a>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            Skäggetorps centrum 1 · Linköping
+        </span>
+
+        <span>
             Webbplatskoncept skapat av
             <strong>CB Web & GIS</strong>
-        </p>
+        </span>
+
     </div>
 
 </footer>
-    <script>
-const menuToggle = document.getElementById("menu-toggle");
-const navLinks = document.querySelector(".nav-links");
 
-menuToggle.addEventListener("click", function () {
 
-    navLinks.classList.toggle("active");
 
-    const isOpen = navLinks.classList.contains("active");
+<!-- MOBILE BOOKING -->
+<a
+    href="tel:0765823398"
+    class="mobile-book"
+>
+    Boka tid
+    <span>→</span>
+</a>
 
-    menuToggle.setAttribute("aria-expanded", isOpen);
 
-    menuToggle.textContent = isOpen ? "✕" : "☰";
 
-});
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+const menuToggle =
+    document.getElementById("menu-toggle");
+
+const navMenu =
+    document.getElementById("nav-menu");
+
+
+if (menuToggle && navMenu) {
+
+    menuToggle.addEventListener("click", function () {
+
+        navMenu.classList.toggle("active");
+
+        const isOpen =
+            navMenu.classList.contains("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuToggle.textContent =
+            isOpen ? "✕" : "☰";
+
+    });
+
+
+    document
+        .querySelectorAll(".nav-links a")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    navMenu.classList.remove("active");
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    menuToggle.textContent = "☰";
+
+                }
+            );
+
+        });
+
+}
+
+
+/* ==========================================
+   SCROLL REVEAL
+========================================== */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+if ("IntersectionObserver" in window) {
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12
+            }
+
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+}
+
+else {
+
+    revealElements.forEach(element => {
+
+        element.classList.add("visible");
+
+    });
+
+}
+
 </script>
-</body>
 
+
+</body>
 </html>
