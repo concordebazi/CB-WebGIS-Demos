@@ -1,0 +1,20 @@
+
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.632257, 58.414279]
+      },
+      "properties": {
+        "name": "Stångån - Referenspunkt",
+        "dem_elevation_m": 36.60,
+        "reference_type": "provisional_dem_sample",
+        "description": "Illustrativ referenspunkt i Stångån. DEM-värdet är inte en verifierad vattenståndsmätning.",
+        "source": "Lantmäteriet DEM"
+      }
+    }
+  ]
+}

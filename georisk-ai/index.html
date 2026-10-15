@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GeoRisk AI | CB Web & GIS</title>
+  <meta name="description" content="GeoRisk AI – interaktiv GIS-demo för analys av fastigheter, terräng och översvämningsscenarier.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">G</div>
+      <div>
+        <span class="brand-name">GeoRisk <strong>AI</strong></span>
+        <span class="brand-caption">BY CB WEB & GIS</span>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <span class="status-dot"></span>
+      <span>GEOINTELLIGENCE PLATFORM</span>
+    </div>
+
+    <div class="header-actions">
+      <span class="demo-badge">INTERAKTIV DEMO</span>
+      <a href="../index.html" class="header-link">Alla demos</a>
+      <a href="https://cbwebgis.se/" class="contact-button">Kontakta oss ↗</a>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD -->
+  <main class="dashboard">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+      <section class="intro-panel">
+        <span class="eyebrow">SMART GEOSPATIAL ANALYSIS</span>
+        <h1>Förstå riskerna.<br><span>Fatta bättre beslut.</span></h1>
+        <p>Utforska geografiska risker för fastigheter med interaktiva kartor, GIS-analys och AI-stödda insikter.</p>
+      </section>
+
+      <!-- PROPERTY SELECTION -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Fastighetsanalys</h2>
+          <span class="panel-tag">01</span>
+        </div>
+
+        <label for="property-select">Välj analysområde</label>
+        <select id="property-select">
+          <option value="">Välj en fastighet</option>
+          <option value="central">Linköping Centrum</option>
+          <option value="river">Stångån – Nära vattendrag</option>
+          <option value="south">Linköping Södra</option>
+        </select>
+
+        <button id="analyze-btn" class="primary-button">
+          <span>Starta GIS-analys</span>
+          <span>↗</span>
+        </button>
+      </section>
+
+      <!-- GIS LAYERS -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Kartlager</h2>
+          <span class="panel-tag">02</span>
+        </div>
+
+        <label class="layer-control">
+          <span>Analysområden (demo)</span>
+          <input id="layer-properties" type="checkbox" checked>
+        </label>
+<!-- REAL TERRAIN DEPRESSIONS -->
+<label class="layer-control">
+  <span>Terrängsänkningar</span>
+  <input id="layer-depressions" type="checkbox">
+</label>
+
+<!-- LOCAL ELEVATION MINIMA -->
+<label class="layer-control">
+  <span>Lokala lågpunkter</span>
+  <input id="layer-lowpoints" type="checkbox">
+</label>
+        <label class="layer-control">
+          <span>Översvämningsscenario</span>
+          <input id="layer-flood" type="checkbox">
+        </label>
+
+        <label class="layer-control">
+          <span>Screeningzoner (demo)</span>
+          <input id="layer-risk" type="checkbox">
+        </label>
+      </section>
+
+      <!-- FLOOD SCENARIO -->
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Scenarioanalys</h2>
+          <span class="panel-tag">03</span>
+        </div>
+
+        <label for="water-level">Simulerad vattennivå</label>
+        <div class="slider-heading">
+          <strong id="water-level-value">+1.0 m</strong>
+          <span>Demonstrationsscenario</span>
+        </div>
+
+        <input id="water-level" type="range" min="0" max="3" step="0.5" value="1">
+        <p class="helper-text">Illustrativt scenario. Inte en officiell översvämningskartering.</p>
+      </section>
+
+      <div class="sidebar-footer">
+        Skapad av <strong>CB Web & GIS</strong> · Östergötland
+      </div>
+
+    </aside>
+
+    <!-- MAP -->
+    <section class="map-section">
+      <div id="map"></div>
+      <!-- STÅNGÅN SCENARIO LEGEND -->
+<div id="stangan-scenario-legend" class="stangan-scenario-legend">
+    <div class="scenario-legend-title">
+        🌊 Stångån – Vattennivåscenario
+    </div>
+
+    <div class="scenario-legend-value">
+        <span id="scenario-color-indicator"></span>
+        <strong id="scenario-level-label">+1.0 m</strong>
+    </div>
+
+    <small>
+        Illustrativt scenario – ej en officiell översvämningsprognos.
+    </small>
+</div>
+
+      <div class="map-title">
+        <span class="eyebrow">GEOSPATIAL INTELLIGENCE</span>
+        <strong>Linköping, Sverige</strong>
+        <span>Interaktiv riskkarta · Demo</span>
+      </div>
+
+      <div class="map-legend" id="map-legend">
+    <h3>Marklutning</h3>
+    <div><i class="legend-dot low"></i> Flack terräng</div>
+    <div><i class="legend-dot medium"></i> Måttlig lutning</div>
+    <div><i class="legend-dot high"></i> Brant terräng</div>
+    <small>Grön → gul → röd (0–30°+)</small>
+</div>
+
+<!-- GIS SCREENING LEGEND -->
+<div id="screening-legend" class="screening-legend" hidden>
+    <h3>GIS-screening · Indikatorer</h3>
+
+    <div class="screening-legend-row">
+        <span class="screening-dot screening-green"></span>
+        <span>Grön – 0 indikatorer</span>
+    </div>
+
+    <div class="screening-legend-row">
+        <span class="screening-dot screening-yellow"></span>
+        <span>Gul – 1 indikator</span>
+    </div>
+
+    <div class="screening-legend-row">
+        <span class="screening-dot screening-red"></span>
+        <span>Röd – 2–3 indikatorer</span>
+    </div>
+
+    <div class="screening-legend-row">
+        <span class="screening-dot screening-gray"></span>
+        <span>Grå – Data saknas</span>
+    </div>
+
+    <small>
+        Punktbaserad GIS-screening: marklutning,
+        terrängsänkning och illustrativt Stångån-scenario.
+        Cirklarna visar inte riskområdens utbredning.
+    </small>
+</div>
+
+      <div class="map-attribution-note">Simulerade analysdata · Ej för beslutsunderlag</div>
+    </section>
+
+    <!-- RIGHT ANALYSIS PANEL -->
+    <aside class="results-panel">
+      <div class="results-heading">
+        <span class="eyebrow">GEOINTELLIGENCE REPORT</span>
+        <h2>Risköversikt</h2>
+        <p>Analysresultat visas när du har valt ett område.</p>
+      </div>
+
+      <div class="risk-score-card">
+  <span>Samlad riskindikator</span>
+
+  <div class="risk-score" id="risk-score">--</div>
+
+  <span id="risk-label">Ingen analys genomförd</span>
+
+  <p id="risk-explanation" class="helper-text">
+    Illustrativ GIS-indikator baserad på terrängdata
+    och valt Stångån-scenario.
+  </p>
+
+  <small>
+    Inte en verifierad översvämningsriskbedömning.
+  </small>
+</div>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <span>Översvämning</span>
+          <strong id="flood-score">--</strong>
+        </div>
+        <div class="metric-card">
+  <span>Markhöjd</span>
+  <strong id="terrain-score">--</strong>
+  <small>Meter över RH 2000</small>
+</div>
+<div class="metric-card">
+  <span>Marklutning</span>
+  <strong id="slope-score">--</strong>
+</div>
+<!-- REAL TERRAIN DEPRESSION ANALYSIS -->
+<div class="metric-card">
+  <span>Terrängsänkning</span>
+  <strong id="depression-score">--</strong>
+  <small>Beräknat terrängjusteringsdjup</small>
+</div>
+        <div class="metric-card">
+          <span>Vattendrag</span>
+          <strong id="water-distance">--</strong>
+        </div>
+        <div class="metric-card">
+          <span>Exponering</span>
+          <strong id="exposure-score">--</strong>
+        </div>
+      </div>
+
+<!-- GIS SCREENING SUMMARY -->
+<section class="screening-summary-panel" id="screening-summary">
+
+    <div class="screening-summary-heading">
+        <h3>GIS-screening · Översikt</h3>
+        <span>5 analysplatser</span>
+    </div>
+
+    <div class="screening-summary-grid">
+
+        <div class="screening-summary-item">
+            <span class="screening-summary-dot green"></span>
+            <strong id="screening-green-count">–</strong>
+            <small>0 indikatorer</small>
+        </div>
+
+        <div class="screening-summary-item">
+            <span class="screening-summary-dot yellow"></span>
+            <strong id="screening-yellow-count">–</strong>
+            <small>1 indikator</small>
+        </div>
+
+        <div class="screening-summary-item">
+            <span class="screening-summary-dot red"></span>
+            <strong id="screening-red-count">–</strong>
+            <small>2–3 indikatorer</small>
+        </div>
+
+        <div class="screening-summary-item">
+            <span class="screening-summary-dot gray"></span>
+            <strong id="screening-gray-count">–</strong>
+            <small>Data saknas</small>
+        </div>
+
+    </div>
+
+    <p class="screening-summary-note">
+        Punktbaserad GIS-screening av fem demonstrationsplatser.
+        Indikatorerna baseras på marklutning, terrängsänkning
+        och ett illustrativt Stångån-scenario.
+        Inte en verifierad riskklassning.
+    </p>
+
+</section>
+
+      <section class="ai-panel">
+        <div class="ai-heading">
+          <span class="ai-symbol">✦</span>
+          <h3>AI-analys & rekommendationer</h3>
+        </div>
+       <div id="ai-insight" class="analysis-content">
+    <p class="analysis-placeholder">
+        Välj ett område och starta analysen för att visa
+        geografiska rekommendationer.
+    </p>
+</div>
+      </section>
+
+      <button id="report-btn" class="report-button" disabled>
+        Generera riskrapport ↓
+      </button>
+
+      <p class="disclaimer">GeoRisk AI är en demonstrationsplattform. Resultaten får inte användas som officiell riskbedömning.</p>
+    </aside>
+
+  </main>
+
+  <!-- Leaflet map -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Leaflet map snapshot support -->
+<script src="https://unpkg.com/leaflet-image@0.4.0/leaflet-image.js"></script>
+
+<!-- GeoRisk AI application -->
+<script src="app.js"></script>
+
+
+<div class="data-attribution">
+  Höjddata: Markhöjdmodell Nedladdning,
+  © Lantmäteriet,
+  <a href="https://creativecommons.org/licenses/by/4.0/deed.sv"
+     target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.
+  Bearbetad av CB Web &amp; GIS.
+  <br>
+  GeoRisk AI är en demonstrationsapplikation.
+  Resultaten är indikativa och inte officiella
+  översvämningsriskbedömningar.
+</div>
+
+
+</body>
+</html>

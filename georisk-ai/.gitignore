@@ -1,0 +1,21 @@
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Local Python environments
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+
+# Backup folders
+backup_before_stangan/
+
+# Editor and system files
+.vscode/
+.DS_Store
+Thumbs.db

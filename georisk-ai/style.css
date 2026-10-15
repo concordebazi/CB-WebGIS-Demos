@@ -1,0 +1,1362 @@
+
+/* ==========================================
+   GEORISK AI — CB WEB & GIS
+   PREMIUM BLACK & GREEN THEME
+========================================== */
+
+:root {
+  --bg: #030b07;
+  --panel: #07170e;
+  --panel-soft: #0b2114;
+  --panel-hover: #12301c;
+  --border: #225136;
+
+  --text: #f0fff4;
+  --muted: #9eb9a7;
+
+  --accent: #80f75b;
+  --accent-bright: #a5ff65;
+  --accent-dark: #20d67c;
+
+  --green: #38ed86;
+  --blue: #42bfe8;
+  --orange: #ffb347;
+  --red: #ff6272;
+
+  --gradient: linear-gradient(
+    110deg,
+    #a2ff62,
+    #41ef88
+  );
+
+  --shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* GLOBAL */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+a {
+  transition: 0.25s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: #031008;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.app-header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 30px;
+
+  background:
+    radial-gradient(
+      ellipse at 65% 0%,
+      rgba(23, 110, 57, 0.25),
+      transparent 60%
+    ),
+    linear-gradient(
+      100deg,
+      #020905,
+      #071c10,
+      #020905
+    );
+
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1000;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+
+  background: var(--gradient);
+  color: #031108;
+
+  border-radius: 13px;
+  font-size: 25px;
+  font-weight: 800;
+
+  box-shadow: 0 0 22px rgba(99, 245, 107, 0.2);
+}
+
+.brand-name {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.brand-name strong {
+  color: var(--accent);
+}
+
+.brand-caption {
+  display: block;
+  margin-top: 3px;
+
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #b4d4bf;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+  background: var(--accent);
+
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.demo-badge {
+  padding: 9px 13px;
+  border: 1px solid #317849;
+  border-radius: 8px;
+
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.header-link {
+  color: #d5e8da;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header-link:hover {
+  color: var(--accent);
+}
+
+.contact-button {
+  padding: 13px 19px;
+
+  border-radius: 10px;
+  background: var(--gradient);
+  color: #031108;
+
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+
+  box-shadow: 0 5px 20px rgba(67, 234, 111, 0.13);
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(67, 234, 111, 0.3);
+}
+
+/* ==========================================
+   DASHBOARD LAYOUT
+========================================== */
+
+.dashboard {
+  display: grid;
+
+  grid-template-columns:
+    340px
+    minmax(0, 1fr)
+    320px;
+
+  height: calc(100vh - 80px);
+  min-height: 580px;
+}
+
+.sidebar,
+.results-panel {
+  overflow-y: auto;
+  background: var(--panel);
+  scrollbar-width: thin;
+  scrollbar-color: #386347 #07170e;
+}
+
+.sidebar {
+  padding: 25px 20px;
+  border-right: 1px solid var(--border);
+}
+
+.results-panel {
+  padding: 26px 20px;
+  border-left: 1px solid var(--border);
+}
+
+/* ==========================================
+   INTRO SECTION
+========================================== */
+
+.intro-panel {
+  padding: 4px 2px 24px;
+}
+
+.eyebrow {
+  display: block;
+
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.intro-panel h1 {
+  margin: 15px 0;
+
+  font-size: 27px;
+  line-height: 1.28;
+  letter-spacing: -1px;
+  font-weight: 800;
+}
+
+.intro-panel h1 span {
+  color: var(--accent);
+}
+
+.intro-panel p,
+.results-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+/* ==========================================
+   CONTROL PANELS
+========================================== */
+
+.panel {
+  padding: 20px;
+  margin-bottom: 16px;
+
+  background: linear-gradient(
+    145deg,
+    #0c2415,
+    #07170e
+  );
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: var(--shadow);
+}
+
+.panel:hover {
+  border-color: #36784b;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 19px;
+}
+
+.panel-heading h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.panel-tag {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.panel label:not(.layer-control) {
+  display: block;
+  margin-bottom: 10px;
+
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* SELECT */
+
+select {
+  width: 100%;
+  padding: 14px;
+
+  background: #030e08;
+  color: white;
+
+  border: 1px solid #326346;
+  border-radius: 9px;
+
+  outline: none;
+  font-size: 12px;
+}
+
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(128, 247, 91, 0.12);
+}
+
+/* PRIMARY BUTTON */
+
+.primary-button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: var(--gradient);
+  color: #031108;
+
+  border: none;
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 25px rgba(88, 245, 100, 0.2);
+}
+
+/* ==========================================
+   GIS LAYER CONTROLS
+========================================== */
+
+.layer-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid #244a32;
+  color: #d9f2df;
+
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.layer-control:last-child {
+  border-bottom: none;
+}
+
+.layer-control:hover {
+  color: var(--accent);
+}
+
+.layer-control input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ==========================================
+   FLOOD SCENARIO
+========================================== */
+
+.slider-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.slider-heading strong {
+  color: var(--accent);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.slider-heading span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.helper-text {
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.sidebar-footer {
+  padding: 16px 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sidebar-footer strong {
+  color: var(--accent);
+}
+
+/* ==========================================
+   INTERACTIVE MAP
+========================================== */
+
+.map-section {
+  position: relative;
+  min-width: 0;
+  min-height: 350px;
+  overflow: hidden;
+
+  background: #081c11;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* MAP OVERLAYS */
+
+.map-title,
+.map-legend {
+  position: absolute;
+  z-index: 500;
+
+  background: rgba(3, 17, 9, 0.94);
+  border: 1px solid #306d44;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+
+  pointer-events: none;
+}
+
+.map-title {
+  top: 22px;
+  left: 22px;
+  padding: 16px 19px;
+}
+
+.map-title strong {
+  display: block;
+  margin: 9px 0 5px;
+  font-size: 17px;
+}
+
+.map-title > span:last-child {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.map-legend {
+    left: 280px;
+    right: 15px;
+    bottom: 35px;
+    width: auto;
+    max-width: none;
+    padding: 16px;
+    font-size: 11px;
+}
+
+.map-legend h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+
+.map-legend div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 10px;
+  color: #d6edda;
+}
+
+.legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.low {
+  background: var(--green);
+}
+
+.medium {
+  background: var(--orange);
+}
+
+.high {
+  background: var(--red);
+}
+
+.map-attribution-note {
+  position: absolute;
+  z-index: 500;
+
+  bottom: 10px;
+  left: 12px;
+
+  padding: 6px 9px;
+  border-radius: 5px;
+
+  background: rgba(3, 12, 6, 0.9);
+  color: #d8f2dd;
+
+  font-size: 9px;
+  pointer-events: none;
+}
+
+/* LEAFLET CONTROLS */
+
+.leaflet-container {
+  font-family: "Manrope", sans-serif;
+}
+
+.leaflet-control-zoom a {
+  background: #071b0e !important;
+  color: var(--accent) !important;
+  border-color: #2d6641 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #123b21 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #0a2012;
+  color: white;
+  border: 1px solid #377a4c;
+  border-radius: 12px;
+}
+
+.leaflet-popup-tip {
+  background: #0a2012;
+}
+
+/* ==========================================
+   RESULTS PANEL
+========================================== */
+
+.results-heading h2 {
+  margin: 11px 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.risk-score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+
+  margin: 20px 0;
+  padding: 27px 12px;
+
+  background: linear-gradient(
+    145deg,
+    #102d19,
+    #06170c
+  );
+
+  border: 1px solid #327a44;
+  border-radius: 14px;
+
+  text-align: center;
+}
+
+.risk-score-card > span:first-child {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.risk-score {
+  font-size: 58px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+#risk-label {
+  color: #c4e3cc;
+  font-size: 11px;
+}
+
+/* METRIC CARDS */
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.metric-card {
+  padding: 16px 12px;
+
+  background: linear-gradient(
+    145deg,
+    #0b2414,
+    #06150c
+  );
+
+  border: 1px solid #28583a;
+  border-radius: 12px;
+
+  transition: 0.25s;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.metric-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 12px;
+
+  color: #f1fff4;
+  font-size: 18px;
+}
+
+/* ==========================================
+   AI ANALYSIS PANEL
+========================================== */
+
+.ai-panel {
+  margin-top: 20px;
+  padding: 19px;
+
+  background: linear-gradient(
+    145deg,
+    #10321d,
+    #071c10
+  );
+
+  border: 1px solid #3b9855;
+  border-radius: 13px;
+}
+
+.ai-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-symbol {
+  color: var(--accent);
+  font-size: 25px;
+}
+
+.ai-heading h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ai-panel p {
+  color: #c7e6d0;
+  font-size: 11px;
+  line-height: 1.95;
+}
+
+/* REPORT BUTTON */
+
+.report-button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+
+  background: transparent;
+  color: var(--accent);
+
+  border: 1px solid #46865a;
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.report-button:not(:disabled):hover {
+  background: var(--gradient);
+  color: #031108;
+  border-color: transparent;
+}
+
+.disclaimer {
+  margin-top: 17px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   SCROLLBARS
+========================================== */
+
+.sidebar::-webkit-scrollbar,
+.results-panel::-webkit-scrollbar {
+  width: 7px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.results-panel::-webkit-scrollbar-track {
+  background: #06130a;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.results-panel::-webkit-scrollbar-thumb {
+  background: #326d43;
+  border-radius: 10px;
+}
+
+/* ==========================================
+   RESPONSIVE — TABLET
+========================================== */
+
+@media (max-width: 1250px) {
+
+  .dashboard {
+    grid-template-columns:
+      290px
+      minmax(0, 1fr)
+      275px;
+  }
+
+  .sidebar,
+  .results-panel {
+    padding: 18px 14px;
+  }
+
+  .header-center {
+    display: none;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — SMALL SCREENS
+========================================== */
+
+@media (max-width: 950px) {
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .sidebar,
+  .results-panel {
+    overflow: visible;
+  }
+
+  .map-section {
+    height: 540px;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .demo-badge {
+    display: none;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+  .app-header {
+    height: auto;
+    min-height: 72px;
+    padding: 13px;
+    flex-wrap: wrap;
+  }
+
+  .brand-name {
+    font-size: 19px;
+  }
+
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .contact-button {
+    padding: 11px;
+  }
+
+  .header-link {
+    font-size: 11px;
+  }
+
+  .sidebar,
+  .results-panel {
+    padding: 16px;
+  }
+
+  .intro-panel h1 {
+    font-size: 25px;
+  }
+
+  .map-section {
+    height: 460px;
+  }
+
+  .map-title {
+    top: 12px;
+    left: 12px;
+    padding: 12px;
+  }
+
+  .map-title strong {
+    font-size: 14px;
+  }
+
+  .map-legend {
+    right: 10px;
+    bottom: 35px;
+    padding: 11px;
+  }
+
+  .metric-grid {
+    gap: 9px;
+  }
+}
+/* ==========================================
+   GEORISK AI — GIS ANALYSIS RESULT CARDS
+========================================== */
+
+.analysis-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+/* Location and terrain classification */
+
+.analysis-location {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.analysis-location span {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #a7c5b0;
+}
+
+.analysis-location strong {
+    background: rgba(128, 247, 91, 0.12);
+    color: #80f75b;
+    border: 1px solid rgba(128, 247, 91, 0.35);
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* Elevation and slope metric cards */
+
+.analysis-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.analysis-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px 12px;
+    background: #10271a;
+    border: 1px solid #28543a;
+    border-radius: 12px;
+    min-width: 0;
+}
+
+.analysis-metric span {
+    color: #a7c5b0;
+    font-size: 12px;
+}
+
+.analysis-metric strong {
+    color: #ffffff;
+    font-size: clamp(18px, 1.6vw, 24px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Highlighted recommendation */
+
+.analysis-recommendation {
+    background: #132b1b;
+    border-left: 4px solid #80f75b;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.recommendation-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #80f75b;
+    font-size: 14px;
+}
+
+.recommendation-title span {
+    font-size: 22px;
+}
+
+.analysis-recommendation p {
+    color: #f0f8f1;
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Data source and disclaimer */
+
+.analysis-disclaimer {
+    color: #92ac9a;
+    font-size: 11px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.analysis-placeholder {
+    color: #a7c5b0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Mobile responsiveness */
+
+@media (max-width: 480px) {
+    .analysis-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-metric strong {
+        font-size: 22px;
+    }
+}
+/* ==========================================
+   GEORISK AI — RECOMMENDATION CARDS
+========================================== */
+
+.analysis-recommendation {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.analysis-recommendation .recommendation-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #80f75b;
+    margin-bottom: 5px;
+}
+
+.analysis-recommendation .recommendation-title strong {
+    font-size: 15px;
+}
+
+.analysis-recommendation > p {
+    margin: 0;
+    line-height: 1.65;
+}
+
+.analysis-recommendation > p:has(strong) {
+    color: #80f75b;
+    font-weight: 700;
+    padding: 12px 14px 0;
+    background: #10251a;
+    border: 1px solid #254d35;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+}
+
+.analysis-recommendation > p:has(strong) + p {
+    padding: 0 14px 14px;
+    margin-top: -14px;
+    background: #10251a;
+    border: 1px solid #254d35;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    color: #e4f5e9;
+    font-size: 13px;
+}
+/* ==========================================
+   STÅNGÅN — DYNAMIC SCENARIO LEGEND
+   CB WEB & GIS
+========================================== */
+
+.stangan-scenario-legend {
+    position: absolute;
+    bottom: 35px;
+    left: 15px;
+    z-index: 1000;
+
+    width: 245px;
+    padding: 16px;
+
+    background: rgba(4, 24, 15, 0.95);
+    border: 1px solid rgba(85, 255, 120, 0.25);
+    border-radius: 14px;
+
+    color: #ffffff;
+    font-family: inherit;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.scenario-legend-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #a8ffb0;
+}
+
+.scenario-legend-value {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+#scenario-color-indicator {
+    display: inline-block;
+    width: 28px;
+    height: 18px;
+    border-radius: 5px;
+    background: #00b5a8;
+    transition: background-color 0.4s ease;
+}
+
+#scenario-level-label {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.stangan-scenario-legend small {
+    display: block;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #a4b8aa;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .stangan-scenario-legend {
+        width: 200px;
+        bottom: 145px;
+        left: 10px;
+        padding: 12px;
+    }
+}
+
+/* ==========================================
+   GIS SCREENING LEGEND
+========================================== */
+
+.screening-legend {
+    position: absolute;
+    bottom: 175px;
+    right: 20px;
+    z-index: 950;
+
+    width: 260px;
+    max-width: calc(100% - 40px);
+    padding: 16px;
+
+    background: rgba(5, 30, 20, 0.94);
+    color: #eaf8ef;
+
+    border: 1px solid #27583e;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+    font-size: 12px;
+}
+
+.screening-legend[hidden] {
+    display: none !important;
+}
+
+.screening-legend h3 {
+    margin: 0 0 12px;
+    color: #b3ffc2;
+    font-size: 14px;
+}
+
+.screening-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.screening-dot {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.screening-green { background: #22c55e; }
+.screening-yellow { background: #f59e0b; }
+.screening-red { background: #ef4444; }
+.screening-gray { background: #94a3b8; }
+
+.screening-legend small {
+    display: block;
+    margin-top: 12px;
+    color: #a8c5b3;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .screening-legend {
+        right: 10px;
+        bottom: 120px;
+        width: 220px;
+        padding: 12px;
+    }
+}
+
+/* ==========================================
+   GEORISK AI — GIS SCREENING SUMMARY
+========================================== */
+
+.screening-summary-panel {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+
+    background: #092519;
+    border: 1px solid #23563b;
+    border-radius: 16px;
+
+    color: #eaf8ef;
+}
+
+.screening-summary-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.screening-summary-heading h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.screening-summary-heading > span {
+    font-size: 11px;
+    color: #a3cbb3;
+    white-space: nowrap;
+}
+
+.screening-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.screening-summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 14px 8px;
+    min-width: 0;
+
+    background: #103624;
+    border: 1px solid #28583e;
+    border-radius: 12px;
+}
+
+.screening-summary-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.screening-summary-dot.green {
+    background: #22c55e;
+}
+
+.screening-summary-dot.yellow {
+    background: #f59e0b;
+}
+
+.screening-summary-dot.red {
+    background: #ef4444;
+}
+
+.screening-summary-dot.gray {
+    background: #94a3b8;
+}
+
+.screening-summary-item strong {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.screening-summary-item small {
+    font-size: 11px;
+    color: #b8d5c4;
+    text-align: center;
+}
+
+.screening-summary-note {
+    margin: 16px 0 0;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #a3c4b0;
+}
+
+@media (max-width: 480px) {
+    .screening-summary-panel {
+        padding: 15px;
+    }
+
+    .screening-summary-heading {
+        flex-wrap: wrap;
+    }
+}
+
+
+/* ==========================================
+   GEORISK AI — DATA ATTRIBUTION
+========================================== */
+
+.data-attribution {
+    position: fixed;
+    bottom: 8px;
+    left: 12px;
+    transform: none;
+    z-index: 1000;
+
+    max-width: 330px;
+    width: auto;
+    padding: 6px 10px;
+
+    background: rgba(5, 22, 14, 0.92);
+    color: #b6c9bf;
+    border: 1px solid rgba(100, 255, 140, 0.18);
+    border-radius: 6px;
+
+    font-size: 9px;
+    line-height: 1.4;
+    text-align: left;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 600px) {
+    .data-attribution {
+        bottom: 6px;
+        left: 6px;
+        right: 6px;
+        max-width: none;
+        font-size: 9px;
+    }
+}
