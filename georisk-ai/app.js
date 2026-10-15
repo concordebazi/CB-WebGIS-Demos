@@ -449,7 +449,7 @@ map.on("click", async function (event) {
 );
 
 const url =
-    `http://127.0.0.1:8000/elevation?lat=${lat}&lon=${lon}&water_level=${selectedWaterLevel}`;
+    `https://georisk-ai-api.onrender.com/elevation?lat=${lat}&lon=${lon}&water_level=${selectedWaterLevel}`;
 
         const response = await fetch(url);
 
@@ -1074,7 +1074,7 @@ async function updateRiskZones() {
         try {
 
             const url =
-                `http://127.0.0.1:8000/elevation?lat=${lat}&lon=${lon}&water_level=${selectedLevel}`;
+                `https://georisk-ai-api.onrender.com/elevation?lat=${lat}&lon=${lon}&water_level=${selectedLevel}`;
 
             const response = await fetch(url);
 
@@ -1301,7 +1301,7 @@ analyzeButton.addEventListener("click", async function () {
 );
 
 const url =
-    `http://127.0.0.1:8000/elevation?lat=${location.lat}&lon=${location.lon}&water_level=${selectedWaterLevel}`;
+    `https://georisk-ai-api.onrender.com/elevation?lat=${location.lat}&lon=${location.lon}&water_level=${selectedWaterLevel}`;
 
         const response = await fetch(url);
         const data = await response.json();
