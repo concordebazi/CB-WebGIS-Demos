@@ -1360,3 +1360,290 @@ input[type="range"] {
         font-size: 9px;
     }
 }
+
+/* ==========================================
+   GEORISK AI — DOCUMENTATION DROPDOWN
+========================================== */
+
+.docs-dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 2000;
+}
+
+.docs-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    list-style: none;
+    white-space: nowrap;
+}
+
+.docs-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.docs-trigger::marker {
+    content: "";
+}
+
+.docs-arrow {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+.docs-dropdown[open] .docs-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+
+.docs-menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    width: 270px;
+    max-width: calc(100vw - 24px);
+    padding: 14px;
+    background: #142b25;
+    border: 1px solid rgba(112, 220, 160, 0.25);
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    z-index: 2001;
+}
+
+.docs-menu-title {
+    display: block;
+    color: #91a99f;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    margin: 3px 5px 12px;
+}
+
+/* Download links */
+
+.docs-download {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 13px 12px;
+    margin-top: 6px;
+    border-radius: 9px;
+    color: #f0f8f3;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.045);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.docs-download span {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.docs-download small {
+    font-size: 11px;
+    color: #7ee6a7;
+    white-space: nowrap;
+}
+
+.docs-download:hover {
+    background: rgba(94, 220, 143, 0.14);
+    transform: translateY(-1px);
+}
+
+.docs-download:focus-visible,
+.docs-trigger:focus-visible {
+    outline: 2px solid #7ee6a7;
+    outline-offset: 3px;
+}
+
+/* Mobile support */
+
+@media (max-width: 768px) {
+
+    .docs-dropdown {
+        position: relative;
+    }
+
+    .docs-menu {
+        right: 0;
+        width: min(270px, calc(100vw - 24px));
+    }
+
+    .docs-download {
+        padding: 12px 10px;
+    }
+}
+
+/* ==========================================
+   GEORISK AI — MATCHING HEADER BUTTONS
+========================================== */
+
+.header-actions .demo-badge,
+.header-actions .header-link,
+.header-actions .docs-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 11px 17px;
+
+    background: #071b13;
+    border: 1px solid #287c46;
+    border-radius: 10px;
+
+    color: #70f58c;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover effect */
+
+.header-actions .header-link:hover,
+.header-actions .docs-trigger:hover {
+    background: #123b27;
+    border-color: #58ef85;
+    color: #ffffff;
+}
+
+/* Keep documentation highlighted when open */
+
+.docs-dropdown[open] .docs-trigger {
+    background: #123b27;
+    border-color: #58ef85;
+}
+
+/* Preserve the bright green contact button */
+
+.header-actions .contact-button {
+    background: #4df47e;
+    color: #06140d;
+}
+
+/* Align all header items */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Mobile layout */
+
+@media (max-width: 768px) {
+    .header-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .header-actions .demo-badge,
+    .header-actions .header-link,
+    .header-actions .docs-trigger {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Documentation language flags */
+
+.docs-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.docs-flag {
+    font-size: 23px !important;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.docs-language > span:last-child {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Real language flags */
+
+.docs-flag-img {
+    width: 26px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.docs-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ==========================================
+   INTERACTIVE GIS DEMOS DROPDOWN
+========================================== */
+
+.demos-dropdown {
+    position: relative;
+    z-index: 2100;
+}
+
+.demos-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.demos-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.demos-trigger::marker {
+    content: "";
+}
+
+.demos-dropdown[open] .docs-arrow {
+    transform: rotate(180deg);
+}
+
+.demos-dropdown[open] .demos-trigger,
+.demos-trigger:hover {
+    background: #123b27;
+    border-color: #58ef85;
+}
+
+.demos-menu {
+    left: 0;
+    right: auto;
+    width: 320px;
+}
+
+.demos-menu .docs-download {
+    gap: 12px;
+}
+
+.demos-menu .docs-download span {
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .demos-menu {
+        left: 0;
+        right: auto;
+        width: min(320px, calc(100vw - 24px));
+    }
+}
